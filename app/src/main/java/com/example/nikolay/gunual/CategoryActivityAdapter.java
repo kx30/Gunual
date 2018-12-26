@@ -15,18 +15,17 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class MainActivityAdapter extends RecyclerView.Adapter<MainActivityAdapter.ViewHolder> {
+public class CategoryActivityAdapter extends RecyclerView.Adapter<CategoryActivityAdapter.ViewHolder> {
 
-    private static final String TAG = "MainActivityAdapter";
+    private static final String TAG = "CategoryActivityAdapter";
 
     private Context mContext;
     private ArrayList<String> mTitles = new ArrayList<>();
     private ArrayList<String> mSubtitles = new ArrayList<>();
     private ArrayList<Integer> mImages = new ArrayList<>();
     private String[] mCategoryOfWeapons = {"Pistol", "Submachine gun", "Rifle", "Carbine", "Sniper rifle", "Machine gun", "Shotgun"};
-//    private ArrayList<String> mCategoryOfWeapons = new ArrayList<>();
 
-    public MainActivityAdapter(Context context, ArrayList<String> titles, ArrayList<String> subtitles, ArrayList<Integer> images) {
+    public CategoryActivityAdapter(Context context, ArrayList<String> titles, ArrayList<String> subtitles, ArrayList<Integer> images) {
         mContext = context;
         mTitles = titles;
         mSubtitles = subtitles;
@@ -39,13 +38,6 @@ public class MainActivityAdapter extends RecyclerView.Adapter<MainActivityAdapte
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.category_item, viewGroup, false);
         final ViewHolder holder = new ViewHolder(view);
         Log.d(TAG, "onCreateViewHolder: created.");
-//        mCategoryOfWeapons.add("Pistol");
-//        mCategoryOfWeapons.add("Submachine gun");
-//        mCategoryOfWeapons.add("Rifle");
-//        mCategoryOfWeapons.add("Carbine");
-//        mCategoryOfWeapons.add("Sniper rifle");
-//        mCategoryOfWeapons.add("Machine gun");
-//        mCategoryOfWeapons.add("Shotgun");
         return holder;
     }
 

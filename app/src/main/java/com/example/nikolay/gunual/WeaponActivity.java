@@ -13,12 +13,10 @@ import java.util.ArrayList;
 public class WeaponActivity extends AppCompatActivity {
 
     private static final String TAG = "WeaponActivity";
-
+    WeaponAdapter mAdapter;
     private ArrayList<String> mTitles = new ArrayList<>();
     private ArrayList<String> mDescriptions = new ArrayList<>();
     private ArrayList<Integer> mImages = new ArrayList<>();
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +24,10 @@ public class WeaponActivity extends AppCompatActivity {
         setContentView(R.layout.activity_weapon);
 
         initToolbar();
+        initRecyclerView();
+
         addItems();
+
         Log.d(TAG, "onCreate: started.");
     }
 
@@ -39,7 +40,6 @@ public class WeaponActivity extends AppCompatActivity {
 
     private void addItems() {
         try {
-
             Intent intent = getIntent();
             String value = intent.getStringExtra("Weapon");
             Log.d(TAG, "addItems: " + value);
@@ -73,25 +73,50 @@ public class WeaponActivity extends AppCompatActivity {
                 mTitles.add("7");
                 mDescriptions.add("7");
                 mImages.add(R.drawable.image);
-                initRecyclerView();
-            } if (value.equals("Submachine gun")) {
-                Log.d(TAG, "addItems: " + value);
+            }
+            if (value.equals("Submachine gun")) {
+                mTitles.add("2");
+                mDescriptions.add("1");
+                mImages.add(R.drawable.image);
+
+                mTitles.add("2");
+                mDescriptions.add("112312");
+                mImages.add(R.drawable.image);
+
+                mTitles.add("3");
+                mDescriptions.add("3");
+                mImages.add(R.drawable.image);
+
+                mTitles.add("6");
+                mDescriptions.add("62222");
+                mImages.add(R.drawable.image);
+
+                mTitles.add("7");
+                mDescriptions.add("7");
+                mImages.add(R.drawable.image);
             }
             if (value.equals("Rifle")) {
-                Log.d(TAG, "addItems: " + value);
+                mTitles.add("1");
+                mDescriptions.add("1144411");
+                mImages.add(R.drawable.image);
             }
+
             if (value.equals("Carbine")) {
-                Log.d(TAG, "addItems: " + value);
+                Log.d(TAG, "Carbine");
             }
+
             if (value.equals("Sniper rifle")) {
-                Log.d(TAG, "addItems: " + value);
+                Log.d(TAG, "Sniper rifle");
             }
+
             if (value.equals("Machine gun")) {
-                Log.d(TAG, "addItems: " + value);
+                Log.d(TAG, "Machine gun");
             }
+
             if (value.equals("Shotgun")) {
-                Log.d(TAG, "addItems: " + value);
+                Log.d(TAG, "Shotgun");
             }
+            mAdapter.notifyDataSetChanged();
         } catch (Exception e) {
             Log.d(TAG, "Error in Weapon Activity");
         }
@@ -100,8 +125,8 @@ public class WeaponActivity extends AppCompatActivity {
     private void initRecyclerView() {
         Log.d(TAG, "initRecyclerView: init recycler view");
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-        WeaponAdapter adapter = new WeaponAdapter(this, mTitles, mDescriptions, mImages);
-        recyclerView.setAdapter(adapter);
+        mAdapter = new WeaponAdapter(this, mTitles, mDescriptions, mImages);
+        recyclerView.setAdapter(mAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 }

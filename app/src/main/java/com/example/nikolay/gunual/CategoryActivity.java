@@ -13,9 +13,9 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
+public class CategoryActivity extends AppCompatActivity {
 
-    private static final String TAG = "MainActivity";
+    private static final String TAG = "CategoryActivity";
 
     private ArrayList<String> mTitles = new ArrayList<>();
     private ArrayList<String> mSubtitles = new ArrayList<>();
@@ -102,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
     private void initRecyclerView() {
         Log.d(TAG, "initRecyclerView: init recycler view");
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
-        MainActivityAdapter adapter = new MainActivityAdapter(this, mTitles, mSubtitles, mImages);
+        CategoryActivityAdapter adapter = new CategoryActivityAdapter(this, mTitles, mSubtitles, mImages);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }

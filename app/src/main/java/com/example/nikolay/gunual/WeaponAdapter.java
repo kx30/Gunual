@@ -1,6 +1,7 @@
 package com.example.nikolay.gunual;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -10,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -39,10 +41,20 @@ public class WeaponAdapter extends RecyclerView.Adapter<WeaponAdapter.ViewHolder
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
+    public void onBindViewHolder(@NonNull ViewHolder viewHolder, final int i) {
         viewHolder.mTitle.setText(mTitles.get(i));
         viewHolder.mDescription.setText(mDescriptions.get(i));
         viewHolder.mImage.setImageResource(R.drawable.image);
+
+        viewHolder.mParentLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(mContext, InformationActivity.class);
+                mContext.startActivity(intent);
+                Toast.makeText(mContext, mTitles.get(i), Toast.LENGTH_SHORT).show();
+            }
+        });
+
         Log.d(TAG, "onBindViewHolder: called.");
     }
 

@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "507321966441",
+    "firebase_url": "https://gunual.firebaseio.com",
+    "project_id": "gunual",
+    "storage_bucket": "gunual.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:507321966441:android:7588d9f0ac015534",
+        "android_client_info": {
+          "package_name": "com.example.nikolay.gunual"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "507321966441-iac7pn5g1e2hkm8ge5mltm1teo1atu20.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.nikolay.gunual",
+            "certificate_hash": "051c242b3057753042fc00d5638c26def53bff58"
+          }
+        },
+        {
+          "client_id": "507321966441-hdcafk8i23tvv5fnvk9vogrfkjifij1s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA2rhysFZ41_bbyT7lRAhJdSmEwRKHf3m4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "507321966441-hdcafk8i23tvv5fnvk9vogrfkjifij1s.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
