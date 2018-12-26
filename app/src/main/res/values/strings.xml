@@ -6,7 +6,11 @@
     <string name="settings">Settings</string>
     <string name="about_us">About us</string>
 
+    <string name="add">Add</string>
 
+
+    <string name="save_button">Save</string>
+    <string name="weapon_title">Weapon"s title</string>
     // Table layout
     <string name="country">Country</string>
     <string name="year_of_production">Year of production</string>

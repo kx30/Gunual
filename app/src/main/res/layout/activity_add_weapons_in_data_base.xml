@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/weapon_title_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/weapon_title"
+            android:padding="10dp"
+            android:textColor="@color/blackTextColor"
+            android:textColorHint="@color/blackTextColor" />
+
+        <EditText
+            android:id="@+id/country_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/country"
+            android:padding="10dp"
+            android:textColor="@color/blackTextColor"
+            android:textColorHint="@color/blackTextColor" />
+
+        <EditText
+            android:id="@+id/year_of_production_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/year_of_production"
+            android:padding="10dp"
+            android:textColor="@color/blackTextColor"
+            android:textColorHint="@color/blackTextColor" />
+
+        <EditText
+            android:id="@+id/type_of_bullet_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/type_of_bullet"
+            android:padding="10dp"
+            android:textColor="@color/blackTextColor"
+            android:textColorHint="@color/blackTextColor" />
+
+        <EditText
+            android:id="@+id/max_range_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/max_range"
+            android:padding="10dp"
+            android:textColor="@color/blackTextColor"
+            android:textColorHint="@color/blackTextColor" />
+
+        <EditText
+            android:id="@+id/effective_range_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/effective_range"
+            android:padding="10dp"
+            android:textColor="@color/blackTextColor"
+            android:textColorHint="@color/blackTextColor" />
+
+        <EditText
+            android:id="@+id/feed_system_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/feed_system"
+            android:padding="10dp"
+            android:textColor="@color/blackTextColor"
+            android:textColorHint="@color/blackTextColor" />
+
+        <EditText
+            android:id="@+id/length_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/length"
+            android:padding="10dp"
+            android:textColor="@color/blackTextColor"
+            android:textColorHint="@color/blackTextColor" />
+
+        <EditText
+            android:id="@+id/barrel_length_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/barrel_length"
+            android:padding="10dp"
+            android:textColor="@color/blackTextColor"
+            android:textColorHint="@color/blackTextColor" />
+
+        <EditText
+            android:id="@+id/weight_loaded_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/weight_loaded"
+            android:padding="10dp"
+            android:textColor="@color/blackTextColor"
+            android:textColorHint="@color/blackTextColor" />
+
+        <EditText
+            android:id="@+id/weight_unloaded_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/weight_unloaded"
+            android:padding="10dp"
+            android:textColor="@color/blackTextColor"
+            android:textColorHint="@color/blackTextColor" />
+
+        <EditText
+            android:id="@+id/rapid_fire_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/rapid_fire"
+            android:padding="10dp"
+            android:textColor="@color/blackTextColor"
+            android:textColorHint="@color/blackTextColor" />
+
+        <EditText
+            android:id="@+id/cost_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/cost"
+            android:padding="10dp"
+            android:textColor="@color/blackTextColor"
+            android:textColorHint="@color/blackTextColor" />
+
+        <Button
+            android:id="@+id/save_data_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/save_button"
+            android:textColor="@color/colorWhite" />
+
+    </LinearLayout>
+
+
+</ScrollView>

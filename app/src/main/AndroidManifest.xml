@@ -19,7 +19,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".WeaponActivity" />
-        <activity android:name=".InformationActivity"></activity>
+        <activity android:name=".InformationActivity" />
+        <activity android:name=".AddWeaponsInDataBaseActivity"></activity>
     </application>
 
 </manifest>

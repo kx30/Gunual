@@ -7,6 +7,10 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -17,6 +21,31 @@ public class WeaponActivity extends AppCompatActivity {
     private ArrayList<String> mTitles = new ArrayList<>();
     private ArrayList<String> mDescriptions = new ArrayList<>();
     private ArrayList<Integer> mImages = new ArrayList<>();
+    private String[] mCategoryOfWeapons = {"Pistol", "Submachine gun", "Rifle", "Carbine", "Sniper rifle", "Machnine gun", "Shotgun"};
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.add_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Intent extra = getIntent();
+        String value = extra.getStringExtra("Weapon");
+        if (item.getItemId() == R.id.action_add) {
+            Intent intent = new Intent(WeaponActivity.this, AddWeaponsInDataBaseActivity.class);
+            for (int i = 0; i < mCategoryOfWeapons.length; i++) {
+                if (value.equals(mCategoryOfWeapons[i])) {
+                    Toast.makeText(this, value, Toast.LENGTH_SHORT).show();
+                    intent.putExtra("Weapon", mCategoryOfWeapons[i]);
+                }
+            }
+            startActivity(intent);
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,8 +69,8 @@ public class WeaponActivity extends AppCompatActivity {
 
     private void addItems() {
         try {
-            Intent intent = getIntent();
-            String value = intent.getStringExtra("Weapon");
+            Intent extra = getIntent();
+            String value = extra.getStringExtra("Weapon");
             Log.d(TAG, "addItems: " + value);
 
             if (value.equals("Pistol")) {
