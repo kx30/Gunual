@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class WeaponAdapter extends RecyclerView.Adapter<WeaponAdapter.ViewHolder> {
 
@@ -23,13 +24,16 @@ public class WeaponAdapter extends RecyclerView.Adapter<WeaponAdapter.ViewHolder
     private ArrayList<String> mTitles = new ArrayList<>();
     private ArrayList<String> mDescriptions = new ArrayList<>();
     private ArrayList<Integer> mImages = new ArrayList<>();
+    private String mExtra;
 
-    public WeaponAdapter(Context context, ArrayList<String> titles, ArrayList<String> descriptions, ArrayList<Integer> images) {
+    public WeaponAdapter(Context context, ArrayList<String> titles, ArrayList<String> descriptions, ArrayList<Integer> images, String extra) {
         mContext = context;
         mTitles = titles;
         mDescriptions = descriptions;
         mImages = images;
+        mExtra = extra;
     }
+
 
     @NonNull
     @Override
@@ -50,10 +54,11 @@ public class WeaponAdapter extends RecyclerView.Adapter<WeaponAdapter.ViewHolder
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(mContext, InformationActivity.class);
+                intent.putExtra("Weapon", mExtra);
                 mContext.startActivity(intent);
-                Toast.makeText(mContext, mTitles.get(i), Toast.LENGTH_SHORT).show();
             }
         });
+        Log.d(TAG, "onBindViewHolder: " + mExtra);
 
         Log.d(TAG, "onBindViewHolder: called.");
     }

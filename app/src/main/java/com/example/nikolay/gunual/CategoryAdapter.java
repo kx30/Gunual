@@ -15,9 +15,9 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class CategoryActivityAdapter extends RecyclerView.Adapter<CategoryActivityAdapter.ViewHolder> {
+public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHolder> {
 
-    private static final String TAG = "CategoryActivityAdapter";
+    private static final String TAG = "CategoryAdapter";
 
     private Context mContext;
     private ArrayList<String> mTitles = new ArrayList<>();
@@ -25,7 +25,7 @@ public class CategoryActivityAdapter extends RecyclerView.Adapter<CategoryActivi
     private ArrayList<Integer> mImages = new ArrayList<>();
     private String[] mCategoryOfWeapons = {"Pistol", "Submachine gun", "Rifle", "Carbine", "Sniper rifle", "Machine gun", "Shotgun"};
 
-    public CategoryActivityAdapter(Context context, ArrayList<String> titles, ArrayList<String> subtitles, ArrayList<Integer> images) {
+    public CategoryAdapter(Context context, ArrayList<String> titles, ArrayList<String> subtitles, ArrayList<Integer> images) {
         mContext = context;
         mTitles = titles;
         mSubtitles = subtitles;
@@ -54,8 +54,6 @@ public class CategoryActivityAdapter extends RecyclerView.Adapter<CategoryActivi
                 Log.d(TAG, "onClick: " + mCategoryOfWeapons[i]);
                 intent.putExtra("Weapon", mCategoryOfWeapons[i]);
                 mContext.startActivity(intent);
-
-                Toast.makeText(mContext, mTitles.get(i), Toast.LENGTH_SHORT).show();
             }
         });
         Log.d(TAG, "onBindViewHolder: called.");

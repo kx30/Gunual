@@ -2,6 +2,7 @@ package com.example.nikolay.gunual;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -12,7 +13,14 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
+
 import java.util.ArrayList;
+import java.util.List;
 
 public class WeaponActivity extends AppCompatActivity {
 
@@ -22,6 +30,7 @@ public class WeaponActivity extends AppCompatActivity {
     private ArrayList<String> mDescriptions = new ArrayList<>();
     private ArrayList<Integer> mImages = new ArrayList<>();
     private String[] mCategoryOfWeapons = {"Pistol", "Submachine gun", "Rifle", "Carbine", "Sniper rifle", "Machnine gun", "Shotgun"};
+    private FirebaseFirestore db;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -54,6 +63,7 @@ public class WeaponActivity extends AppCompatActivity {
 
         initToolbar();
         initRecyclerView();
+        db = FirebaseFirestore.getInstance();
 
         addItems();
 
@@ -73,77 +83,33 @@ public class WeaponActivity extends AppCompatActivity {
             String value = extra.getStringExtra("Weapon");
             Log.d(TAG, "addItems: " + value);
 
-            if (value.equals("Pistol")) {
-                Log.d(TAG, "addItems: MEOEOOWOEWOEOWEOWOE");
-                mTitles.add("1");
-                mDescriptions.add("1");
-                mImages.add(R.drawable.image);
-
-                mTitles.add("2");
-                mDescriptions.add("123124124124124124234234124124124124124124125125543545f34546747568755765326875443f52636");
-                mImages.add(R.drawable.image);
-
-                mTitles.add("3");
-                mDescriptions.add("3");
-                mImages.add(R.drawable.image);
-
-                mTitles.add("4");
-                mDescriptions.add("4");
-                mImages.add(R.drawable.image);
-
-                mTitles.add("5");
-                mDescriptions.add("5");
-                mImages.add(R.drawable.image);
-
-                mTitles.add("6");
-                mDescriptions.add("6");
-                mImages.add(R.drawable.image);
-
-                mTitles.add("7");
-                mDescriptions.add("7");
-                mImages.add(R.drawable.image);
-            }
-            if (value.equals("Submachine gun")) {
-                mTitles.add("2");
-                mDescriptions.add("1");
-                mImages.add(R.drawable.image);
-
-                mTitles.add("2");
-                mDescriptions.add("112312");
-                mImages.add(R.drawable.image);
-
-                mTitles.add("3");
-                mDescriptions.add("3");
-                mImages.add(R.drawable.image);
-
-                mTitles.add("6");
-                mDescriptions.add("62222");
-                mImages.add(R.drawable.image);
-
-                mTitles.add("7");
-                mDescriptions.add("7");
-                mImages.add(R.drawable.image);
-            }
-            if (value.equals("Rifle")) {
-                mTitles.add("1");
-                mDescriptions.add("1144411");
-                mImages.add(R.drawable.image);
-            }
-
-            if (value.equals("Carbine")) {
-                Log.d(TAG, "Carbine");
-            }
-
-            if (value.equals("Sniper rifle")) {
-                Log.d(TAG, "Sniper rifle");
-            }
-
-            if (value.equals("Machine gun")) {
-                Log.d(TAG, "Machine gun");
-            }
-
-            if (value.equals("Shotgun")) {
-                Log.d(TAG, "Shotgun");
+            for (int i = 0; i < mCategoryOfWeapons.length; i++) {
+                if (value.equals(mCategoryOfWeapons[i])) {
+                    Toast.makeText(this, mCategoryOfWeapons[i], Toast.LENGTH_SHORT).show();
+                    db.collection("weapons")
+                            .document("kind_of_weapon")
+                            .collection(value)
+                            .get()
+                            .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                                @Override
+                                public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                                    if (!queryDocumentSnapshots.isEmpty()) {
+                                        List<DocumentSnapshot> list = queryDocumentSnapshots.getDocuments();
+                                        for (DocumentSnapshot d : list) {
+                                            mTitles.add(d.getString("title"));
+                                            mDescriptions.add("Lorem ipsum dolor sit amet, consectetur adipiscing elit");
+                                        }
+                                        mAdapter.notifyDataSetChanged();
+                                    }
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Toast.makeText(WeaponActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                }
             }
             mAdapter.notifyDataSetChanged();
         } catch (Exception e) {
@@ -154,8 +120,20 @@ public class WeaponActivity extends AppCompatActivity {
     private void initRecyclerView() {
         Log.d(TAG, "initRecyclerView: init recycler view");
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-        mAdapter = new WeaponAdapter(this, mTitles, mDescriptions, mImages);
+        mAdapter = new WeaponAdapter(this, mTitles, mDescriptions, mImages, getExtra());
         recyclerView.setAdapter(mAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
+
+    private String getExtra() {
+        Intent extra = getIntent();
+        String value = extra.getStringExtra("Weapon");
+
+        return value;
+    }
 }
+
+
+//todo create pool-refresh
+//todo create sorting
+

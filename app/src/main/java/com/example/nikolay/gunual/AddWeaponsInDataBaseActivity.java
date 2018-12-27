@@ -83,6 +83,7 @@ public class AddWeaponsInDataBaseActivity extends AppCompatActivity implements V
         String rapidFire = mRapidFireEditText.getText().toString().trim();
         String cost = mCostEditText.getText().toString().trim();
         String feedSystem = mFeedSystemEditText.getText().toString().trim();
+        String description = "";
 
         CollectionReference dbWeapons = db.collection("weapons")
                 .document("kind_of_weapon")
@@ -103,7 +104,8 @@ public class AddWeaponsInDataBaseActivity extends AppCompatActivity implements V
                 unloadedWeight,
                 rapidFire,
                 cost,
-                feedSystem
+                feedSystem,
+                description
         );
         
         dbWeapons.add(weapon)
@@ -123,3 +125,7 @@ public class AddWeaponsInDataBaseActivity extends AppCompatActivity implements V
     }
 
 }
+
+//todo to fill database
+//todo to make images
+//todo to make check on empty fields

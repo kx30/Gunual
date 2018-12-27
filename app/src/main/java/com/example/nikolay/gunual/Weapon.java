@@ -15,10 +15,11 @@ public class Weapon {
     private String rapidFire;
     private String cost;
     private String feedSystem;
+    private String description;
 
     public Weapon() { }
 
-    public Weapon(String title, String country, String yearOfProduction, String typeOfBullet, String effectiveRange, String maxRange, String length, String barrelLength, String loadedWeight, String unloadedWeight, String rapidFire, String cost, String feedSystem) {
+    public Weapon(String title, String country, String yearOfProduction, String typeOfBullet, String effectiveRange, String maxRange, String length, String barrelLength, String loadedWeight, String unloadedWeight, String rapidFire, String cost, String feedSystem, String description) {
         this.title = title;
         this.country = country;
         this.yearOfProduction = yearOfProduction;
@@ -32,6 +33,8 @@ public class Weapon {
         this.rapidFire = rapidFire;
         this.cost = cost;
         this.feedSystem = feedSystem;
+        this.description = description;
+
     }
 
     public String getTitle() {
@@ -84,5 +87,9 @@ public class Weapon {
 
     public String getFeedSystem() {
         return feedSystem;
+    }
+
+    public String getDescription() {
+        return description;
     }
 }

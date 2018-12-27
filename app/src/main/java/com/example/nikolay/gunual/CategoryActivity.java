@@ -20,6 +20,7 @@ public class CategoryActivity extends AppCompatActivity {
     private ArrayList<String> mTitles = new ArrayList<>();
     private ArrayList<String> mSubtitles = new ArrayList<>();
     private ArrayList<Integer> mImages = new ArrayList<>();
+    private String[] mCategoryOfWeapons = {"Pistols", "Submachine guns", "Rifles", "Carbines", "Sniper rifles", "Machnine guns", "Shotguns"};
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -61,34 +62,11 @@ public class CategoryActivity extends AppCompatActivity {
     }
 
     private void addContext() {
-        mTitles.add("1");
-        mSubtitles.add("1");
-        mImages.add(R.drawable.image);
-
-        mTitles.add("2");
-        mSubtitles.add("2");
-        mImages.add(R.drawable.image);
-
-        mTitles.add("3");
-        mSubtitles.add("3");
-        mImages.add(R.drawable.image);
-
-        mTitles.add("4");
-        mSubtitles.add("4");
-        mImages.add(R.drawable.image);
-
-        mTitles.add("5");
-        mSubtitles.add("5");
-        mImages.add(R.drawable.image);
-
-        mTitles.add("6");
-        mSubtitles.add("6");
-        mImages.add(R.drawable.image);
-
-        mTitles.add("7");
-        mSubtitles.add("7");
-        mImages.add(R.drawable.image);
-
+        for (int i = 0; i < mCategoryOfWeapons.length; i++) {
+            mTitles.add(mCategoryOfWeapons[i]);
+            mSubtitles.add("Lorem ipsum dolor sit amet, consectetur adipiscing elit...");
+            mImages.add(R.drawable.image);
+        }
         initRecyclerView();
     }
 
@@ -102,7 +80,7 @@ public class CategoryActivity extends AppCompatActivity {
     private void initRecyclerView() {
         Log.d(TAG, "initRecyclerView: init recycler view");
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
-        CategoryActivityAdapter adapter = new CategoryActivityAdapter(this, mTitles, mSubtitles, mImages);
+        CategoryAdapter adapter = new CategoryAdapter(this, mTitles, mSubtitles, mImages);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
