@@ -7,7 +7,7 @@ public class Weapon {
     private String yearOfProduction;
     private String typeOfBullet;
     private String effectiveRange;
-    private String maxRange;
+    private String muzzleVelocity;
     private String length;
     private String barrelLength;
     private String loadedWeight;
@@ -19,13 +19,13 @@ public class Weapon {
 
     public Weapon() { }
 
-    public Weapon(String title, String country, String yearOfProduction, String typeOfBullet, String effectiveRange, String maxRange, String length, String barrelLength, String loadedWeight, String unloadedWeight, String rapidFire, String cost, String feedSystem, String description) {
+    public Weapon(String title, String country, String yearOfProduction, String typeOfBullet, String effectiveRange, String muzzleVelocity, String length, String barrelLength, String loadedWeight, String unloadedWeight, String rapidFire, String cost, String feedSystem, String description) {
         this.title = title;
         this.country = country;
         this.yearOfProduction = yearOfProduction;
         this.typeOfBullet = typeOfBullet;
         this.effectiveRange = effectiveRange;
-        this.maxRange = maxRange;
+        this.muzzleVelocity = muzzleVelocity;
         this.length = length;
         this.barrelLength = barrelLength;
         this.loadedWeight = loadedWeight;
@@ -57,8 +57,8 @@ public class Weapon {
         return effectiveRange;
     }
 
-    public String getMaxRange() {
-        return maxRange;
+    public String getMuzzleVelocity() {
+        return muzzleVelocity;
     }
 
     public String getLength() {

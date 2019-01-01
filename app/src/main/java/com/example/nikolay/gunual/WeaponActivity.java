@@ -26,9 +26,7 @@ public class WeaponActivity extends AppCompatActivity {
 
     private static final String TAG = "WeaponActivity";
     WeaponAdapter mAdapter;
-    private ArrayList<String> mTitles = new ArrayList<>();
-    private ArrayList<String> mDescriptions = new ArrayList<>();
-    private ArrayList<Integer> mImages = new ArrayList<>();
+    private ArrayList<Weapon> mWeapons = new ArrayList<>();
     private String[] mCategoryOfWeapons = {"Pistol", "Submachine gun", "Rifle", "Carbine", "Sniper rifle", "Machnine gun", "Shotgun"};
     private FirebaseFirestore db;
 
@@ -96,8 +94,23 @@ public class WeaponActivity extends AppCompatActivity {
                                     if (!queryDocumentSnapshots.isEmpty()) {
                                         List<DocumentSnapshot> list = queryDocumentSnapshots.getDocuments();
                                         for (DocumentSnapshot d : list) {
-                                            mTitles.add(d.getString("title"));
-                                            mDescriptions.add("Lorem ipsum dolor sit amet, consectetur adipiscing elit");
+                                            mWeapons.add(new Weapon(
+                                                    d.getString("title"),
+                                                    d.getString("country"),
+                                                    d.getString("yearOfProduction"),
+                                                    d.getString("typeOfBullet"),
+                                                    d.getString("effectiveRange"),
+                                                    d.getString("muzzleVelocity"),
+                                                    d.getString("length"),
+                                                    d.getString("barrelLength"),
+                                                    d.getString("loadedWeight"),
+                                                    d.getString("unloadedWeight"),
+                                                    d.getString("rapidFire"),
+                                                    d.getString("cost"),
+                                                    d.getString("feedSystem"),
+                                                    "Meow meow"
+                                            ));
+                                            Log.d(TAG, "onSuccess: " + mWeapons);
                                         }
                                         mAdapter.notifyDataSetChanged();
                                     }
@@ -120,7 +133,7 @@ public class WeaponActivity extends AppCompatActivity {
     private void initRecyclerView() {
         Log.d(TAG, "initRecyclerView: init recycler view");
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-        mAdapter = new WeaponAdapter(this, mTitles, mDescriptions, mImages, getExtra());
+        mAdapter = new WeaponAdapter(this, mWeapons, getExtra());
         recyclerView.setAdapter(mAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }

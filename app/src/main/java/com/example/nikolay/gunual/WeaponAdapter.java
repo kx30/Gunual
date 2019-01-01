@@ -21,16 +21,12 @@ public class WeaponAdapter extends RecyclerView.Adapter<WeaponAdapter.ViewHolder
     private static final String TAG = "WeaponAdapter";
 
     private Context mContext;
-    private ArrayList<String> mTitles = new ArrayList<>();
-    private ArrayList<String> mDescriptions = new ArrayList<>();
-    private ArrayList<Integer> mImages = new ArrayList<>();
+    private ArrayList<Weapon> mWeapons;
     private String mExtra;
 
-    public WeaponAdapter(Context context, ArrayList<String> titles, ArrayList<String> descriptions, ArrayList<Integer> images, String extra) {
+    public WeaponAdapter(Context context, ArrayList<Weapon> weapons, String extra) {
         mContext = context;
-        mTitles = titles;
-        mDescriptions = descriptions;
-        mImages = images;
+        mWeapons = weapons;
         mExtra = extra;
     }
 
@@ -46,15 +42,27 @@ public class WeaponAdapter extends RecyclerView.Adapter<WeaponAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, final int i) {
-        viewHolder.mTitle.setText(mTitles.get(i));
-        viewHolder.mDescription.setText(mDescriptions.get(i));
+        viewHolder.mTitle.setText(mWeapons.get(i).getTitle());
+        viewHolder.mDescription.setText(mWeapons.get(i).getDescription());
         viewHolder.mImage.setImageResource(R.drawable.image);
 
         viewHolder.mParentLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(mContext, InformationActivity.class);
-                intent.putExtra("Weapon", mExtra);
+                intent.putExtra("weapon", mExtra);
+                intent.putExtra("country", mWeapons.get(i).getCountry());
+                intent.putExtra("yearOfProduction", mWeapons.get(i).getYearOfProduction());
+                intent.putExtra("typeOfBullet", mWeapons.get(i).getTypeOfBullet());
+                intent.putExtra("effectiveRange", mWeapons.get(i).getEffectiveRange());
+                intent.putExtra("muzzleVelocity", mWeapons.get(i).getMuzzleVelocity());
+                intent.putExtra("feedSystem", mWeapons.get(i).getFeedSystem());
+                intent.putExtra("length", mWeapons.get(i).getLength());
+                intent.putExtra("barrelLength", mWeapons.get(i).getBarrelLength());
+                intent.putExtra("loadedWeight", mWeapons.get(i).getLoadedWeight());
+                intent.putExtra("unloadedWeight", mWeapons.get(i).getUnloadedWeight());
+                intent.putExtra("rapidFire", mWeapons.get(i).getRapidFire());
+                intent.putExtra("cost", mWeapons.get(i).getCost());
                 mContext.startActivity(intent);
             }
         });
@@ -65,7 +73,7 @@ public class WeaponAdapter extends RecyclerView.Adapter<WeaponAdapter.ViewHolder
 
     @Override
     public int getItemCount() {
-        return mTitles.size();
+        return mWeapons.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

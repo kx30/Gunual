@@ -37,19 +37,19 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="28dp"
                 android:background="@color/Gray_100"
-                android:weightSum="2">
+                android:weightSum="4">
 
                 <TableRow android:layout_height="20dp">
 
                     <TextView
-                        android:layout_weight="1"
                         android:text="@string/country"
+                        android:layout_weight="1"
                         android:textColor="@color/blackTextColor"
                         android:textSize="16sp" />
 
                     <TextView
                         android:id="@+id/country_text_view"
-                        android:layout_weight="1"
+                        android:layout_weight="3"
                         android:textColor="@color/blackTextColor"
                         android:textSize="16sp" />
 
@@ -65,7 +65,7 @@
 
                     <TextView
                         android:id="@+id/year_of_production_text_view"
-                        android:layout_weight="1"
+                        android:layout_weight="3"
                         android:textColor="@color/blackTextColor"
                         android:textSize="16sp" />
 
@@ -81,7 +81,7 @@
 
                     <TextView
                         android:id="@+id/type_of_bullet_text_view"
-                        android:layout_weight="1"
+                        android:layout_weight="3"
                         android:textColor="@color/blackTextColor"
                         android:textSize="16sp" />
 
@@ -97,7 +97,7 @@
 
                     <TextView
                         android:id="@+id/max_range_text_view"
-                        android:layout_weight="1"
+                        android:layout_weight="3"
                         android:textColor="@color/blackTextColor"
                         android:textSize="16sp" />
 
@@ -113,7 +113,7 @@
 
                     <TextView
                         android:id="@+id/effective_range_text_view"
-                        android:layout_weight="1"
+                        android:layout_weight="3"
                         android:textColor="@color/blackTextColor"
                         android:textSize="16sp" />
 
@@ -129,7 +129,7 @@
 
                     <TextView
                         android:id="@+id/feed_system_text_view"
-                        android:layout_weight="1"
+                        android:layout_weight="3"
                         android:textColor="@color/blackTextColor"
                         android:textSize="16sp" />
 
@@ -145,7 +145,7 @@
 
                     <TextView
                         android:id="@+id/length_text_view"
-                        android:layout_weight="1"
+                        android:layout_weight="3"
                         android:textColor="@color/blackTextColor"
                         android:textSize="16sp" />
 
@@ -161,7 +161,7 @@
 
                     <TextView
                         android:id="@+id/barrel_length_text_view"
-                        android:layout_weight="1"
+                        android:layout_weight="3"
                         android:textColor="@color/blackTextColor"
                         android:textSize="16sp" />
 
@@ -177,7 +177,7 @@
 
                     <TextView
                         android:id="@+id/weight_loaded_text_view"
-                        android:layout_weight="1"
+                        android:layout_weight="3"
                         android:textColor="@color/blackTextColor"
                         android:textSize="16sp" />
 
@@ -193,7 +193,7 @@
 
                     <TextView
                         android:id="@+id/weight_unloaded_text_view"
-                        android:layout_weight="1"
+                        android:layout_weight="3"
                         android:textColor="@color/blackTextColor"
                         android:textSize="16sp" />
 
@@ -209,7 +209,7 @@
 
                     <TextView
                         android:id="@+id/rapid_fire_text_view"
-                        android:layout_weight="1"
+                        android:layout_weight="3"
                         android:textColor="@color/blackTextColor"
                         android:textSize="16sp" />
 
@@ -225,7 +225,7 @@
 
                     <TextView
                         android:id="@+id/cost_text_view"
-                        android:layout_weight="1"
+                        android:layout_weight="3"
                         android:textColor="@color/blackTextColor"
                         android:textSize="16sp" />
 
