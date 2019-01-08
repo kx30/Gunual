@@ -24,7 +24,7 @@ public class AddWeaponsInDataBaseActivity extends AppCompatActivity implements V
     private EditText mYearOfProductionEditText;
     private EditText mTypeOfBulletEditText;
     private EditText mEffectiveRangeEditText;
-    private EditText mMaxRangeEditText;
+    private EditText mMuzzleVelocityEditText;
     private EditText mLengthEditText;
     private EditText mBarrelLengthEditText;
     private EditText mLoadedWeightEditText;
@@ -52,7 +52,7 @@ public class AddWeaponsInDataBaseActivity extends AppCompatActivity implements V
         mYearOfProductionEditText = findViewById(R.id.year_of_production_edit_text);
         mTypeOfBulletEditText = findViewById(R.id.type_of_bullet_edit_text);
         mEffectiveRangeEditText = findViewById(R.id.effective_range_edit_text);
-        mMaxRangeEditText = findViewById(R.id.max_range_edit_text);
+        mMuzzleVelocityEditText = findViewById(R.id.muzzle_velocity_edit_text);
         mLengthEditText = findViewById(R.id.length_edit_text);
         mBarrelLengthEditText = findViewById(R.id.barrel_length_edit_text);
         mLoadedWeightEditText = findViewById(R.id.weight_loaded_edit_text);
@@ -75,7 +75,7 @@ public class AddWeaponsInDataBaseActivity extends AppCompatActivity implements V
         String yearOfProduction = mYearOfProductionEditText.getText().toString().trim();
         String typeOfBullet = mTypeOfBulletEditText.getText().toString().trim();
         String effectiveRange = mEffectiveRangeEditText.getText().toString().trim();
-        String maxRange = mMaxRangeEditText.getText().toString().trim();
+        String muzzleVelocity = mMuzzleVelocityEditText.getText().toString().trim();
         String length = mLengthEditText.getText().toString().trim();
         String barrelLength = mBarrelLengthEditText.getText().toString().trim();
         String loadedWeight = mLoadedWeightEditText.getText().toString().trim();
@@ -84,6 +84,7 @@ public class AddWeaponsInDataBaseActivity extends AppCompatActivity implements V
         String cost = mCostEditText.getText().toString().trim();
         String feedSystem = mFeedSystemEditText.getText().toString().trim();
         String description = "";
+        String imageUrl = "";
 
         CollectionReference dbWeapons = db.collection("weapons")
                 .document("kind_of_weapon")
@@ -97,7 +98,7 @@ public class AddWeaponsInDataBaseActivity extends AppCompatActivity implements V
                 yearOfProduction,
                 typeOfBullet,
                 effectiveRange,
-                maxRange,
+                muzzleVelocity,
                 length,
                 barrelLength,
                 loadedWeight,
@@ -105,7 +106,9 @@ public class AddWeaponsInDataBaseActivity extends AppCompatActivity implements V
                 rapidFire,
                 cost,
                 feedSystem,
-                description
+                description,
+                imageUrl
+
         );
         
         dbWeapons.add(weapon)
@@ -127,5 +130,4 @@ public class AddWeaponsInDataBaseActivity extends AppCompatActivity implements V
 }
 
 //todo to fill database
-//todo to make images
 //todo to make check on empty fields

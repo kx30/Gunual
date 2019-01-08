@@ -2,94 +2,100 @@ package com.example.nikolay.gunual;
 
 public class Weapon {
 
-    private String title;
-    private String country;
-    private String yearOfProduction;
-    private String typeOfBullet;
-    private String effectiveRange;
-    private String muzzleVelocity;
-    private String length;
-    private String barrelLength;
-    private String loadedWeight;
-    private String unloadedWeight;
-    private String rapidFire;
-    private String cost;
-    private String feedSystem;
-    private String description;
+    private String mTitle;
+    private String mCountry;
+    private String mYearOfProduction;
+    private String mTypeOfBullet;
+    private String mEffectiveRange;
+    private String mMuzzleVelocity;
+    private String mLength;
+    private String mBarrelLength;
+    private String mLoadedWeight;
+    private String mUnloadedWeight;
+    private String mRapidFire;
+    private String mCost;
+    private String mFeedSystem;
+    private String mDescription;
+    private String mImageUrl;
 
-    public Weapon() { }
+    public Weapon() {
+    }
 
-    public Weapon(String title, String country, String yearOfProduction, String typeOfBullet, String effectiveRange, String muzzleVelocity, String length, String barrelLength, String loadedWeight, String unloadedWeight, String rapidFire, String cost, String feedSystem, String description) {
-        this.title = title;
-        this.country = country;
-        this.yearOfProduction = yearOfProduction;
-        this.typeOfBullet = typeOfBullet;
-        this.effectiveRange = effectiveRange;
-        this.muzzleVelocity = muzzleVelocity;
-        this.length = length;
-        this.barrelLength = barrelLength;
-        this.loadedWeight = loadedWeight;
-        this.unloadedWeight = unloadedWeight;
-        this.rapidFire = rapidFire;
-        this.cost = cost;
-        this.feedSystem = feedSystem;
-        this.description = description;
-
+    public Weapon(String title, String country, String yearOfProduction, String typeOfBullet, String effectiveRange, String muzzleVelocity, String length, String barrelLength, String loadedWeight, String unloadedWeight, String rapidFire, String cost, String feedSystem, String description, String imageUrl) {
+        this.mTitle = title;
+        this.mCountry = country;
+        this.mYearOfProduction = yearOfProduction;
+        this.mTypeOfBullet = typeOfBullet;
+        this.mEffectiveRange = effectiveRange;
+        this.mMuzzleVelocity = muzzleVelocity;
+        this.mLength = length;
+        this.mBarrelLength = barrelLength;
+        this.mLoadedWeight = loadedWeight;
+        this.mUnloadedWeight = unloadedWeight;
+        this.mRapidFire = rapidFire;
+        this.mCost = cost;
+        this.mFeedSystem = feedSystem;
+        this.mDescription = description;
+        this.mImageUrl = imageUrl;
     }
 
     public String getTitle() {
-        return title;
+        return mTitle;
     }
 
     public String getCountry() {
-        return country;
+        return mCountry;
     }
 
     public String getYearOfProduction() {
-        return yearOfProduction;
+        return mYearOfProduction;
     }
 
     public String getTypeOfBullet() {
-        return typeOfBullet;
+        return mTypeOfBullet;
     }
 
     public String getEffectiveRange() {
-        return effectiveRange;
+        return mEffectiveRange;
     }
 
     public String getMuzzleVelocity() {
-        return muzzleVelocity;
+        return mMuzzleVelocity;
     }
 
     public String getLength() {
-        return length;
+        return mLength;
     }
 
     public String getBarrelLength() {
-        return barrelLength;
+        return mBarrelLength;
     }
 
     public String getLoadedWeight() {
-        return loadedWeight;
+        return mLoadedWeight;
     }
 
     public String getUnloadedWeight() {
-        return unloadedWeight;
+        return mUnloadedWeight;
     }
 
     public String getRapidFire() {
-        return rapidFire;
+        return mRapidFire;
     }
 
     public String getCost() {
-        return cost;
+        return mCost;
     }
 
     public String getFeedSystem() {
-        return feedSystem;
+        return mFeedSystem;
     }
 
     public String getDescription() {
-        return description;
+        return mDescription;
+    }
+
+    public String getImageUrl() {
+        return mImageUrl;
     }
 }

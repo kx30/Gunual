@@ -20,6 +20,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class WeaponActivity extends AppCompatActivity {
@@ -108,10 +110,12 @@ public class WeaponActivity extends AppCompatActivity {
                                                     d.getString("rapidFire"),
                                                     d.getString("cost"),
                                                     d.getString("feedSystem"),
-                                                    "Meow meow"
+                                                    d.getString("description"),
+                                                    d.getString("imageUrl")
                                             ));
                                             Log.d(TAG, "onSuccess: " + mWeapons);
                                         }
+                                        sortItems(mWeapons);
                                         mAdapter.notifyDataSetChanged();
                                     }
                                 }
@@ -130,6 +134,15 @@ public class WeaponActivity extends AppCompatActivity {
         }
     }
 
+    private void sortItems(ArrayList<Weapon> weaponList) {
+        Collections.sort(weaponList, new Comparator<Weapon>() {
+            @Override
+            public int compare(Weapon w1, Weapon w2) {
+                return w1.getTitle().compareTo(w2.getTitle());
+            }
+        });
+    }
+
     private void initRecyclerView() {
         Log.d(TAG, "initRecyclerView: init recycler view");
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
@@ -140,13 +153,11 @@ public class WeaponActivity extends AppCompatActivity {
 
     private String getExtra() {
         Intent extra = getIntent();
-        String value = extra.getStringExtra("Weapon");
 
-        return value;
+        return extra.getStringExtra("Weapon");
     }
 }
 
 
 //todo create pool-refresh
-//todo create sorting
-
+//todo add image

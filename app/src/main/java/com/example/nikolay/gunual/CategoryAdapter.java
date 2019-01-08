@@ -45,7 +45,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, final int i) {
         viewHolder.mTitle.setText(mTitles.get(i));
         viewHolder.mSubtitle.setText(mSubtitles.get(i));
-        viewHolder.mImage.setImageResource(R.drawable.image);
+        viewHolder.mImage.setImageResource(mImages.get(i));
 
         viewHolder.mParentLayout.setOnClickListener(new View.OnClickListener() {
             @Override

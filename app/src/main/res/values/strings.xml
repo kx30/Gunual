@@ -15,7 +15,7 @@
     <string name="country">Country</string>
     <string name="year_of_production">Year of production</string>
     <string name="type_of_bullet">Type of bullet</string>
-    <string name="max_range">Max range</string>
+    <string name="muzzle_velocity">Muzzle velocity</string>
     <string name="effective_range">Effective range</string>
     <string name="feed_system">Feed system</string>
     <string name="length">Length</string>

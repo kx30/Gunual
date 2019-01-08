@@ -21,6 +21,8 @@ public class CategoryActivity extends AppCompatActivity {
     private ArrayList<String> mSubtitles = new ArrayList<>();
     private ArrayList<Integer> mImages = new ArrayList<>();
     private String[] mCategoryOfWeapons = {"Pistols", "Submachine guns", "Rifles", "Carbines", "Sniper rifles", "Machnine guns", "Shotguns"};
+    private Integer[] mDrawables = {R.drawable.pistol, R.drawable.submachine, R.drawable.rifle,
+    R.drawable.carbine, R.drawable.sniper_rifle, R.drawable.machine_gun, R.drawable.shotgun };
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -62,11 +64,13 @@ public class CategoryActivity extends AppCompatActivity {
     }
 
     private void addContext() {
+
         for (int i = 0; i < mCategoryOfWeapons.length; i++) {
             mTitles.add(mCategoryOfWeapons[i]);
             mSubtitles.add("Lorem ipsum dolor sit amet, consectetur adipiscing elit...");
-            mImages.add(R.drawable.image);
+            mImages.add(mDrawables[i]);
         }
+
         initRecyclerView();
     }
 
@@ -86,3 +90,5 @@ public class CategoryActivity extends AppCompatActivity {
     }
 
 }
+
+//todo add images

@@ -18,6 +18,26 @@
 
             <include layout="@layout/toolbar" />
 
+            <!--<HorizontalScrollView-->
+                <!--android:id="@+id/horizontal_scroll"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="160dp"-->
+                <!--android:layout_below="@+id/toolbar"-->
+                <!--android:scrollbars="none"-->
+                <!--android:layout_marginLeft="28dp"-->
+                <!--android:layout_marginTop="16dp"-->
+                <!--android:layout_marginRight="28dp">-->
+
+                <!--<LinearLayout-->
+                    <!--android:id="@+id/gallery"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="match_parent"-->
+                    <!--android:orientation="horizontal">-->
+
+                <!--</LinearLayout>-->
+                <!---->
+            <!--</HorizontalScrollView>-->
+
             <ImageView
                 android:id="@+id/image"
                 android:layout_width="wrap_content"
@@ -25,14 +45,13 @@
                 android:layout_below="@+id/toolbar"
                 android:layout_marginLeft="28dp"
                 android:layout_marginTop="16dp"
-                android:layout_marginRight="28dp"
-                android:src="@drawable/image" />
+                android:layout_marginRight="28dp"/>
 
             <TableLayout
                 android:id="@+id/table"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/image"
+                android:layout_below="@id/image"
                 android:layout_marginLeft="28dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="28dp"
@@ -91,12 +110,12 @@
 
                     <TextView
                         android:layout_weight="1"
-                        android:text="@string/max_range"
+                        android:text="@string/muzzle_velocity"
                         android:textColor="@color/blackTextColor"
                         android:textSize="16sp" />
 
                     <TextView
-                        android:id="@+id/max_range_text_view"
+                        android:id="@+id/muzzle_velocity_text_view"
                         android:layout_weight="3"
                         android:textColor="@color/blackTextColor"
                         android:textSize="16sp" />
@@ -235,6 +254,7 @@
 
 
             <TextView
+                android:id="@+id/description_text_view"
                 android:layout_width="wrap_content"
                 android:layout_below="@+id/table"
                 android:layout_height="wrap_content"

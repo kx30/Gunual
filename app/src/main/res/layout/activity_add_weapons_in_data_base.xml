@@ -47,10 +47,10 @@
             android:textColorHint="@color/blackTextColor" />
 
         <EditText
-            android:id="@+id/max_range_edit_text"
+            android:id="@+id/muzzle_velocity_edit_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/max_range"
+            android:hint="@string/muzzle_velocity"
             android:padding="10dp"
             android:textColor="@color/blackTextColor"
             android:textColorHint="@color/blackTextColor" />
