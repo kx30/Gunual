@@ -27,9 +27,9 @@ import java.util.List;
 public class WeaponActivity extends AppCompatActivity {
 
     private static final String TAG = "WeaponActivity";
-    WeaponAdapter mAdapter;
+    private WeaponAdapter mAdapter;
     private ArrayList<Weapon> mWeapons = new ArrayList<>();
-    private String[] mCategoryOfWeapons = {"Pistol", "Submachine gun", "Rifle", "Carbine", "Sniper rifle", "Machnine gun", "Shotgun"};
+    private String[] mCategoryOfWeapons = {"Pistol", "Submachine gun", "Rifle", "Carbine", "Sniper rifle", "Machine gun", "Shotgun"};
     private FirebaseFirestore db;
 
     @Override
