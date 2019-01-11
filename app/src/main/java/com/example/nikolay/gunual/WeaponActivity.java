@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -24,7 +25,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-public class WeaponActivity extends AppCompatActivity {
+public class WeaponActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
 
     private static final String TAG = "WeaponActivity";
     private WeaponAdapter mAdapter;
@@ -35,8 +36,11 @@ public class WeaponActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.add_menu, menu);
-        return super.onCreateOptionsMenu(menu);
+        inflater.inflate(R.menu.weapon_activity_menu, menu);
+        MenuItem menuItem = menu.findItem(R.id.action_search);
+        SearchView searchView = (SearchView) menuItem.getActionView();
+        searchView.setOnQueryTextListener(this);
+        return true;
     }
 
     @Override
@@ -54,6 +58,26 @@ public class WeaponActivity extends AppCompatActivity {
             startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String s) {
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String s) {
+
+        ArrayList<Weapon> weapons = new ArrayList<>();
+
+        for (Weapon item : mWeapons) {
+            if (item.getTitle().toLowerCase().contains(s)) {
+                weapons.add(item);
+            }
+        }
+
+        mAdapter.updateList(weapons);
+        return true;
     }
 
     @Override
@@ -156,6 +180,7 @@ public class WeaponActivity extends AppCompatActivity {
 
         return extra.getStringExtra("Weapon");
     }
+
 }
 
 

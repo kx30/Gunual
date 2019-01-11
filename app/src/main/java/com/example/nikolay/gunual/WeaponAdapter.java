@@ -78,6 +78,12 @@ public class WeaponAdapter extends RecyclerView.Adapter<WeaponAdapter.ViewHolder
         return mWeapons.size();
     }
 
+    public void updateList(ArrayList<Weapon> weapons) {
+        mWeapons = new ArrayList<>();
+        mWeapons.addAll(weapons);
+        notifyDataSetChanged();
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         private TextView mTitle;
@@ -93,5 +99,7 @@ public class WeaponAdapter extends RecyclerView.Adapter<WeaponAdapter.ViewHolder
             mParentLayout = itemView.findViewById(R.id.parent_layout);
         }
     }
+
+
 
 }
