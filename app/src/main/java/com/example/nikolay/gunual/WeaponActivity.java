@@ -57,6 +57,10 @@ public class WeaponActivity extends AppCompatActivity implements SearchView.OnQu
             }
             startActivity(intent);
         }
+
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+        }
         return super.onOptionsItemSelected(item);
     }
 
@@ -95,9 +99,13 @@ public class WeaponActivity extends AppCompatActivity implements SearchView.OnQu
     }
 
     private void initToolbar() {
+        Intent extra = getIntent();
+        String title = extra.getStringExtra("Weapon");
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        toolbar.setTitle(R.string.app_name);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setTitle(title + "s");
         Log.d(TAG, "initToolbar: initialized.");
     }
 

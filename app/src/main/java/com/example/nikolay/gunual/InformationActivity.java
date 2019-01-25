@@ -17,8 +17,6 @@ public class InformationActivity extends AppCompatActivity {
 
     private static final String TAG = "InformationActivity";
 
-//    private LinearLayout mGallery;
-
     private TextView mCountryTextView;
     private TextView mYearOfProductionTextView;
     private TextView mTypeOfBulletTextView;
@@ -31,7 +29,6 @@ public class InformationActivity extends AppCompatActivity {
     private TextView mDescriptionTextView;
 
     private ImageView mImageView;
-
 
     private FirebaseFirestore db;
 
@@ -174,4 +171,3 @@ public class InformationActivity extends AppCompatActivity {
 
 }
 
-//todo add 'no image' image
