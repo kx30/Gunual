@@ -180,6 +180,7 @@ public class WeaponActivity extends AppCompatActivity implements SearchView.OnQu
 
 }
 
-
-//todo create pool-refresh
-//todo add image
+//todo create pagination
+//todo fix icon image
+//todo filter
+//todo compare

@@ -1,9 +1,9 @@
 package com.example.nikolay.gunual;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -15,7 +15,7 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-public class AddWeaponsInDataBaseActivity extends AppCompatActivity implements View.OnClickListener{
+public class AddWeaponsInDataBaseActivity extends AppCompatActivity implements View.OnClickListener {
 
     private static final String TAG = "AddWeaponsInDataBaseAct";
 
@@ -82,7 +82,7 @@ public class AddWeaponsInDataBaseActivity extends AppCompatActivity implements V
                 .collection(getIntent().getStringExtra("Weapon"));
 
         Log.d(TAG, "saveWeapon: " + getIntent().getStringExtra("Weapon"));
-        
+
         Weapon weapon = new Weapon(
                 title,
                 country,
@@ -98,7 +98,7 @@ public class AddWeaponsInDataBaseActivity extends AppCompatActivity implements V
                 imageUrl
 
         );
-        
+
         dbWeapons.add(weapon)
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override

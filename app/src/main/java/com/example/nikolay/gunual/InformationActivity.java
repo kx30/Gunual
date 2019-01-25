@@ -35,6 +35,7 @@ public class InformationActivity extends AppCompatActivity {
 
     private FirebaseFirestore db;
 
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
@@ -45,6 +46,7 @@ public class InformationActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,7 +54,6 @@ public class InformationActivity extends AppCompatActivity {
 
         initWidgets();
         initToolbar();
-//        initHorizontalScrollView();
 
         getExtras();
 
@@ -60,6 +61,7 @@ public class InformationActivity extends AppCompatActivity {
 
         Log.d(TAG, "onCreate: created.");
     }
+
 
     private void initToolbar() {
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -70,19 +72,6 @@ public class InformationActivity extends AppCompatActivity {
         Log.d(TAG, "initToolbar: initialized.");
     }
 
-//    private void initHorizontalScrollView() {
-//        mGallery = findViewById(R.id.gallery);
-//        LayoutInflater inflater = LayoutInflater.from(this);
-//
-//        for (int i = 0; i < 5; i++) {
-//            View view = inflater.inflate(R.layout.image_item, mGallery, false);
-//
-//            ImageView imageView = view.findViewById(R.id.image_item);
-//            imageView.setImageResource(R.drawable.ic_launcher_background);
-//
-//            mGallery.addView(view);
-//        }
-//    }
 
     private void initWidgets() {
         mCountryTextView = findViewById(R.id.country_text_view);
@@ -98,8 +87,8 @@ public class InformationActivity extends AppCompatActivity {
         mImageView = findViewById(R.id.image);
     }
 
-    private void getExtras() {
 
+    private void getExtras() {
         String country = "", yearOfProduction = "", typeOfBullet = "", maxRange = "",
                 effectiveRange = "", feedSystem = "", length = "", barrelLength = "",
                 weight = "", imageUrl, description;
@@ -117,10 +106,14 @@ public class InformationActivity extends AppCompatActivity {
         imageUrl = arguments.get("image_url").toString();
         description = arguments.get("description").toString();
 
-        Glide.with(this)
-                .asBitmap()
-                .load("https:" + imageUrl)
-                .into(mImageView);
+        if (imageUrl.equals("")) {
+            mImageView.setImageResource(R.drawable.not_available_image);
+        } else {
+            Glide.with(this)
+                    .asBitmap()
+                    .load("https:" + imageUrl)
+                    .into(mImageView);
+        }
 
         mCountryTextView.setText(country);
         mYearOfProductionTextView.setText(yearOfProduction);
@@ -134,6 +127,7 @@ public class InformationActivity extends AppCompatActivity {
         mDescriptionTextView.setText(description);
 
     }
+
 
     private void isFieldEmpty() {
 
@@ -179,3 +173,5 @@ public class InformationActivity extends AppCompatActivity {
     }
 
 }
+
+//todo add 'no image' image

@@ -11,10 +11,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class WeaponAdapter extends RecyclerView.Adapter<WeaponAdapter.ViewHolder> {
 
@@ -44,7 +44,15 @@ public class WeaponAdapter extends RecyclerView.Adapter<WeaponAdapter.ViewHolder
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, final int i) {
         viewHolder.mTitle.setText(mWeapons.get(i).getTitle());
         viewHolder.mDescription.setText(mWeapons.get(i).getDescription());
-        viewHolder.mImage.setImageResource(R.drawable.image);
+
+        if (mWeapons.get(i).getImageUrl().equals("")) {
+            viewHolder.mImage.setImageResource(R.drawable.not_available_image);
+        } else {
+            Glide.with(mContext)
+                    .asBitmap()
+                    .load("https:" + mWeapons.get(i).getImageUrl())
+                    .into(viewHolder.mImage);
+        }
 
         viewHolder.mParentLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,7 +73,6 @@ public class WeaponAdapter extends RecyclerView.Adapter<WeaponAdapter.ViewHolder
                 mContext.startActivity(intent);
             }
         });
-        Log.d(TAG, "onBindViewHolder: " + mExtra);
 
         Log.d(TAG, "onBindViewHolder: called.");
     }
@@ -96,7 +103,5 @@ public class WeaponAdapter extends RecyclerView.Adapter<WeaponAdapter.ViewHolder
             mParentLayout = itemView.findViewById(R.id.parent_layout);
         }
     }
-
-
 
 }
