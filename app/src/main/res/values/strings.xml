@@ -20,8 +20,7 @@
     <string name="feed_system">Feed system</string>
     <string name="length">Length</string>
     <string name="barrel_length">Barrel length</string>
-    <string name="weight_loaded">Weight(loaded)</string>
-    <string name="weight_unloaded">Weight(unloaded)</string>
+    <string name="weight">Weight</string>
     <string name="rapid_fire">Rapid fire</string>
     <string name="cost">Cost</string>
 

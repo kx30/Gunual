@@ -92,37 +92,10 @@
             android:textColorHint="@color/blackTextColor" />
 
         <EditText
-            android:id="@+id/weight_loaded_edit_text"
+            android:id="@+id/weight_edit_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/weight_loaded"
-            android:padding="10dp"
-            android:textColor="@color/blackTextColor"
-            android:textColorHint="@color/blackTextColor" />
-
-        <EditText
-            android:id="@+id/weight_unloaded_edit_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/weight_unloaded"
-            android:padding="10dp"
-            android:textColor="@color/blackTextColor"
-            android:textColorHint="@color/blackTextColor" />
-
-        <EditText
-            android:id="@+id/rapid_fire_edit_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/rapid_fire"
-            android:padding="10dp"
-            android:textColor="@color/blackTextColor"
-            android:textColorHint="@color/blackTextColor" />
-
-        <EditText
-            android:id="@+id/cost_edit_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/cost"
+            android:hint="@string/weight"
             android:padding="10dp"
             android:textColor="@color/blackTextColor"
             android:textColorHint="@color/blackTextColor" />

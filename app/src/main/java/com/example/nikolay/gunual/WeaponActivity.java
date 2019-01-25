@@ -129,10 +129,7 @@ public class WeaponActivity extends AppCompatActivity implements SearchView.OnQu
                                                     d.getString("muzzle_velocity"),
                                                     d.getString("length"),
                                                     d.getString("barrel_length"),
-                                                    d.getString("loaded_weight"),
-                                                    d.getString("unloaded_weight"),
-                                                    d.getString("rapid_fire"),
-                                                    d.getString("cost"),
+                                                    d.getString("weight"),
                                                     d.getString("feed_system"),
                                                     d.getString("description"),
                                                     d.getString("image_url")

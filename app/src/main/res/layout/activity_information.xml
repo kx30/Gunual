@@ -38,14 +38,15 @@
             <!---->
             <!--</HorizontalScrollView>-->
 
+
             <ImageView
                 android:id="@+id/image"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="160dp"
-                android:layout_below="@+id/toolbar"
-                android:layout_marginLeft="28dp"
+                android:layout_below="@id/toolbar"
                 android:layout_marginTop="16dp"
-                android:layout_marginRight="28dp" />
+                android:layout_marginLeft="28dp"
+                android:layout_marginRight="28dp"/>
 
             <TableLayout
                 android:id="@+id/table"
@@ -58,7 +59,9 @@
                 android:background="@color/Gray_100"
                 android:weightSum="5">
 
-                <TableRow android:layout_height="20dp">
+                <TableRow
+                    android:id="@+id/country_table_row"
+                    android:layout_height="20dp">
 
                     <TextView
                         android:layout_width="0dp"
@@ -76,7 +79,9 @@
 
                 </TableRow>
 
-                <TableRow android:layout_height="20dp">
+                <TableRow
+                    android:id="@+id/year_of_production_table_row"
+                    android:layout_height="20dp">
 
                     <TextView
                         android:layout_width="0dp"
@@ -94,7 +99,9 @@
 
                 </TableRow>
 
-                <TableRow android:layout_height="20dp">
+                <TableRow
+                    android:id="@+id/type_of_bullet_table_row"
+                    android:layout_height="20dp">
 
                     <TextView
                         android:layout_width="0dp"
@@ -112,7 +119,9 @@
 
                 </TableRow>
 
-                <TableRow android:layout_height="20dp">
+                <TableRow
+                    android:id="@+id/muzzle_velocity_table_row"
+                    android:layout_height="20dp">
 
                     <TextView
                         android:layout_width="0dp"
@@ -130,7 +139,9 @@
 
                 </TableRow>
 
-                <TableRow android:layout_height="20dp">
+                <TableRow
+                    android:id="@+id/effective_range_table_row"
+                    android:layout_height="20dp">
 
                     <TextView
                         android:layout_width="0dp"
@@ -148,7 +159,9 @@
 
                 </TableRow>
 
-                <TableRow android:layout_height="20dp">
+                <TableRow
+                    android:id="@+id/feed_system_table_row"
+                    android:layout_height="20dp">
 
                     <TextView
                         android:layout_width="0dp"
@@ -166,7 +179,9 @@
 
                 </TableRow>
 
-                <TableRow android:layout_height="20dp">
+                <TableRow
+                    android:id="@+id/length_table_row"
+                    android:layout_height="20dp">
 
                     <TextView
                         android:layout_width="0dp"
@@ -184,7 +199,9 @@
 
                 </TableRow>
 
-                <TableRow android:layout_height="20dp">
+                <TableRow
+                    android:id="@+id/barrel_length_table_row"
+                    android:layout_height="20dp">
 
                     <TextView
                         android:layout_width="0dp"
@@ -202,71 +219,19 @@
 
                 </TableRow>
 
-                <TableRow android:layout_height="20dp">
+                <TableRow
+                    android:id="@+id/weight_table_row"
+                    android:layout_height="20dp">
 
                     <TextView
                         android:layout_width="0dp"
                         android:layout_weight="2"
-                        android:text="@string/weight_loaded"
+                        android:text="@string/weight"
                         android:textColor="@color/blackTextColor"
                         android:textSize="16sp" />
 
                     <TextView
-                        android:id="@+id/weight_loaded_text_view"
-                        android:layout_width="0dp"
-                        android:layout_weight="3"
-                        android:textColor="@color/blackTextColor"
-                        android:textSize="16sp" />
-
-                </TableRow>
-
-                <TableRow android:layout_height="20dp">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_weight="2"
-                        android:text="@string/weight_unloaded"
-                        android:textColor="@color/blackTextColor"
-                        android:textSize="16sp" />
-
-                    <TextView
-                        android:id="@+id/weight_unloaded_text_view"
-                        android:layout_width="0dp"
-                        android:layout_weight="3"
-                        android:textColor="@color/blackTextColor"
-                        android:textSize="16sp" />
-
-                </TableRow>
-
-                <TableRow android:layout_height="20dp">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_weight="2"
-                        android:text="@string/rapid_fire"
-                        android:textColor="@color/blackTextColor"
-                        android:textSize="16sp" />
-
-                    <TextView
-                        android:id="@+id/rapid_fire_text_view"
-                        android:layout_width="0dp"
-                        android:layout_weight="3"
-                        android:textColor="@color/blackTextColor"
-                        android:textSize="16sp" />
-
-                </TableRow>
-
-                <TableRow android:layout_height="20dp">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_weight="2"
-                        android:text="@string/cost"
-                        android:textColor="@color/blackTextColor"
-                        android:textSize="16sp" />
-
-                    <TextView
-                        android:id="@+id/cost_text_view"
+                        android:id="@+id/weight_text_view"
                         android:layout_width="0dp"
                         android:layout_weight="3"
                         android:textColor="@color/blackTextColor"

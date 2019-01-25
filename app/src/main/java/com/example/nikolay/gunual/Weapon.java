@@ -10,10 +10,7 @@ public class Weapon {
     private String mMuzzleVelocity;
     private String mLength;
     private String mBarrelLength;
-    private String mLoadedWeight;
-    private String mUnloadedWeight;
-    private String mRapidFire;
-    private String mCost;
+    private String mWeight;
     private String mFeedSystem;
     private String mDescription;
     private String mImageUrl;
@@ -21,7 +18,7 @@ public class Weapon {
     public Weapon() {
     }
 
-    public Weapon(String title, String country, String yearOfProduction, String typeOfBullet, String effectiveRange, String muzzleVelocity, String length, String barrelLength, String loadedWeight, String unloadedWeight, String rapidFire, String cost, String feedSystem, String description, String imageUrl) {
+    public Weapon(String title, String country, String yearOfProduction, String typeOfBullet, String effectiveRange, String muzzleVelocity, String length, String barrelLength, String weight, String feedSystem, String description, String imageUrl) {
         this.mTitle = title;
         this.mCountry = country;
         this.mYearOfProduction = yearOfProduction;
@@ -30,10 +27,7 @@ public class Weapon {
         this.mMuzzleVelocity = muzzleVelocity;
         this.mLength = length;
         this.mBarrelLength = barrelLength;
-        this.mLoadedWeight = loadedWeight;
-        this.mUnloadedWeight = unloadedWeight;
-        this.mRapidFire = rapidFire;
-        this.mCost = cost;
+        this.mWeight = weight;
         this.mFeedSystem = feedSystem;
         this.mDescription = description;
         this.mImageUrl = imageUrl;
@@ -71,20 +65,8 @@ public class Weapon {
         return mBarrelLength;
     }
 
-    public String getLoadedWeight() {
-        return mLoadedWeight;
-    }
-
-    public String getUnloadedWeight() {
-        return mUnloadedWeight;
-    }
-
-    public String getRapidFire() {
-        return mRapidFire;
-    }
-
-    public String getCost() {
-        return mCost;
+    public String getWeight() {
+        return mWeight;
     }
 
     public String getFeedSystem() {

@@ -27,10 +27,7 @@ public class AddWeaponsInDataBaseActivity extends AppCompatActivity implements V
     private EditText mMuzzleVelocityEditText;
     private EditText mLengthEditText;
     private EditText mBarrelLengthEditText;
-    private EditText mLoadedWeightEditText;
-    private EditText mUnloadedWeightEditText;
-    private EditText mRapidFireEditText;
-    private EditText mCostEditText;
+    private EditText mWeightEditText;
     private EditText mFeedSystemEditText;
 
     private FirebaseFirestore db;
@@ -55,10 +52,7 @@ public class AddWeaponsInDataBaseActivity extends AppCompatActivity implements V
         mMuzzleVelocityEditText = findViewById(R.id.muzzle_velocity_edit_text);
         mLengthEditText = findViewById(R.id.length_edit_text);
         mBarrelLengthEditText = findViewById(R.id.barrel_length_edit_text);
-        mLoadedWeightEditText = findViewById(R.id.weight_loaded_edit_text);
-        mUnloadedWeightEditText = findViewById(R.id.weight_unloaded_edit_text);
-        mRapidFireEditText = findViewById(R.id.rapid_fire_edit_text);
-        mCostEditText = findViewById(R.id.cost_edit_text);
+        mWeightEditText = findViewById(R.id.weight_edit_text);
         mFeedSystemEditText = findViewById(R.id.feed_system_edit_text);
 
         findViewById(R.id.save_data_button).setOnClickListener(this);
@@ -78,10 +72,7 @@ public class AddWeaponsInDataBaseActivity extends AppCompatActivity implements V
         String muzzleVelocity = mMuzzleVelocityEditText.getText().toString().trim();
         String length = mLengthEditText.getText().toString().trim();
         String barrelLength = mBarrelLengthEditText.getText().toString().trim();
-        String loadedWeight = mLoadedWeightEditText.getText().toString().trim();
-        String unloadedWeight = mUnloadedWeightEditText.getText().toString().trim();
-        String rapidFire = mRapidFireEditText.getText().toString().trim();
-        String cost = mCostEditText.getText().toString().trim();
+        String weight = mWeightEditText.getText().toString().trim();
         String feedSystem = mFeedSystemEditText.getText().toString().trim();
         String description = "";
         String imageUrl = "";
@@ -101,10 +92,7 @@ public class AddWeaponsInDataBaseActivity extends AppCompatActivity implements V
                 muzzleVelocity,
                 length,
                 barrelLength,
-                loadedWeight,
-                unloadedWeight,
-                rapidFire,
-                cost,
+                weight,
                 feedSystem,
                 description,
                 imageUrl

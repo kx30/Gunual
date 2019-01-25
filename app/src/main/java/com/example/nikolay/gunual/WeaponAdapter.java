@@ -59,10 +59,7 @@ public class WeaponAdapter extends RecyclerView.Adapter<WeaponAdapter.ViewHolder
                 intent.putExtra("feed_system", mWeapons.get(i).getFeedSystem());
                 intent.putExtra("length", mWeapons.get(i).getLength());
                 intent.putExtra("barrel_length", mWeapons.get(i).getBarrelLength());
-//                intent.putExtra("loaded_weight", mWeapons.get(i).getLoadedWeight());
-//                intent.putExtra("unloaded_weight", mWeapons.get(i).getUnloadedWeight());
-//                intent.putExtra("rapid_fire", mWeapons.get(i).getRapidFire());
-//                intent.putExtra("cost", mWeapons.get(i).getCost());
+                intent.putExtra("weight", mWeapons.get(i).getWeight());
                 intent.putExtra("description", mWeapons.get(i).getDescription());
                 intent.putExtra("image_url", mWeapons.get(i).getImageUrl());
                 mContext.startActivity(intent);

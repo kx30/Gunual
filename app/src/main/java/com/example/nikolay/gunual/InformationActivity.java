@@ -5,7 +5,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -20,15 +22,12 @@ public class InformationActivity extends AppCompatActivity {
     private TextView mCountryTextView;
     private TextView mYearOfProductionTextView;
     private TextView mTypeOfBulletTextView;
-    private TextView mMuzzleVelocity;
+    private TextView mMuzzleVelocityTextView;
     private TextView mEffectiveRangeTextView;
     private TextView mFeedSystemTextView;
     private TextView mLengthTextView;
     private TextView mBarrelLengthTextView;
-    private TextView mLoadedWeightTextView;
-    private TextView mUnloadedWeightTextView;
-    private TextView mRapidFireTextView;
-    private TextView mCostTextView;
+    private TextView mWeightTextView;
     private TextView mDescriptionTextView;
 
     private ImageView mImageView;
@@ -56,6 +55,9 @@ public class InformationActivity extends AppCompatActivity {
 //        initHorizontalScrollView();
 
         getExtras();
+
+        isFieldEmpty();
+
         Log.d(TAG, "onCreate: created.");
     }
 
@@ -86,15 +88,12 @@ public class InformationActivity extends AppCompatActivity {
         mCountryTextView = findViewById(R.id.country_text_view);
         mYearOfProductionTextView = findViewById(R.id.year_of_production_text_view);
         mTypeOfBulletTextView = findViewById(R.id.type_of_bullet_text_view);
-        mMuzzleVelocity = findViewById(R.id.muzzle_velocity_text_view);
+        mMuzzleVelocityTextView = findViewById(R.id.muzzle_velocity_text_view);
         mEffectiveRangeTextView = findViewById(R.id.effective_range_text_view);
         mFeedSystemTextView = findViewById(R.id.feed_system_text_view);
         mLengthTextView = findViewById(R.id.length_text_view);
         mBarrelLengthTextView = findViewById(R.id.barrel_length_text_view);
-        mLoadedWeightTextView = findViewById(R.id.weight_loaded_text_view);
-        mUnloadedWeightTextView = findViewById(R.id.weight_unloaded_text_view);
-        mRapidFireTextView = findViewById(R.id.rapid_fire_text_view);
-        mCostTextView = findViewById(R.id.cost_text_view);
+        mWeightTextView = findViewById(R.id.weight_text_view);
         mDescriptionTextView = findViewById(R.id.description_text_view);
         mImageView = findViewById(R.id.image);
     }
@@ -103,7 +102,7 @@ public class InformationActivity extends AppCompatActivity {
 
         String country = "", yearOfProduction = "", typeOfBullet = "", maxRange = "",
                 effectiveRange = "", feedSystem = "", length = "", barrelLength = "",
-                loadedWeight = "", unloadedWeight = "", rapidFire = "", cost = "", imageUrl, description;
+                weight = "", imageUrl, description;
 
         Bundle arguments = getIntent().getExtras();
         country = arguments.get("country").toString();
@@ -114,14 +113,9 @@ public class InformationActivity extends AppCompatActivity {
         feedSystem = arguments.get("feed_system").toString();
         length = arguments.get("length").toString();
         barrelLength = arguments.get("barrel_length").toString();
-//        loadedWeight = arguments.get("loaded_weight").toString();
-//        unloadedWeight = arguments.get("unloaded_weight").toString();
-//        rapidFire = arguments.get("rapid_fire").toString();
-//        cost = arguments.get("cost").toString();
+        weight = arguments.get("weight").toString();
         imageUrl = arguments.get("image_url").toString();
         description = arguments.get("description").toString();
-
-//        Log.d(TAG, "getExtras: " + imageUrl.substring(2));
 
         Glide.with(this)
                 .asBitmap()
@@ -131,16 +125,56 @@ public class InformationActivity extends AppCompatActivity {
         mCountryTextView.setText(country);
         mYearOfProductionTextView.setText(yearOfProduction);
         mTypeOfBulletTextView.setText(typeOfBullet);
-        mMuzzleVelocity.setText(maxRange);
+        mMuzzleVelocityTextView.setText(maxRange);
         mEffectiveRangeTextView.setText(effectiveRange);
         mFeedSystemTextView.setText(feedSystem);
         mLengthTextView.setText(length);
         mBarrelLengthTextView.setText(barrelLength);
-        mLoadedWeightTextView.setText(loadedWeight);
-        mUnloadedWeightTextView.setText(unloadedWeight);
-        mRapidFireTextView.setText(rapidFire);
-        mCostTextView.setText(cost);
+        mWeightTextView.setText(weight);
         mDescriptionTextView.setText(description);
+
+    }
+
+    private void isFieldEmpty() {
+
+        if (mWeightTextView.getText().equals("")) {
+            TableRow weightTableRow = (TableRow) findViewById(R.id.weight_table_row);
+            weightTableRow.setVisibility(View.GONE);
+        }
+
+        if (mYearOfProductionTextView.getText().equals("")) {
+            TableRow yearOfProductionTableRow = (TableRow) findViewById(R.id.year_of_production_table_row);
+            yearOfProductionTableRow.setVisibility(View.GONE);
+        }
+
+        if (mTypeOfBulletTextView.getText().equals("")) {
+            TableRow typeOfBulletTableRow = (TableRow) findViewById(R.id.type_of_bullet_table_row);
+            typeOfBulletTableRow.setVisibility(View.GONE);
+        }
+
+        if (mMuzzleVelocityTextView.getText().equals("")) {
+            TableRow muzzleVelocityTableRow = (TableRow) findViewById(R.id.muzzle_velocity_table_row);
+            muzzleVelocityTableRow.setVisibility(View.GONE);
+        }
+
+        if (mEffectiveRangeTextView.getText().equals("")) {
+            TableRow effectiveRangeTableRow = (TableRow) findViewById(R.id.effective_range_table_row);
+            effectiveRangeTableRow.setVisibility(View.GONE);
+        }
+
+        if (mFeedSystemTextView.getText().equals("")) {
+            TableRow feedSystemTableRow = (TableRow) findViewById(R.id.feed_system_table_row);
+            feedSystemTableRow.setVisibility(View.GONE);
+        }
+        if (mLengthTextView.getText().equals("")) {
+            TableRow lengthTableRow = (TableRow) findViewById(R.id.length_table_row);
+            lengthTableRow.setVisibility(View.GONE);
+        }
+
+        if (mBarrelLengthTextView.getText().equals("")) {
+            TableRow barrelLengthTableRow = (TableRow) findViewById(R.id.barrel_length_table_row);
+            barrelLengthTableRow.setVisibility(View.GONE);
+        }
 
     }
 
