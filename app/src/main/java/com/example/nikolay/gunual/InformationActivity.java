@@ -4,11 +4,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -108,48 +105,43 @@ public class InformationActivity extends AppCompatActivity {
                 effectiveRange = "", feedSystem = "", length = "", barrelLength = "",
                 loadedWeight = "", unloadedWeight = "", rapidFire = "", cost = "", imageUrl, description;
 
-        try {
-            Bundle arguments = getIntent().getExtras();
-            if (arguments != null) {
-                country = arguments.get("country").toString();
-                yearOfProduction = arguments.get("yearOfProduction").toString();
-                typeOfBullet = arguments.get("typeOfBullet").toString();
-                maxRange = arguments.get("muzzleVelocity").toString();
-                effectiveRange = arguments.get("effectiveRange").toString();
-                feedSystem = arguments.get("feedSystem").toString();
-                length = arguments.get("length").toString();
-                barrelLength = arguments.get("barrelLength").toString();
-                loadedWeight = arguments.get("loadedWeight").toString();
-                unloadedWeight = arguments.get("unloadedWeight").toString();
-                rapidFire = arguments.get("rapidFire").toString();
-                cost = arguments.get("cost").toString();
-                imageUrl = arguments.get("imageUrl").toString();
-                description = arguments.get("description").toString();
+        Bundle arguments = getIntent().getExtras();
+        country = arguments.get("country").toString();
+        yearOfProduction = arguments.get("year_of_production").toString();
+        typeOfBullet = arguments.get("type_of_bullet").toString();
+        maxRange = arguments.get("muzzle_velocity").toString();
+        effectiveRange = arguments.get("effective_range").toString();
+        feedSystem = arguments.get("feed_system").toString();
+        length = arguments.get("length").toString();
+        barrelLength = arguments.get("barrel_length").toString();
+//        loadedWeight = arguments.get("loaded_weight").toString();
+//        unloadedWeight = arguments.get("unloaded_weight").toString();
+//        rapidFire = arguments.get("rapid_fire").toString();
+//        cost = arguments.get("cost").toString();
+        imageUrl = arguments.get("image_url").toString();
+        description = arguments.get("description").toString();
 
-                Glide.with(this)
-                        .asBitmap()
-                        .load(imageUrl)
-                        .into(mImageView);
+//        Log.d(TAG, "getExtras: " + imageUrl.substring(2));
 
-                mCountryTextView.setText(country);
-                mYearOfProductionTextView.setText(yearOfProduction);
-                mTypeOfBulletTextView.setText(typeOfBullet);
-                mMuzzleVelocity.setText(maxRange);
-                mEffectiveRangeTextView.setText(effectiveRange);
-                mFeedSystemTextView.setText(feedSystem);
-                mLengthTextView.setText(length);
-                mBarrelLengthTextView.setText(barrelLength);
-                mLoadedWeightTextView.setText(loadedWeight);
-                mUnloadedWeightTextView.setText(unloadedWeight);
-                mRapidFireTextView.setText(rapidFire);
-                mCostTextView.setText(cost);
-                mDescriptionTextView.setText(description);
-            }
+        Glide.with(this)
+                .asBitmap()
+                .load("https:" + imageUrl)
+                .into(mImageView);
 
+        mCountryTextView.setText(country);
+        mYearOfProductionTextView.setText(yearOfProduction);
+        mTypeOfBulletTextView.setText(typeOfBullet);
+        mMuzzleVelocity.setText(maxRange);
+        mEffectiveRangeTextView.setText(effectiveRange);
+        mFeedSystemTextView.setText(feedSystem);
+        mLengthTextView.setText(length);
+        mBarrelLengthTextView.setText(barrelLength);
+        mLoadedWeightTextView.setText(loadedWeight);
+        mUnloadedWeightTextView.setText(unloadedWeight);
+        mRapidFireTextView.setText(rapidFire);
+        mCostTextView.setText(cost);
+        mDescriptionTextView.setText(description);
 
-        } catch (Exception e) {
-            Log.d(TAG, "Error!" + e.getMessage());
-        }
     }
 
 }

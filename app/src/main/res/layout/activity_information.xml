@@ -19,23 +19,23 @@
             <include layout="@layout/toolbar" />
 
             <!--<HorizontalScrollView-->
-                <!--android:id="@+id/horizontal_scroll"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="160dp"-->
-                <!--android:layout_below="@+id/toolbar"-->
-                <!--android:scrollbars="none"-->
-                <!--android:layout_marginLeft="28dp"-->
-                <!--android:layout_marginTop="16dp"-->
-                <!--android:layout_marginRight="28dp">-->
+            <!--android:id="@+id/horizontal_scroll"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="160dp"-->
+            <!--android:layout_below="@+id/toolbar"-->
+            <!--android:scrollbars="none"-->
+            <!--android:layout_marginLeft="28dp"-->
+            <!--android:layout_marginTop="16dp"-->
+            <!--android:layout_marginRight="28dp">-->
 
-                <!--<LinearLayout-->
-                    <!--android:id="@+id/gallery"-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="match_parent"-->
-                    <!--android:orientation="horizontal">-->
+            <!--<LinearLayout-->
+            <!--android:id="@+id/gallery"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:orientation="horizontal">-->
 
-                <!--</LinearLayout>-->
-                <!---->
+            <!--</LinearLayout>-->
+            <!---->
             <!--</HorizontalScrollView>-->
 
             <ImageView
@@ -45,7 +45,7 @@
                 android:layout_below="@+id/toolbar"
                 android:layout_marginLeft="28dp"
                 android:layout_marginTop="16dp"
-                android:layout_marginRight="28dp"/>
+                android:layout_marginRight="28dp" />
 
             <TableLayout
                 android:id="@+id/table"
@@ -56,18 +56,20 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="28dp"
                 android:background="@color/Gray_100"
-                android:weightSum="4">
+                android:weightSum="5">
 
                 <TableRow android:layout_height="20dp">
 
                     <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="2"
                         android:text="@string/country"
-                        android:layout_weight="1"
                         android:textColor="@color/blackTextColor"
                         android:textSize="16sp" />
 
                     <TextView
                         android:id="@+id/country_text_view"
+                        android:layout_width="0dp"
                         android:layout_weight="3"
                         android:textColor="@color/blackTextColor"
                         android:textSize="16sp" />
@@ -77,13 +79,15 @@
                 <TableRow android:layout_height="20dp">
 
                     <TextView
-                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_weight="2"
                         android:text="@string/year_of_production"
                         android:textColor="@color/blackTextColor"
                         android:textSize="16sp" />
 
                     <TextView
                         android:id="@+id/year_of_production_text_view"
+                        android:layout_width="0dp"
                         android:layout_weight="3"
                         android:textColor="@color/blackTextColor"
                         android:textSize="16sp" />
@@ -93,13 +97,15 @@
                 <TableRow android:layout_height="20dp">
 
                     <TextView
-                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_weight="2"
                         android:text="@string/type_of_bullet"
                         android:textColor="@color/blackTextColor"
                         android:textSize="16sp" />
 
                     <TextView
                         android:id="@+id/type_of_bullet_text_view"
+                        android:layout_width="0dp"
                         android:layout_weight="3"
                         android:textColor="@color/blackTextColor"
                         android:textSize="16sp" />
@@ -109,13 +115,15 @@
                 <TableRow android:layout_height="20dp">
 
                     <TextView
-                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_weight="2"
                         android:text="@string/muzzle_velocity"
                         android:textColor="@color/blackTextColor"
                         android:textSize="16sp" />
 
                     <TextView
                         android:id="@+id/muzzle_velocity_text_view"
+                        android:layout_width="0dp"
                         android:layout_weight="3"
                         android:textColor="@color/blackTextColor"
                         android:textSize="16sp" />
@@ -125,13 +133,15 @@
                 <TableRow android:layout_height="20dp">
 
                     <TextView
-                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_weight="2"
                         android:text="@string/effective_range"
                         android:textColor="@color/blackTextColor"
                         android:textSize="16sp" />
 
                     <TextView
                         android:id="@+id/effective_range_text_view"
+                        android:layout_width="0dp"
                         android:layout_weight="3"
                         android:textColor="@color/blackTextColor"
                         android:textSize="16sp" />
@@ -141,13 +151,15 @@
                 <TableRow android:layout_height="20dp">
 
                     <TextView
-                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_weight="2"
                         android:text="@string/feed_system"
                         android:textColor="@color/blackTextColor"
                         android:textSize="16sp" />
 
                     <TextView
                         android:id="@+id/feed_system_text_view"
+                        android:layout_width="0dp"
                         android:layout_weight="3"
                         android:textColor="@color/blackTextColor"
                         android:textSize="16sp" />
@@ -157,13 +169,15 @@
                 <TableRow android:layout_height="20dp">
 
                     <TextView
-                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_weight="2"
                         android:text="@string/length"
                         android:textColor="@color/blackTextColor"
                         android:textSize="16sp" />
 
                     <TextView
                         android:id="@+id/length_text_view"
+                        android:layout_width="0dp"
                         android:layout_weight="3"
                         android:textColor="@color/blackTextColor"
                         android:textSize="16sp" />
@@ -173,13 +187,15 @@
                 <TableRow android:layout_height="20dp">
 
                     <TextView
-                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_weight="2"
                         android:text="@string/barrel_length"
                         android:textColor="@color/blackTextColor"
                         android:textSize="16sp" />
 
                     <TextView
                         android:id="@+id/barrel_length_text_view"
+                        android:layout_width="0dp"
                         android:layout_weight="3"
                         android:textColor="@color/blackTextColor"
                         android:textSize="16sp" />
@@ -189,13 +205,15 @@
                 <TableRow android:layout_height="20dp">
 
                     <TextView
-                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_weight="2"
                         android:text="@string/weight_loaded"
                         android:textColor="@color/blackTextColor"
                         android:textSize="16sp" />
 
                     <TextView
                         android:id="@+id/weight_loaded_text_view"
+                        android:layout_width="0dp"
                         android:layout_weight="3"
                         android:textColor="@color/blackTextColor"
                         android:textSize="16sp" />
@@ -205,13 +223,15 @@
                 <TableRow android:layout_height="20dp">
 
                     <TextView
-                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_weight="2"
                         android:text="@string/weight_unloaded"
                         android:textColor="@color/blackTextColor"
                         android:textSize="16sp" />
 
                     <TextView
                         android:id="@+id/weight_unloaded_text_view"
+                        android:layout_width="0dp"
                         android:layout_weight="3"
                         android:textColor="@color/blackTextColor"
                         android:textSize="16sp" />
@@ -221,13 +241,15 @@
                 <TableRow android:layout_height="20dp">
 
                     <TextView
-                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_weight="2"
                         android:text="@string/rapid_fire"
                         android:textColor="@color/blackTextColor"
                         android:textSize="16sp" />
 
                     <TextView
                         android:id="@+id/rapid_fire_text_view"
+                        android:layout_width="0dp"
                         android:layout_weight="3"
                         android:textColor="@color/blackTextColor"
                         android:textSize="16sp" />
@@ -237,13 +259,15 @@
                 <TableRow android:layout_height="20dp">
 
                     <TextView
-                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_weight="2"
                         android:text="@string/cost"
                         android:textColor="@color/blackTextColor"
                         android:textSize="16sp" />
 
                     <TextView
                         android:id="@+id/cost_text_view"
+                        android:layout_width="0dp"
                         android:layout_weight="3"
                         android:textColor="@color/blackTextColor"
                         android:textSize="16sp" />
@@ -256,13 +280,13 @@
             <TextView
                 android:id="@+id/description_text_view"
                 android:layout_width="wrap_content"
-                android:layout_below="@+id/table"
                 android:layout_height="wrap_content"
-                android:textColor="@color/blackTextColor"
+                android:layout_below="@+id/table"
+                android:layout_marginLeft="28dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="28dp"
-                android:layout_marginLeft="28dp"
-                android:text="@string/lorem"/>
+                android:text="@string/lorem"
+                android:textColor="@color/blackTextColor" />
 
         </RelativeLayout>
 

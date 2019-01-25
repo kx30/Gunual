@@ -123,19 +123,19 @@ public class WeaponActivity extends AppCompatActivity implements SearchView.OnQu
                                             mWeapons.add(new Weapon(
                                                     d.getString("title"),
                                                     d.getString("country"),
-                                                    d.getString("yearOfProduction"),
-                                                    d.getString("typeOfBullet"),
-                                                    d.getString("effectiveRange"),
-                                                    d.getString("muzzleVelocity"),
+                                                    d.getString("year_of_production"),
+                                                    d.getString("type_of_bullet"),
+                                                    d.getString("effective_range"),
+                                                    d.getString("muzzle_velocity"),
                                                     d.getString("length"),
-                                                    d.getString("barrelLength"),
-                                                    d.getString("loadedWeight"),
-                                                    d.getString("unloadedWeight"),
-                                                    d.getString("rapidFire"),
+                                                    d.getString("barrel_length"),
+                                                    d.getString("loaded_weight"),
+                                                    d.getString("unloaded_weight"),
+                                                    d.getString("rapid_fire"),
                                                     d.getString("cost"),
-                                                    d.getString("feedSystem"),
+                                                    d.getString("feed_system"),
                                                     d.getString("description"),
-                                                    d.getString("imageUrl")
+                                                    d.getString("image_url")
                                             ));
                                             Log.d(TAG, "onSuccess: " + mWeapons);
                                         }
