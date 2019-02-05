@@ -111,13 +111,11 @@ public class WeaponActivity extends AppCompatActivity implements SearchView.OnQu
     }
 
     private void initToolbar() {
-        Intent extra = getIntent();
-        String title = extra.getStringExtra("Weapon");
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setTitle(title + "s");
+        getSupportActionBar().setTitle("");
         Log.d(TAG, "initToolbar: initialized.");
     }
 

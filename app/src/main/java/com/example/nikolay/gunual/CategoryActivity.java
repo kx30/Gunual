@@ -20,7 +20,7 @@ public class CategoryActivity extends AppCompatActivity {
 
     private ArrayList<String> mTitles = new ArrayList<>();
     private ArrayList<Integer> mImages = new ArrayList<>();
-    private String[] mCategoryOfWeapons = {"Pistols", "Submachine guns", "Rifles", "Carbines", "Sniper rifles", "Machines guns", "Shotguns"};
+    private String[] mCategoryOfWeapons = {"Pistols", "Submachine guns", "Rifles", "Carbines", "Sniper rifles", "Machine guns", "Shotguns"};
     private Integer[] mDrawables = {R.drawable.pistol, R.drawable.submachine_gun, R.drawable.rifle,
             R.drawable.carbine, R.drawable.sniper_rifle, R.drawable.machine_gun, R.drawable.shotgun};
 

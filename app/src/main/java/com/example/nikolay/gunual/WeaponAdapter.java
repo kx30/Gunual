@@ -47,7 +47,6 @@ public class WeaponAdapter extends RecyclerView.Adapter<WeaponAdapter.ViewHolder
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, final int i) {
         viewHolder.mTitle.setText(mWeapons.get(i).getTitle());
-        viewHolder.mDescription.setText(mWeapons.get(i).getDescription());
 
             Glide.with(mContext)
                     .load("https:" + mWeapons.get(i).getImageUrl())
@@ -91,14 +90,12 @@ public class WeaponAdapter extends RecyclerView.Adapter<WeaponAdapter.ViewHolder
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         private TextView mTitle;
-        private TextView mDescription;
         private ImageView mImage;
         private LinearLayout mParentLayout;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             mTitle = itemView.findViewById(R.id.title);
-            mDescription = itemView.findViewById(R.id.description);
             mImage = itemView.findViewById(R.id.image);
             mParentLayout = itemView.findViewById(R.id.parent_layout);
         }

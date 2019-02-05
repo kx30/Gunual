@@ -2,61 +2,30 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/parent_layout"
     android:layout_width="match_parent"
-    android:layout_height="96dp"
-    android:layout_marginLeft="28dp"
-    android:layout_marginTop="5dp"
-    android:layout_marginRight="28dp"
-    android:layout_marginBottom="5dp"
-    android:background="@color/colorWhite"
-    android:orientation="horizontal">
+    android:layout_height="200dp"
+    android:layout_marginTop="12dp"
+    android:layout_marginBottom="12dp"
+    android:orientation="vertical"
+    android:elevation="8dp"
+    android:background="@color/colorWhite">
 
+    <!-- image / title-->
 
     <ImageView
+        android:layout_marginTop="5dp"
         android:id="@+id/image"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="10dp"
-        android:layout_weight="1"
-        android:src="@drawable/image" />
+        android:layout_height="140dp" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:orientation="vertical">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1">
-
-            <TextView
-                android:id="@+id/title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="10dp"
-                android:layout_weight="1"
-                android:textColor="@color/blackTextColor"
-                android:textSize="16dp" />
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1">
-
-            <TextView
-                android:id="@+id/description"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:textColor="@color/blackTextColor"
-                android:textSize="13dp"/>
-
-        </RelativeLayout>
-
-    </LinearLayout>
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/app_name"
+        android:textColor="@color/blackTextColor"
+        android:fontFamily="sans-serif-medium"
+        android:layout_marginTop="4dp"
+        android:textSize="24sp"/>
 
 </LinearLayout>
