@@ -18,35 +18,14 @@
 
             <include layout="@layout/toolbar" />
 
-            <!--<HorizontalScrollView-->
-            <!--android:id="@+id/horizontal_scroll"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="160dp"-->
-            <!--android:layout_below="@+id/toolbar"-->
-            <!--android:scrollbars="none"-->
-            <!--android:layout_marginLeft="28dp"-->
-            <!--android:layout_marginTop="16dp"-->
-            <!--android:layout_marginRight="28dp">-->
-
-            <!--<LinearLayout-->
-            <!--android:id="@+id/gallery"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:orientation="horizontal">-->
-
-            <!--</LinearLayout>-->
-            <!---->
-            <!--</HorizontalScrollView>-->
-
-
             <ImageView
                 android:id="@+id/image"
                 android:layout_width="match_parent"
                 android:layout_height="160dp"
                 android:layout_below="@id/toolbar"
-                android:layout_marginTop="16dp"
                 android:layout_marginLeft="28dp"
-                android:layout_marginRight="28dp"/>
+                android:layout_marginTop="16dp"
+                android:layout_marginRight="28dp" />
 
             <TableLayout
                 android:id="@+id/table"

@@ -11,4 +11,6 @@
 
     <color name="lightTextColor">#FAFAFA</color>
     <color name="blackTextColor">#232F34</color>
+
+    <color name="redColor">#ff0000</color>
 </resources>

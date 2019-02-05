@@ -116,6 +116,3 @@ public class AddWeaponsInDataBaseActivity extends AppCompatActivity implements V
     }
 
 }
-
-//todo to fill database
-//todo to make check on empty fields

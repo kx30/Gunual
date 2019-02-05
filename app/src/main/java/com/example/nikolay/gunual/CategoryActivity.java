@@ -90,5 +90,3 @@ public class CategoryActivity extends AppCompatActivity {
     }
 
 }
-
-//todo add images

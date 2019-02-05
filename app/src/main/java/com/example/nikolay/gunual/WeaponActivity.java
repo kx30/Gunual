@@ -1,6 +1,9 @@
 package com.example.nikolay.gunual;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -12,6 +15,9 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -89,11 +95,17 @@ public class WeaponActivity extends AppCompatActivity implements SearchView.OnQu
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_weapon);
 
+        RecyclerView recyclerView = findViewById(R.id.recycler_view);
+
         initToolbar();
-        initRecyclerView();
+        initRecyclerView(recyclerView);
+
+        swipeContent(recyclerView);
+
         db = FirebaseFirestore.getInstance();
 
         addItems();
+
 
         Log.d(TAG, "onCreate: started.");
     }
@@ -172,9 +184,8 @@ public class WeaponActivity extends AppCompatActivity implements SearchView.OnQu
         });
     }
 
-    private void initRecyclerView() {
+    private void initRecyclerView(RecyclerView recyclerView) {
         Log.d(TAG, "initRecyclerView: init recycler view");
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         mAdapter = new WeaponAdapter(this, mWeapons, getExtra());
         recyclerView.setAdapter(mAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -186,9 +197,49 @@ public class WeaponActivity extends AppCompatActivity implements SearchView.OnQu
         return extra.getStringExtra("Weapon");
     }
 
+    public static boolean hasConnection(final Context context) {
+        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        assert cm != null;
+        NetworkInfo wifiInfo = cm.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+        if (wifiInfo != null && wifiInfo.isConnected()) {
+            return true;
+        }
+        wifiInfo = cm.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+        if (wifiInfo != null && wifiInfo.isConnected()) {
+            return true;
+        }
+        wifiInfo = cm.getActiveNetworkInfo();
+        if (wifiInfo != null && wifiInfo.isConnected()) {
+            return true;
+        }
+        return false;
+    }
+
+    private void swipeContent(RecyclerView recyclerView) {
+        ImageView noConnectionImageView = findViewById(R.id.no_connection_image_view);
+        TextView noConnectionMainText = findViewById(R.id.no_connection_main_text);
+        TextView noConnectionDescriptionText = findViewById(R.id.no_connection_description_text);
+
+        if (!hasConnection(this)) {
+            recyclerView.setVisibility(View.INVISIBLE);
+            Log.d(TAG, "swipeContent: no connection");
+
+            noConnectionImageView.setVisibility(View.VISIBLE);
+            noConnectionMainText.setVisibility(View.VISIBLE);
+            noConnectionDescriptionText.setVisibility(View.VISIBLE);
+        }
+        if (hasConnection(this)) {
+            recyclerView.setVisibility(View.VISIBLE);
+            Log.d(TAG, "swipeContent: connection!");
+
+            noConnectionImageView.setVisibility(View.INVISIBLE);
+            noConnectionMainText.setVisibility(View.INVISIBLE);
+            noConnectionDescriptionText.setVisibility(View.INVISIBLE);
+        }
+    }
+
 }
 
 //todo create pagination
-//todo fix icon image
 //todo filter
 //todo compare
