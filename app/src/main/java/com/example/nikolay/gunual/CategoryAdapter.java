@@ -9,7 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -20,14 +20,12 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
 
     private Context mContext;
     private ArrayList<String> mTitles = new ArrayList<>();
-    private ArrayList<String> mSubtitles = new ArrayList<>();
     private ArrayList<Integer> mImages = new ArrayList<>();
     private String[] mCategoryOfWeapons = {"Pistol", "Submachine gun", "Rifle", "Carbine", "Sniper rifle", "Machine gun", "Shotgun"};
 
-    public CategoryAdapter(Context context, ArrayList<String> titles, ArrayList<String> subtitles, ArrayList<Integer> images) {
+    public CategoryAdapter(Context context, ArrayList<String> titles, ArrayList<Integer> images) {
         mContext = context;
         mTitles = titles;
-        mSubtitles = subtitles;
         mImages = images;
     }
 
@@ -43,7 +41,6 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, final int i) {
         viewHolder.mTitle.setText(mTitles.get(i));
-        viewHolder.mSubtitle.setText(mSubtitles.get(i));
         viewHolder.mImage.setImageResource(mImages.get(i));
 
         viewHolder.mParentLayout.setOnClickListener(new View.OnClickListener() {
@@ -66,15 +63,13 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         private TextView mTitle;
-        private TextView mSubtitle;
         private ImageView mImage;
-        private LinearLayout mParentLayout;
+        private RelativeLayout mParentLayout;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            mTitle = itemView.findViewById(R.id.text_title_category);
-            mSubtitle = itemView.findViewById(R.id.text_subtitle_category);
-            mImage = itemView.findViewById(R.id.image_category);
+            mTitle = itemView.findViewById(R.id.text_view_category_item);
+            mImage = itemView.findViewById(R.id.image_view_category_item);
             mParentLayout = itemView.findViewById(R.id.parent_layout);
         }
     }

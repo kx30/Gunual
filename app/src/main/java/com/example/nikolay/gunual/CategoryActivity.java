@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -18,10 +19,9 @@ public class CategoryActivity extends AppCompatActivity {
     private static final String TAG = "CategoryActivity";
 
     private ArrayList<String> mTitles = new ArrayList<>();
-    private ArrayList<String> mSubtitles = new ArrayList<>();
     private ArrayList<Integer> mImages = new ArrayList<>();
     private String[] mCategoryOfWeapons = {"Pistols", "Submachine guns", "Rifles", "Carbines", "Sniper rifles", "Machines guns", "Shotguns"};
-    private Integer[] mDrawables = {R.drawable.pistol, R.drawable.submachine, R.drawable.rifle,
+    private Integer[] mDrawables = {R.drawable.pistol, R.drawable.submachine_gun, R.drawable.rifle,
             R.drawable.carbine, R.drawable.sniper_rifle, R.drawable.machine_gun, R.drawable.shotgun};
 
     @Override
@@ -67,7 +67,6 @@ public class CategoryActivity extends AppCompatActivity {
 
         for (int i = 0; i < mCategoryOfWeapons.length; i++) {
             mTitles.add(mCategoryOfWeapons[i]);
-            mSubtitles.add("Lorem ipsum dolor sit amet, consectetur adipiscing elit...");
             mImages.add(mDrawables[i]);
         }
 
@@ -77,14 +76,14 @@ public class CategoryActivity extends AppCompatActivity {
     private void initToolbar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        toolbar.setTitle(R.string.app_name);
+        getSupportActionBar().setTitle("");
         Log.d(TAG, "initToolbar: initialized.");
     }
 
     private void initRecyclerView() {
         Log.d(TAG, "initRecyclerView: init recycler view");
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
-        CategoryAdapter adapter = new CategoryAdapter(this, mTitles, mSubtitles, mImages);
+        CategoryAdapter adapter = new CategoryAdapter(this, mTitles, mImages);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
