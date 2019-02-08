@@ -9,7 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -64,7 +64,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
 
         private TextView mTitle;
         private ImageView mImage;
-        private RelativeLayout mParentLayout;
+        private LinearLayout mParentLayout;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
