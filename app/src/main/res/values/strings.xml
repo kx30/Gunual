@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">Gunual</string>
 
     <string name="favorite">Favorite</string>
@@ -29,5 +29,8 @@
 
     <string name="no_connection_main">Oh shucks!</string>
     <string name="no_connection_description">"Slow or not internet connection.\nPlease check your internet settings"</string>
+
+    <string name="email">gunual@gmail.com</string>
+    <string name="phone_number" tools:ignore="TypographyDashes">+7-999-999-99-99</string>
 
 </resources>

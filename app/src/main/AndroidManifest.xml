@@ -14,7 +14,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".CategoryActivity"
+        <activity
+            android:name=".CategoryActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,12 +23,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".WeaponActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".InformationActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".AddWeaponsInDataBaseActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".WeaponActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".InformationActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".AddWeaponsInDataBaseActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".AboutUsActivity"></activity>
     </application>
 
 </manifest>

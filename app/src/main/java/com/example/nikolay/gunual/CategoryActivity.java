@@ -1,5 +1,6 @@
 package com.example.nikolay.gunual;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -44,7 +45,8 @@ public class CategoryActivity extends AppCompatActivity {
                 Toast.makeText(this, "settings", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.action_about_us:
-                Toast.makeText(this, "about us", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(this, AboutUsActivity.class);
+                startActivity(intent);
                 break;
             default:
                 return super.onOptionsItemSelected(item);
@@ -74,7 +76,7 @@ public class CategoryActivity extends AppCompatActivity {
     }
 
     private void initToolbar() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("");
         Log.d(TAG, "initToolbar: initialized.");
