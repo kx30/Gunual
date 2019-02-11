@@ -12,17 +12,17 @@
     <string name="save_button">Save</string>
     <string name="weapon_title">Weapon"s title</string>
     // Table layout
-    <string name="country">Country</string>
-    <string name="year_of_production">Year of production</string>
-    <string name="type_of_bullet">Type of bullet</string>
-    <string name="muzzle_velocity">Muzzle velocity</string>
-    <string name="effective_range">Effective range</string>
-    <string name="feed_system">Feed system</string>
-    <string name="length">Length</string>
-    <string name="barrel_length">Barrel length</string>
-    <string name="weight">Weight</string>
-    <string name="rapid_fire">Rapid fire</string>
-    <string name="cost">Cost</string>
+    <string name="country">Country:&#032;&#032;</string>
+    <string name="year_of_production">Year of production:&#032;&#032;</string>
+    <string name="type_of_bullet">Type of bullet:&#032;&#032;</string>
+    <string name="muzzle_velocity">Muzzle velocity:&#032;&#032;</string>
+    <string name="effective_range">Effective range:&#032;&#032;</string>
+    <string name="feed_system">Feed system:&#032;&#032;</string>
+    <string name="length">Length:&#032;&#032;</string>
+    <string name="barrel_length">Barrel length:&#032;&#032;</string>
+    <string name="weight">Weight:&#032;&#032;</string>
+    <string name="rapid_fire">Rapid fire:&#032;&#032;</string>
+    <string name="cost">Cost:&#032;&#032;</string>
 
     <string name="lorem">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</string>
     <string name="less_lorem">Lorem ipsum dolor sit amet, consectetur adipiscing elit</string>

@@ -15,7 +15,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:context=".InformationActivity">
-
             <include layout="@layout/toolbar" />
 
             <ImageView
@@ -23,24 +22,34 @@
                 android:layout_width="match_parent"
                 android:layout_height="160dp"
                 android:layout_below="@id/toolbar"
-                android:layout_marginLeft="28dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginRight="28dp" />
+                android:layout_marginTop="16dp" />
+
+            <TextView
+                android:id="@+id/title_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/image"
+                android:layout_centerInParent="true"
+                android:fontFamily="sans-serif-medium"
+                android:paddingTop="6dp"
+                android:paddingBottom="6dp"
+                android:textColor="@color/blackTextColor"
+                android:textSize="24sp" />
 
             <TableLayout
                 android:id="@+id/table"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/image"
+                android:layout_below="@id/title_text_view"
                 android:layout_marginLeft="28dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="28dp"
-                android:background="@color/Gray_100"
-                android:weightSum="5">
+                android:background="@color/Gray_100">
 
                 <TableRow
                     android:id="@+id/country_table_row"
-                    android:layout_height="20dp">
+                    android:layout_height="20dp"
+                    android:gravity="center">
 
                     <TextView
                         android:layout_width="0dp"
@@ -220,7 +229,6 @@
 
             </TableLayout>
 
-
             <TextView
                 android:id="@+id/description_text_view"
                 android:layout_width="wrap_content"
@@ -237,3 +245,5 @@
     </LinearLayout>
 
 </ScrollView>
+
+

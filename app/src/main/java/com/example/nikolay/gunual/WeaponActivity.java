@@ -1,11 +1,14 @@
 package com.example.nikolay.gunual;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -25,6 +28,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -37,6 +41,8 @@ public class WeaponActivity extends AppCompatActivity implements SearchView.OnQu
     private WeaponAdapter mAdapter;
     private ArrayList<Weapon> mWeapons = new ArrayList<>();
     private String[] mCategoryOfWeapons = {"Pistol", "Submachine gun", "Rifle", "Carbine", "Sniper rifle", "Machine gun", "Shotgun"};
+    private String sharedValue;
+    private SharedPreferences mSharedPreferences;
     private FirebaseFirestore db;
 
     @Override
@@ -51,18 +57,6 @@ public class WeaponActivity extends AppCompatActivity implements SearchView.OnQu
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        Intent extra = getIntent();
-        String value = extra.getStringExtra("Weapon");
-        if (item.getItemId() == R.id.action_add) {
-            Intent intent = new Intent(WeaponActivity.this, AddWeaponsInDataBaseActivity.class);
-            for (int i = 0; i < mCategoryOfWeapons.length; i++) {
-                if (value.equals(mCategoryOfWeapons[i])) {
-                    Toast.makeText(this, value, Toast.LENGTH_SHORT).show();
-                    intent.putExtra("Weapon", mCategoryOfWeapons[i]);
-                }
-            }
-            startActivity(intent);
-        }
 
         if (item.getItemId() == android.R.id.home) {
             finish();
@@ -106,8 +100,48 @@ public class WeaponActivity extends AppCompatActivity implements SearchView.OnQu
 
         addItems();
 
+        mSharedPreferences = getSharedPreferences("value", MODE_PRIVATE);
+        sharedValue = mSharedPreferences.getString("favorites", "");
 
+        Log.d(TAG, "onCreate: JSON: " + sharedValue);
         Log.d(TAG, "onCreate: started.");
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == 1) {
+            if (resultCode == Activity.RESULT_OK) {
+                String title = data.getStringExtra("title");
+                Toast.makeText(this, title, Toast.LENGTH_SHORT).show();
+                for (int i = 0; i < mWeapons.size(); i++) {
+                    if (mWeapons.get(i).getTitle().equals(title)) {
+                        mWeapons.get(i).setFavorite(true);
+                        mSharedPreferences = getSharedPreferences("value", MODE_PRIVATE);
+                        SharedPreferences.Editor editor = mSharedPreferences.edit();
+                        Gson gson = new Gson();
+                        if (sharedValue.equals("")) {
+                            sharedValue += "[" + gson.toJson(mWeapons.get(i));
+                            sharedValue = new StringBuffer(sharedValue).insert(sharedValue.length(), "]").toString();
+                        } else {
+                            sharedValue = sharedValue.substring(0, sharedValue.length() - 1);
+                            sharedValue = new StringBuffer(sharedValue).insert(sharedValue.length(), ",").toString();
+                            sharedValue += gson.toJson(mWeapons.get(i));
+                            sharedValue = new StringBuffer(sharedValue).insert(sharedValue.length(), "]").toString();
+                            Log.d(TAG, "onActivityResult: value is not empty!");
+                        }
+                        editor.putString("favorites", sharedValue);
+                        editor.apply();
+                        Log.d(TAG, "onActivityResult: " + sharedValue);
+                    }
+                }
+            }
+            if (resultCode == Activity.RESULT_CANCELED) {
+                Toast.makeText(this, "Not a favorite", Toast.LENGTH_SHORT).show();
+            }
+        }
+
     }
 
     private void initToolbar() {
@@ -123,7 +157,6 @@ public class WeaponActivity extends AppCompatActivity implements SearchView.OnQu
         try {
             Intent extra = getIntent();
             String value = extra.getStringExtra("Weapon");
-            Log.d(TAG, "addItems: " + value);
 
             for (int i = 0; i < mCategoryOfWeapons.length; i++) {
                 if (value.equals(mCategoryOfWeapons[i])) {
@@ -152,7 +185,6 @@ public class WeaponActivity extends AppCompatActivity implements SearchView.OnQu
                                                     d.getString("description"),
                                                     d.getString("image_url")
                                             ));
-                                            Log.d(TAG, "onSuccess: " + mWeapons);
                                         }
                                         sortItems(mWeapons);
                                         mAdapter.notifyDataSetChanged();
@@ -195,7 +227,7 @@ public class WeaponActivity extends AppCompatActivity implements SearchView.OnQu
         return extra.getStringExtra("Weapon");
     }
 
-    public static boolean hasConnection(final Context context) {
+    private boolean hasConnection(final Context context) {
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         assert cm != null;
         NetworkInfo wifiInfo = cm.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
@@ -235,9 +267,4 @@ public class WeaponActivity extends AppCompatActivity implements SearchView.OnQu
             noConnectionDescriptionText.setVisibility(View.INVISIBLE);
         }
     }
-
 }
-
-//todo create pagination
-//todo filter
-//todo compare

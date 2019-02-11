@@ -28,10 +28,19 @@ public class WeaponAdapter extends RecyclerView.Adapter<WeaponAdapter.ViewHolder
     private ArrayList<Weapon> mWeapons;
     private String mExtra;
 
+    private boolean ifThereIsExtra;
+
     public WeaponAdapter(Context context, ArrayList<Weapon> weapons, String extra) {
         mContext = context;
         mWeapons = weapons;
         mExtra = extra;
+        ifThereIsExtra = true;
+    }
+
+    public WeaponAdapter(Context context, ArrayList<Weapon> weapons) {
+        mContext = context;
+        mWeapons = weapons;
+        ifThereIsExtra = false;
     }
 
 
@@ -57,7 +66,10 @@ public class WeaponAdapter extends RecyclerView.Adapter<WeaponAdapter.ViewHolder
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(mContext, InformationActivity.class);
-                intent.putExtra("weapon", mExtra);
+                if (ifThereIsExtra) {
+                    intent.putExtra("weapon", mExtra);
+                }
+                intent.putExtra("title", mWeapons.get(i).getTitle());
                 intent.putExtra("country", mWeapons.get(i).getCountry());
                 intent.putExtra("year_of_production", mWeapons.get(i).getYearOfProduction());
                 intent.putExtra("type_of_bullet", mWeapons.get(i).getTypeOfBullet());
@@ -69,7 +81,8 @@ public class WeaponAdapter extends RecyclerView.Adapter<WeaponAdapter.ViewHolder
                 intent.putExtra("weight", mWeapons.get(i).getWeight());
                 intent.putExtra("description", mWeapons.get(i).getDescription());
                 intent.putExtra("image_url", mWeapons.get(i).getImageUrl());
-                mContext.startActivity(intent);
+//                mContext.startActivity(intent);
+                ((WeaponActivity) mContext).startActivityForResult(intent, 1);
             }
         });
 

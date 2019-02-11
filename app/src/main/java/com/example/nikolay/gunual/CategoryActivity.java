@@ -36,7 +36,8 @@ public class CategoryActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_favorite:
-                Toast.makeText(this, "favorite", Toast.LENGTH_SHORT).show();
+                Intent favoriteIntent = new Intent(this, FavoriteActivity.class);
+                startActivity(favoriteIntent);
                 break;
             case R.id.action_compare:
                 Toast.makeText(this, "to compare", Toast.LENGTH_SHORT).show();
@@ -45,8 +46,8 @@ public class CategoryActivity extends AppCompatActivity {
                 Toast.makeText(this, "settings", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.action_about_us:
-                Intent intent = new Intent(this, AboutUsActivity.class);
-                startActivity(intent);
+                Intent aboutIntent = new Intent(this, AboutUsActivity.class);
+                startActivity(aboutIntent);
                 break;
             default:
                 return super.onOptionsItemSelected(item);

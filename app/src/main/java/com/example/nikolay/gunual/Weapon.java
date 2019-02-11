@@ -14,6 +14,7 @@ public class Weapon {
     private String mFeedSystem;
     private String mDescription;
     private String mImageUrl;
+    private boolean mFavorite;
 
     public Weapon() {
     }
@@ -79,5 +80,13 @@ public class Weapon {
 
     public String getImageUrl() {
         return mImageUrl;
+    }
+
+    public boolean isFavorite() {
+        return mFavorite;
+    }
+
+    public void setFavorite(boolean favorite) {
+        mFavorite = favorite;
     }
 }

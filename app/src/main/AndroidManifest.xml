@@ -29,10 +29,8 @@
         <activity
             android:name=".InformationActivity"
             android:screenOrientation="portrait" />
-        <activity
-            android:name=".AddWeaponsInDataBaseActivity"
-            android:screenOrientation="portrait" />
-        <activity android:name=".AboutUsActivity"></activity>
+        <activity android:name=".AboutUsActivity" />
+        <activity android:name=".FavoriteActivity"></activity>
     </application>
 
 </manifest>

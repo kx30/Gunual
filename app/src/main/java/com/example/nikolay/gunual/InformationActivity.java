@@ -1,14 +1,19 @@
 package com.example.nikolay.gunual;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -17,6 +22,7 @@ public class InformationActivity extends AppCompatActivity {
 
     private static final String TAG = "InformationActivity";
 
+    private TextView mTitleTextView;
     private TextView mCountryTextView;
     private TextView mYearOfProductionTextView;
     private TextView mTypeOfBulletTextView;
@@ -40,9 +46,24 @@ public class InformationActivity extends AppCompatActivity {
             finish();
         }
 
+        if (item.getItemId() == R.id.add_to_favorite) {
+            Bundle arguments = getIntent().getExtras();
+            String title = arguments.get("title").toString();
+            Intent intent = new Intent();
+            intent.putExtra("title", title);
+            setResult(Activity.RESULT_OK, intent);
+            Toast.makeText(this, "Added", Toast.LENGTH_SHORT).show();
+        }
+
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_add_to_favorite, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,13 +86,14 @@ public class InformationActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        toolbar.setTitle(R.string.app_name);
+        getSupportActionBar().setTitle("");
         Log.d(TAG, "initToolbar: initialized.");
     }
 
 
     private void initWidgets() {
         mCountryTextView = findViewById(R.id.country_text_view);
+        mTitleTextView = findViewById(R.id.title_text_view);
         mYearOfProductionTextView = findViewById(R.id.year_of_production_text_view);
         mTypeOfBulletTextView = findViewById(R.id.type_of_bullet_text_view);
         mMuzzleVelocityTextView = findViewById(R.id.muzzle_velocity_text_view);
@@ -86,12 +108,13 @@ public class InformationActivity extends AppCompatActivity {
 
 
     private void getExtras() {
-        String country = "", yearOfProduction = "", typeOfBullet = "", maxRange = "",
+        String title = "", country = "", yearOfProduction = "", typeOfBullet = "", maxRange = "",
                 effectiveRange = "", feedSystem = "", length = "", barrelLength = "",
-                weight = "", imageUrl, description;
+                weight = "", imageUrl = "", description = "";
 
         Bundle arguments = getIntent().getExtras();
         country = arguments.get("country").toString();
+        title = arguments.get("title").toString();
         yearOfProduction = arguments.get("year_of_production").toString();
         typeOfBullet = arguments.get("type_of_bullet").toString();
         maxRange = arguments.get("muzzle_velocity").toString();
@@ -113,6 +136,7 @@ public class InformationActivity extends AppCompatActivity {
         }
 
         mCountryTextView.setText(country);
+        mTitleTextView.setText(title);
         mYearOfProductionTextView.setText(yearOfProduction);
         mTypeOfBulletTextView.setText(typeOfBullet);
         mMuzzleVelocityTextView.setText(maxRange);
