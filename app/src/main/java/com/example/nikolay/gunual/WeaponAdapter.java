@@ -68,6 +68,12 @@ public class WeaponAdapter extends RecyclerView.Adapter<WeaponAdapter.ViewHolder
                     .into(viewHolder.mImage);
         }
 
+        if (ifThereIsExtra) {
+            viewHolder.mStar.setImageResource(mWeapons.get(i).getDrawable());
+        } else {
+            viewHolder.mStar.setImageResource(R.drawable.ic_star_black_24dp);
+        }
+
         viewHolder.mParentLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
