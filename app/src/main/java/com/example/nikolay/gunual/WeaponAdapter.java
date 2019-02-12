@@ -3,6 +3,7 @@ package com.example.nikolay.gunual;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -14,11 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 public class WeaponAdapter extends RecyclerView.Adapter<WeaponAdapter.ViewHolder> {
@@ -30,6 +27,8 @@ public class WeaponAdapter extends RecyclerView.Adapter<WeaponAdapter.ViewHolder
     private String mExtra;
 
     private boolean ifThereIsExtra;
+
+    private ArrayList<String> mUrls = new ArrayList<>();
 
     public WeaponAdapter(Context context, ArrayList<Weapon> weapons, String extra) {
         mContext = context;
@@ -51,6 +50,7 @@ public class WeaponAdapter extends RecyclerView.Adapter<WeaponAdapter.ViewHolder
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.weapon_item, viewGroup, false);
         ViewHolder holder = new ViewHolder(view);
         Log.d(TAG, "onCreateViewHolder: created.");
+
         return holder;
     }
 
@@ -60,8 +60,31 @@ public class WeaponAdapter extends RecyclerView.Adapter<WeaponAdapter.ViewHolder
 
         Glide.with(mContext)
                 .load("https:" + mWeapons.get(i).getImageUrl())
-                .apply(new RequestOptions().override(200, 200).error(R.drawable.not_available_image))
                 .into(viewHolder.mImage);
+
+        if (viewHolder.mImage.getDrawable() == null) {
+            Glide.with(mContext)
+                    .load("http:" + mWeapons.get(i).getImageUrl())
+                    .into(viewHolder.mImage);
+        }
+
+        SharedPreferences sharedPreferences = mContext.getSharedPreferences("value", Context.MODE_PRIVATE);
+        String value = sharedPreferences.getString("favorites", "");
+
+        if (value.contains(mWeapons.get(i).getImageUrl())) {
+            viewHolder.mTitle.setTextColor(Color.RED);
+        }
+
+//        if (value.contains(mWeapons.get(i).getImageUrl())) {
+//            viewHolder.mStar.setImageResource(R.drawable.ic_star_black_24dp);
+//            Log.d(TAG, "onBindViewHolder: " + mWeapons.get(i).getImageUrl());
+//            Log.d(TAG, "onBindViewHolder: " + value);
+//        }
+//
+//        if (value.contains(mWeapons.get(i).getTitle())) {
+//            viewHolder.mTitle.setTextColor(Color.RED);
+//        }
+
 
         viewHolder.mParentLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,7 +105,6 @@ public class WeaponAdapter extends RecyclerView.Adapter<WeaponAdapter.ViewHolder
                 intent.putExtra("weight", mWeapons.get(i).getWeight());
                 intent.putExtra("description", mWeapons.get(i).getDescription());
                 intent.putExtra("image_url", mWeapons.get(i).getImageUrl());
-                intent.putExtra("is_favorite", mWeapons.get(i).isFavorite());
                 if (ifThereIsExtra) {
                     ((WeaponActivity) mContext).startActivityForResult(intent, 1);
                 } else {
@@ -90,8 +112,6 @@ public class WeaponAdapter extends RecyclerView.Adapter<WeaponAdapter.ViewHolder
                 }
             }
         });
-
-        Log.d(TAG, "onBindViewHolder: called.");
     }
 
     @Override
@@ -105,10 +125,16 @@ public class WeaponAdapter extends RecyclerView.Adapter<WeaponAdapter.ViewHolder
         notifyDataSetChanged();
     }
 
+    @Override
+    public long getItemId(int position) {
+        return super.getItemId(position);
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         private TextView mTitle;
         private ImageView mImage;
+        private ImageView mStar;
         private LinearLayout mParentLayout;
 
         public ViewHolder(@NonNull View itemView) {
@@ -116,6 +142,8 @@ public class WeaponAdapter extends RecyclerView.Adapter<WeaponAdapter.ViewHolder
             mTitle = itemView.findViewById(R.id.title);
             mImage = itemView.findViewById(R.id.image);
             mParentLayout = itemView.findViewById(R.id.parent_layout);
+            mStar = itemView.findViewById(R.id.star);
+
         }
     }
 

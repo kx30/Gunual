@@ -21,7 +21,6 @@ public class FavoriteActivity extends AppCompatActivity {
 
     private static final String TAG = "FavoriteActivity";
 
-    private WeaponAdapter mAdapter;
     private ArrayList<Weapon> mWeapons = new ArrayList<>();
 
     @Override
@@ -88,8 +87,8 @@ public class FavoriteActivity extends AppCompatActivity {
     }
 
     private void initRecyclerView(RecyclerView recyclerView) {
-        mAdapter = new WeaponAdapter(this, mWeapons);
-        recyclerView.setAdapter(mAdapter);
+        WeaponAdapter adapter = new WeaponAdapter(this, mWeapons);
+        recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         Log.d(TAG, "initRecyclerView: recycler view initialized");
     }

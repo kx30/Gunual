@@ -43,7 +43,6 @@ public class WeaponActivity extends AppCompatActivity implements SearchView.OnQu
     private WeaponAdapter mAdapter;
     private ArrayList<Weapon> mWeapons = new ArrayList<>();
     private String[] mCategoryOfWeapons = {"Pistol", "Submachine gun", "Rifle", "Carbine", "Sniper rifle", "Machine gun", "Shotgun"};
-    private String sharedValue;
     private SharedPreferences mSharedPreferences;
     private FirebaseFirestore db;
 
@@ -91,9 +90,9 @@ public class WeaponActivity extends AppCompatActivity implements SearchView.OnQu
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_weapon);
 
-        RecyclerView recyclerView = findViewById(R.id.recycler_view);
-
         initToolbar();
+
+        RecyclerView recyclerView = findViewById(R.id.recycler_view);
         initRecyclerView(recyclerView);
 
         swipeContent(recyclerView);
@@ -102,11 +101,6 @@ public class WeaponActivity extends AppCompatActivity implements SearchView.OnQu
 
         addItems();
 
-        mSharedPreferences = getSharedPreferences("value", MODE_PRIVATE);
-        sharedValue = mSharedPreferences.getString("favorites", "");
-
-
-        Log.d(TAG, "onCreate: JSON: " + sharedValue);
         Log.d(TAG, "onCreate: started.");
     }
 
@@ -114,13 +108,15 @@ public class WeaponActivity extends AppCompatActivity implements SearchView.OnQu
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
+        SharedPreferences sharedPreferences = getSharedPreferences("value", MODE_PRIVATE);
+        String sharedValue = sharedPreferences.getString("favorites", "");
+
         if (requestCode == 1) {
             if (resultCode == Activity.RESULT_OK) {
                 String title = data.getStringExtra("title");
                 Toast.makeText(this, title, Toast.LENGTH_SHORT).show();
                 for (int i = 0; i < mWeapons.size(); i++) {
                     if (mWeapons.get(i).getTitle().equals(title)) {
-                        mWeapons.get(i).setFavorite(true);
                         Gson gson = new Gson();
                         if (sharedValue.equals("")) {
                             sharedValue += "[" + gson.toJson(mWeapons.get(i));
@@ -189,7 +185,17 @@ public class WeaponActivity extends AppCompatActivity implements SearchView.OnQu
                                             ));
                                         }
                                         sortItems(mWeapons);
+                                        SharedPreferences sharedPreferences = getSharedPreferences("value", MODE_PRIVATE);
+                                        String sharedValue = sharedPreferences.getString("favorites", "");
+
+                                        for (int i = 0; i < mWeapons.size(); i++) {
+                                            if (sharedValue.contains(mWeapons.get(i).getImageUrl())) {
+                                                Log.d(TAG, "onSuccess: FAVORITE " + mWeapons.get(i).getTitle());
+                                            }
+                                        }
+
                                         mAdapter.notifyDataSetChanged();
+
                                     }
                                 }
                             })

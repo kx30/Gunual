@@ -18,13 +18,9 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
-import java.util.ArrayList;
-
 public class InformationActivity extends AppCompatActivity {
 
     private static final String TAG = "InformationActivity";
-
-    private ArrayList<Weapon> mWeapons = new ArrayList<>();
 
     private TextView mTitleTextView;
     private TextView mCountryTextView;
@@ -48,17 +44,21 @@ public class InformationActivity extends AppCompatActivity {
         }
 
         if (item.getItemId() == R.id.add_to_favorite) {
+            String title = "", imageUrl = "";
             Bundle arguments = getIntent().getExtras();
-            String title = arguments.get("title").toString();
+
+            title = arguments.get("title").toString();
+            imageUrl = arguments.get("image_url").toString();
 
             SharedPreferences sharedPreferences = getSharedPreferences("value", MODE_PRIVATE);
-            String value = sharedPreferences.getString("favorites", "");
+            String value = sharedPreferences.getString("favorites",     "");
 
             Intent intent = new Intent();
             intent.putExtra("title", title);
 
             // If already added
-            if (value.toLowerCase().contains(title.toLowerCase())) {
+            if (value.toLowerCase().contains(title.toLowerCase())
+                    && value.toLowerCase().contains(imageUrl.toLowerCase())) {
                 setResult(Activity.RESULT_CANCELED, intent);
                 Toast.makeText(this, "Already added", Toast.LENGTH_SHORT).show();
                 Log.d(TAG, "onOptionsItemSelected: Already added.");
