@@ -9,6 +9,7 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -29,9 +30,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -40,6 +39,7 @@ import java.util.List;
 public class WeaponActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
 
     private static final String TAG = "WeaponActivity";
+    private Context mContext;
     private WeaponAdapter mAdapter;
     private ArrayList<Weapon> mWeapons = new ArrayList<>();
     private String[] mCategoryOfWeapons = {"Pistol", "Submachine gun", "Rifle", "Carbine", "Sniper rifle", "Machine gun", "Shotgun"};
@@ -191,6 +191,11 @@ public class WeaponActivity extends AppCompatActivity implements SearchView.OnQu
                                         for (int i = 0; i < mWeapons.size(); i++) {
                                             if (sharedValue.contains(mWeapons.get(i).getImageUrl())) {
                                                 Log.d(TAG, "onSuccess: FAVORITE " + mWeapons.get(i).getTitle());
+                                                mWeapons.get(i).setDrawable(R.drawable.ic_star_black_24dp);
+                                                Log.d(TAG, "onSuccess: " + mWeapons.get(i).getDrawable());
+                                            } else {
+                                                mWeapons.get(i).setDrawable(R.drawable.ic_star_border_black_24dp);
+                                                Log.d(TAG, "onSuccess: " + mWeapons.get(i).getDrawable());
                                             }
                                         }
 

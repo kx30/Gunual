@@ -1,5 +1,7 @@
 package com.example.nikolay.gunual;
 
+import android.graphics.drawable.Drawable;
+
 public class Weapon {
 
     private String mTitle;
@@ -14,6 +16,8 @@ public class Weapon {
     private String mFeedSystem;
     private String mDescription;
     private String mImageUrl;
+
+    private int mDrawable;
 
     public Weapon() {
     }
@@ -31,6 +35,14 @@ public class Weapon {
         this.mFeedSystem = feedSystem;
         this.mDescription = description;
         this.mImageUrl = imageUrl;
+    }
+
+    public int getDrawable() {
+        return mDrawable;
+    }
+
+    public void setDrawable(int drawable) {
+        mDrawable = drawable;
     }
 
     public String getTitle() {

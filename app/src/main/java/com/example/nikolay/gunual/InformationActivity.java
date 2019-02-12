@@ -57,11 +57,9 @@ public class InformationActivity extends AppCompatActivity {
             intent.putExtra("title", title);
 
             // If already added
-            if (value.toLowerCase().contains(title.toLowerCase())
-                    && value.toLowerCase().contains(imageUrl.toLowerCase())) {
+            if (value.toLowerCase().contains(imageUrl.toLowerCase())) {
                 setResult(Activity.RESULT_CANCELED, intent);
                 Toast.makeText(this, "Already added", Toast.LENGTH_SHORT).show();
-                Log.d(TAG, "onOptionsItemSelected: Already added.");
             } else {
                 setResult(Activity.RESULT_OK, intent);
                 Toast.makeText(this, "Added", Toast.LENGTH_SHORT).show();

@@ -68,24 +68,6 @@ public class WeaponAdapter extends RecyclerView.Adapter<WeaponAdapter.ViewHolder
                     .into(viewHolder.mImage);
         }
 
-        SharedPreferences sharedPreferences = mContext.getSharedPreferences("value", Context.MODE_PRIVATE);
-        String value = sharedPreferences.getString("favorites", "");
-
-        if (value.contains(mWeapons.get(i).getImageUrl())) {
-            viewHolder.mTitle.setTextColor(Color.RED);
-        }
-
-//        if (value.contains(mWeapons.get(i).getImageUrl())) {
-//            viewHolder.mStar.setImageResource(R.drawable.ic_star_black_24dp);
-//            Log.d(TAG, "onBindViewHolder: " + mWeapons.get(i).getImageUrl());
-//            Log.d(TAG, "onBindViewHolder: " + value);
-//        }
-//
-//        if (value.contains(mWeapons.get(i).getTitle())) {
-//            viewHolder.mTitle.setTextColor(Color.RED);
-//        }
-
-
         viewHolder.mParentLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
