@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
@@ -55,7 +56,7 @@ public class WeaponAdapter extends RecyclerView.Adapter<WeaponAdapter.ViewHolder
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder viewHolder, final int i) {
+    public void onBindViewHolder(@NonNull final ViewHolder viewHolder, final int i) {
         viewHolder.mTitle.setText(mWeapons.get(i).getTitle());
 
         Glide.with(mContext)
@@ -73,6 +74,18 @@ public class WeaponAdapter extends RecyclerView.Adapter<WeaponAdapter.ViewHolder
         } else {
             viewHolder.mStar.setImageResource(R.drawable.ic_star_black_24dp);
         }
+
+        viewHolder.mStar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if  (mWeapons.get(i).getDrawable() == R.drawable.ic_star_black_24dp) {
+                    Toast.makeText(mContext, "It is favorite", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(mContext, "It is not a favorite", Toast.LENGTH_SHORT).show();
+                }
+                Log.d(TAG, "onClick: " + mWeapons.get(i).getDrawable());
+            }
+        });
 
         viewHolder.mParentLayout.setOnClickListener(new View.OnClickListener() {
             @Override
