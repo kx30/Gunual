@@ -2,6 +2,7 @@ package com.example.nikolay.gunual;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -16,11 +17,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.ArrayList;
 
 public class InformationActivity extends AppCompatActivity {
 
     private static final String TAG = "InformationActivity";
+
+    private ArrayList<Weapon> mWeapons = new ArrayList<>();
 
     private TextView mTitleTextView;
     private TextView mCountryTextView;
@@ -36,9 +40,6 @@ public class InformationActivity extends AppCompatActivity {
 
     private ImageView mImageView;
 
-    private FirebaseFirestore db;
-
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
@@ -49,10 +50,22 @@ public class InformationActivity extends AppCompatActivity {
         if (item.getItemId() == R.id.add_to_favorite) {
             Bundle arguments = getIntent().getExtras();
             String title = arguments.get("title").toString();
+
+            SharedPreferences sharedPreferences = getSharedPreferences("value", MODE_PRIVATE);
+            String value = sharedPreferences.getString("favorites", "");
+
             Intent intent = new Intent();
             intent.putExtra("title", title);
-            setResult(Activity.RESULT_OK, intent);
-            Toast.makeText(this, "Added", Toast.LENGTH_SHORT).show();
+
+            // If already added
+            if (value.toLowerCase().contains(title.toLowerCase())) {
+                setResult(Activity.RESULT_CANCELED, intent);
+                Toast.makeText(this, "Already added", Toast.LENGTH_SHORT).show();
+                Log.d(TAG, "onOptionsItemSelected: Already added.");
+            } else {
+                setResult(Activity.RESULT_OK, intent);
+                Toast.makeText(this, "Added", Toast.LENGTH_SHORT).show();
+            }
         }
 
         return super.onOptionsItemSelected(item);
@@ -194,4 +207,3 @@ public class InformationActivity extends AppCompatActivity {
     }
 
 }
-

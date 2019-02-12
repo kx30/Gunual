@@ -2,7 +2,7 @@ package com.example.nikolay.gunual;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -14,13 +14,14 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.module.AppGlideModule;
 import com.bumptech.glide.request.RequestOptions;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 
-public class WeaponAdapter extends RecyclerView.Adapter<WeaponAdapter.ViewHolder>{
+public class WeaponAdapter extends RecyclerView.Adapter<WeaponAdapter.ViewHolder> {
 
     private static final String TAG = "WeaponAdapter";
 
@@ -57,10 +58,10 @@ public class WeaponAdapter extends RecyclerView.Adapter<WeaponAdapter.ViewHolder
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, final int i) {
         viewHolder.mTitle.setText(mWeapons.get(i).getTitle());
 
-            Glide.with(mContext)
-                    .load("https:" + mWeapons.get(i).getImageUrl())
-                    .apply(new RequestOptions().override(200, 200).error(R.drawable.not_available_image))
-                    .into(viewHolder.mImage);
+        Glide.with(mContext)
+                .load("https:" + mWeapons.get(i).getImageUrl())
+                .apply(new RequestOptions().override(200, 200).error(R.drawable.not_available_image))
+                .into(viewHolder.mImage);
 
         viewHolder.mParentLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,8 +82,12 @@ public class WeaponAdapter extends RecyclerView.Adapter<WeaponAdapter.ViewHolder
                 intent.putExtra("weight", mWeapons.get(i).getWeight());
                 intent.putExtra("description", mWeapons.get(i).getDescription());
                 intent.putExtra("image_url", mWeapons.get(i).getImageUrl());
-//                mContext.startActivity(intent);
-                ((WeaponActivity) mContext).startActivityForResult(intent, 1);
+                intent.putExtra("is_favorite", mWeapons.get(i).isFavorite());
+                if (ifThereIsExtra) {
+                    ((WeaponActivity) mContext).startActivityForResult(intent, 1);
+                } else {
+                    mContext.startActivity(intent);
+                }
             }
         });
 

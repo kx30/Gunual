@@ -29,7 +29,9 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -103,6 +105,7 @@ public class WeaponActivity extends AppCompatActivity implements SearchView.OnQu
         mSharedPreferences = getSharedPreferences("value", MODE_PRIVATE);
         sharedValue = mSharedPreferences.getString("favorites", "");
 
+
         Log.d(TAG, "onCreate: JSON: " + sharedValue);
         Log.d(TAG, "onCreate: started.");
     }
@@ -118,8 +121,6 @@ public class WeaponActivity extends AppCompatActivity implements SearchView.OnQu
                 for (int i = 0; i < mWeapons.size(); i++) {
                     if (mWeapons.get(i).getTitle().equals(title)) {
                         mWeapons.get(i).setFavorite(true);
-                        mSharedPreferences = getSharedPreferences("value", MODE_PRIVATE);
-                        SharedPreferences.Editor editor = mSharedPreferences.edit();
                         Gson gson = new Gson();
                         if (sharedValue.equals("")) {
                             sharedValue += "[" + gson.toJson(mWeapons.get(i));
@@ -129,8 +130,9 @@ public class WeaponActivity extends AppCompatActivity implements SearchView.OnQu
                             sharedValue = new StringBuffer(sharedValue).insert(sharedValue.length(), ",").toString();
                             sharedValue += gson.toJson(mWeapons.get(i));
                             sharedValue = new StringBuffer(sharedValue).insert(sharedValue.length(), "]").toString();
-                            Log.d(TAG, "onActivityResult: value is not empty!");
                         }
+                        mSharedPreferences = getSharedPreferences("value", MODE_PRIVATE);
+                        SharedPreferences.Editor editor = mSharedPreferences.edit();
                         editor.putString("favorites", sharedValue);
                         editor.apply();
                         Log.d(TAG, "onActivityResult: " + sharedValue);
@@ -199,7 +201,6 @@ public class WeaponActivity extends AppCompatActivity implements SearchView.OnQu
                             });
                 }
             }
-            mAdapter.notifyDataSetChanged();
         } catch (Exception e) {
             Log.d(TAG, "Error in Weapon Activity");
         }

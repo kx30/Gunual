@@ -14,6 +14,8 @@ import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class FavoriteActivity extends AppCompatActivity {
 
@@ -41,12 +43,8 @@ public class FavoriteActivity extends AppCompatActivity {
 
         initToolbar();
 
-        try {
-            loadData();
-        } catch (Exception e) {
-            Log.d(TAG, "onCreate: " + e);
-        }
-
+        loadData();
+        sortItems(mWeapons);
 
         initRecyclerView(recyclerView);
 
@@ -71,12 +69,22 @@ public class FavoriteActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences("value", MODE_PRIVATE);
         Gson gson = new Gson();
         String value = sharedPreferences.getString("favorites", "");
-        Type type = new TypeToken<ArrayList<Weapon>>() {}.getType();
+        Type type = new TypeToken<ArrayList<Weapon>>() {
+        }.getType();
         mWeapons = gson.fromJson(value, type);
 
         if (mWeapons == null) {
             mWeapons = new ArrayList<>();
         }
+    }
+
+    private void sortItems(ArrayList<Weapon> weaponList) {
+        Collections.sort(weaponList, new Comparator<Weapon>() {
+            @Override
+            public int compare(Weapon w1, Weapon w2) {
+                return w1.getTitle().compareTo(w2.getTitle());
+            }
+        });
     }
 
     private void initRecyclerView(RecyclerView recyclerView) {
