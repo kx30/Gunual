@@ -92,6 +92,4 @@ public class Weapon {
     public String getImageUrl() {
         return mImageUrl;
     }
-
-
 }

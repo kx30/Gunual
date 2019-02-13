@@ -29,8 +29,6 @@ public class WeaponAdapter extends RecyclerView.Adapter<WeaponAdapter.ViewHolder
 
     private boolean ifThereIsExtra;
 
-    private ArrayList<String> mUrls = new ArrayList<>();
-
     public WeaponAdapter(Context context, ArrayList<Weapon> weapons, String extra) {
         mContext = context;
         mWeapons = weapons;

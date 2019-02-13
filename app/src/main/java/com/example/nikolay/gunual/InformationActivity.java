@@ -56,6 +56,9 @@ public class InformationActivity extends AppCompatActivity {
             Intent intent = new Intent();
             intent.putExtra("title", title);
 
+            Log.d(TAG, "onOptionsItemSelected: " + value);
+            Log.d(TAG, "onOptionsItemSelected: " + imageUrl);
+
             // If already added
             if (value.toLowerCase().contains(imageUrl.toLowerCase())) {
                 setResult(Activity.RESULT_CANCELED, intent);

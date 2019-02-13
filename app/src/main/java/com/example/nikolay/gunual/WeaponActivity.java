@@ -198,6 +198,7 @@ public class WeaponActivity extends AppCompatActivity implements SearchView.OnQu
                                                 Log.d(TAG, "onSuccess: " + mWeapons.get(i).getDrawable());
                                             }
                                         }
+                                        Log.d(TAG, "onSuccess: " + sharedValue);
 
                                         mAdapter.notifyDataSetChanged();
 
