@@ -3,7 +3,6 @@ package com.example.nikolay.gunual;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -16,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 
@@ -48,7 +48,7 @@ public class WeaponAdapter extends RecyclerView.Adapter<WeaponAdapter.ViewHolder
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.weapon_item, viewGroup, false);
         ViewHolder holder = new ViewHolder(view);
-        Log.d(TAG, "onCreateViewHolder: created.");
+//        Log.d(TAG, "onCreateViewHolder: created.");
 
         return holder;
     }
@@ -76,8 +76,45 @@ public class WeaponAdapter extends RecyclerView.Adapter<WeaponAdapter.ViewHolder
         viewHolder.mStar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if  (mWeapons.get(i).getDrawable() == R.drawable.ic_star_black_24dp) {
+                if (mWeapons.get(i).getDrawable() == R.drawable.ic_star_black_24dp) {
+                    SharedPreferences sharedPreferences = mContext.getSharedPreferences("value", Context.MODE_PRIVATE);
+                    String sharedValue = sharedPreferences.getString("favorites", "");
+
                     Toast.makeText(mContext, "It is favorite", Toast.LENGTH_SHORT).show();
+                    Gson gson = new Gson();
+                    String weaponPosition = gson.toJson(mWeapons.get(i));
+
+                    if (sharedValue.contains(weaponPosition)) {
+                        // If first object in string
+                        if (sharedValue.indexOf(weaponPosition) - 1 == 0) {
+                            Log.d(TAG, "onClick: First favorite");
+                            sharedValue = sharedValue.replace(weaponPosition, "");
+                            if (sharedValue.charAt(1) == ',') {
+                                Log.d(TAG, "onClick: Isn't last element");
+                                sharedValue = sharedValue.substring(2);
+                                sharedValue = "[" + sharedValue;
+                                Log.d(TAG, "onClick: " + sharedValue);
+                            } else {
+                                sharedValue = "";
+                            }
+                            Log.d(TAG, "onClick: " + sharedValue);
+                        } else if (sharedValue.charAt(sharedValue.indexOf(weaponPosition) + weaponPosition.length()) == ']') {
+                            // If last object in string
+                            Log.d(TAG, "onClick: last element");
+                            sharedValue = sharedValue.replace(weaponPosition, "");
+                            sharedValue = sharedValue.substring(0, sharedValue.length() - 2);
+                            sharedValue = new StringBuffer(sharedValue).insert(sharedValue.length(), "]").toString();
+                            Log.d(TAG, "onClick: " + sharedValue);
+                        } else {
+                            sharedValue = sharedValue.substring(0, sharedValue.indexOf(weaponPosition)) +
+                                    sharedValue.substring(
+                                            sharedValue.indexOf(weaponPosition) + weaponPosition.length() + 1,
+                                            sharedValue.length());
+                        }
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putString("favorites", sharedValue);
+                        editor.apply();
+                    }
                 } else {
                     Toast.makeText(mContext, "It is not a favorite", Toast.LENGTH_SHORT).show();
                 }

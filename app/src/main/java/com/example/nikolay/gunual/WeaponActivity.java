@@ -39,7 +39,8 @@ import java.util.List;
 public class WeaponActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
 
     private static final String TAG = "WeaponActivity";
-    private Context mContext;
+    public static final int STAR_DRAWABLE_CODE = 2131165312;
+
     private WeaponAdapter mAdapter;
     private ArrayList<Weapon> mWeapons = new ArrayList<>();
     private String[] mCategoryOfWeapons = {"Pistol", "Submachine gun", "Rifle", "Carbine", "Sniper rifle", "Machine gun", "Shotgun"};
@@ -118,6 +119,7 @@ public class WeaponActivity extends AppCompatActivity implements SearchView.OnQu
                 for (int i = 0; i < mWeapons.size(); i++) {
                     if (mWeapons.get(i).getTitle().equals(title)) {
                         Gson gson = new Gson();
+                        mWeapons.get(i).setDrawable(STAR_DRAWABLE_CODE);
                         if (sharedValue.equals("")) {
                             sharedValue += "[" + gson.toJson(mWeapons.get(i));
                             sharedValue = new StringBuffer(sharedValue).insert(sharedValue.length(), "]").toString();
@@ -190,12 +192,9 @@ public class WeaponActivity extends AppCompatActivity implements SearchView.OnQu
 
                                         for (int i = 0; i < mWeapons.size(); i++) {
                                             if (sharedValue.contains(mWeapons.get(i).getImageUrl())) {
-                                                Log.d(TAG, "onSuccess: FAVORITE " + mWeapons.get(i).getTitle());
                                                 mWeapons.get(i).setDrawable(R.drawable.ic_star_black_24dp);
-                                                Log.d(TAG, "onSuccess: " + mWeapons.get(i).getDrawable());
                                             } else {
                                                 mWeapons.get(i).setDrawable(R.drawable.ic_star_border_black_24dp);
-                                                Log.d(TAG, "onSuccess: " + mWeapons.get(i).getDrawable());
                                             }
                                         }
                                         Log.d(TAG, "onSuccess: " + sharedValue);
