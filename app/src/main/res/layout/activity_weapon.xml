@@ -38,6 +38,14 @@
         android:textColor="@color/blackTextColor"
         android:visibility="invisible" />
 
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:theme="@style/CustomProgressBar"
+        android:visibility="visible"/>
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"

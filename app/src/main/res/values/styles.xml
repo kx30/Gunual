@@ -14,4 +14,8 @@
         <item name="android:titleTextColor">@color/colorWhite</item>
     </style>
 
+    <style name="CustomProgressBar" parent="android:Widget.ProgressBar.Horizontal">
+        <item name="colorAccent">@color/colorBlack</item>
+    </style>
+
 </resources>

@@ -20,6 +20,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -44,6 +45,7 @@ public class WeaponActivity extends AppCompatActivity implements SearchView.OnQu
     private String[] mCategoryOfWeapons = {"Pistol", "Submachine gun", "Rifle", "Carbine", "Sniper rifle", "Machine gun", "Shotgun"};
     private SharedPreferences mSharedPreferences;
     private FirebaseFirestore db;
+    private ProgressBar mProgressBar;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -91,6 +93,7 @@ public class WeaponActivity extends AppCompatActivity implements SearchView.OnQu
 
         initToolbar();
 
+        mProgressBar = findViewById(R.id.progress_bar);
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
         initRecyclerView(recyclerView);
 
@@ -159,7 +162,7 @@ public class WeaponActivity extends AppCompatActivity implements SearchView.OnQu
                                         Log.d(TAG, "onSuccess: " + sharedValue);
 
                                         mAdapter.notifyDataSetChanged();
-
+                                        mProgressBar.setVisibility(View.GONE);
                                     }
                                 }
                             })

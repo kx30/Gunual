@@ -39,12 +39,6 @@ public class CategoryActivity extends AppCompatActivity {
                 Intent favoriteIntent = new Intent(this, FavoriteActivity.class);
                 startActivity(favoriteIntent);
                 break;
-            case R.id.action_compare:
-                Toast.makeText(this, "to compare", Toast.LENGTH_SHORT).show();
-                break;
-            case R.id.action_settings:
-                Toast.makeText(this, "settings", Toast.LENGTH_SHORT).show();
-                break;
             case R.id.action_about_us:
                 Intent aboutIntent = new Intent(this, AboutUsActivity.class);
                 startActivity(aboutIntent);
