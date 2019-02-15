@@ -5,14 +5,12 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
@@ -27,19 +25,19 @@ public class WeaponAdapter extends RecyclerView.Adapter<WeaponAdapter.ViewHolder
     private ArrayList<Weapon> mWeapons;
     private String mExtra;
 
-    private boolean ifThereIsExtra;
+    private boolean mWeaponActivity;
 
     public WeaponAdapter(Context context, ArrayList<Weapon> weapons, String extra) {
         mContext = context;
         mWeapons = weapons;
         mExtra = extra;
-        ifThereIsExtra = true;
+        mWeaponActivity = true;
     }
 
     public WeaponAdapter(Context context, ArrayList<Weapon> weapons) {
         mContext = context;
         mWeapons = weapons;
-        ifThereIsExtra = false;
+        mWeaponActivity = false;
     }
 
 
@@ -67,11 +65,8 @@ public class WeaponAdapter extends RecyclerView.Adapter<WeaponAdapter.ViewHolder
                     .into(viewHolder.mImage);
         }
 
-        if (ifThereIsExtra) {
-            viewHolder.mStar.setImageResource(mWeapons.get(i).getDrawable());
-        } else {
-            viewHolder.mStar.setImageResource(R.drawable.favorite_star);
-        }
+        viewHolder.mStar.setImageResource(mWeapons.get(i).getDrawable());
+
 
         viewHolder.mStar.setOnClickListener(new View.OnClickListener() {
             SharedPreferences sharedPreferences = mContext.getSharedPreferences("value", Context.MODE_PRIVATE);
@@ -81,45 +76,31 @@ public class WeaponAdapter extends RecyclerView.Adapter<WeaponAdapter.ViewHolder
             public void onClick(View view) {
                 if (mWeapons.get(i).getDrawable() == R.drawable.favorite_star) {
 
-                    Toast.makeText(mContext, "It is favorite", Toast.LENGTH_SHORT).show();
                     Gson gson = new Gson();
                     String weaponPosition = gson.toJson(mWeapons.get(i));
-
-                    Log.d(TAG, "onClick: " + sharedValue);
-                    Log.d(TAG, "onClick: " + weaponPosition);
 
                     if (sharedValue.contains(weaponPosition)) {
                         // If first object in string
                         if (sharedValue.indexOf(weaponPosition) - 1 == 0) {
-                            Log.d(TAG, "onClick: First favorite");
                             sharedValue = sharedValue.replace(weaponPosition, "");
                             if (sharedValue.charAt(1) == ',') {
-                                Log.d(TAG, "onClick: Isn't last element");
                                 sharedValue = sharedValue.substring(2);
                                 sharedValue = "[" + sharedValue;
-                                Log.d(TAG, "onClick: " + sharedValue);
                             } else {
                                 sharedValue = "";
                             }
-                            Log.d(TAG, "onClick: " + sharedValue);
                         } else if (sharedValue.charAt(sharedValue.indexOf(weaponPosition) + weaponPosition.length()) == ']') {
                             // If last object in string
-                            Log.d(TAG, "onClick: last element");
                             sharedValue = sharedValue.replace(weaponPosition, "");
                             sharedValue = sharedValue.substring(0, sharedValue.length() - 2);
                             sharedValue = new StringBuffer(sharedValue).insert(sharedValue.length(), "]").toString();
-                            Log.d(TAG, "onClick: " + sharedValue);
                         } else {
                             sharedValue = sharedValue.substring(0, sharedValue.indexOf(weaponPosition)) +
                                     sharedValue.substring(
                                             sharedValue.indexOf(weaponPosition) + weaponPosition.length() + 1,
                                             sharedValue.length());
                         }
-                        SharedPreferences.Editor editor = sharedPreferences.edit();
-                        editor.putString("favorites", sharedValue);
-                        editor.apply();
                         mWeapons.get(i).setDrawable(R.drawable.unfavorite_star);
-                        notifyDataSetChanged();
                     }
                 } else {
                     Gson gson = new Gson();
@@ -133,12 +114,11 @@ public class WeaponAdapter extends RecyclerView.Adapter<WeaponAdapter.ViewHolder
                         sharedValue += gson.toJson(mWeapons.get(i));
                         sharedValue = new StringBuffer(sharedValue).insert(sharedValue.length(), "]").toString();
                     }
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putString("favorites", sharedValue);
-                    editor.apply();
-                    notifyDataSetChanged();
-                    Log.d(TAG, "onActivityResult: " + sharedValue);
                 }
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString("favorites", sharedValue);
+                editor.apply();
+                notifyDataSetChanged();
             }
         });
 
@@ -146,7 +126,7 @@ public class WeaponAdapter extends RecyclerView.Adapter<WeaponAdapter.ViewHolder
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(mContext, InformationActivity.class);
-                if (ifThereIsExtra) {
+                if (mWeaponActivity) {
                     intent.putExtra("weapon", mExtra);
                 }
                 intent.putExtra("title", mWeapons.get(i).getTitle());
@@ -161,11 +141,8 @@ public class WeaponAdapter extends RecyclerView.Adapter<WeaponAdapter.ViewHolder
                 intent.putExtra("weight", mWeapons.get(i).getWeight());
                 intent.putExtra("description", mWeapons.get(i).getDescription());
                 intent.putExtra("image_url", mWeapons.get(i).getImageUrl());
-                if (ifThereIsExtra) {
-                    ((WeaponActivity) mContext).startActivityForResult(intent, 1);
-                } else {
-                    mContext.startActivity(intent);
-                }
+
+                mContext.startActivity(intent);
             }
         });
     }

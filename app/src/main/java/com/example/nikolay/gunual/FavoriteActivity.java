@@ -20,6 +20,7 @@ import java.util.Comparator;
 public class FavoriteActivity extends AppCompatActivity {
 
     private static final String TAG = "FavoriteActivity";
+    private WeaponAdapter mAdapter;
 
     private ArrayList<Weapon> mWeapons = new ArrayList<>();
 
@@ -87,8 +88,8 @@ public class FavoriteActivity extends AppCompatActivity {
     }
 
     private void initRecyclerView(RecyclerView recyclerView) {
-        WeaponAdapter adapter = new WeaponAdapter(this, mWeapons);
-        recyclerView.setAdapter(adapter);
+        mAdapter = new WeaponAdapter(this, mWeapons);
+        recyclerView.setAdapter(mAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         Log.d(TAG, "initRecyclerView: recycler view initialized");
     }

@@ -38,7 +38,6 @@ import java.util.List;
 public class WeaponActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
 
     private static final String TAG = "WeaponActivity";
-    public static final int STAR_DRAWABLE_CODE = 2131165312;
 
     private WeaponAdapter mAdapter;
     private ArrayList<Weapon> mWeapons = new ArrayList<>();
@@ -102,45 +101,6 @@ public class WeaponActivity extends AppCompatActivity implements SearchView.OnQu
         addItems();
 
         Log.d(TAG, "onCreate: started.");
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        SharedPreferences sharedPreferences = getSharedPreferences("value", MODE_PRIVATE);
-        String sharedValue = sharedPreferences.getString("favorites", "");
-
-        if (requestCode == 1) {
-            if (resultCode == Activity.RESULT_OK) {
-                String title = data.getStringExtra("title");
-                Toast.makeText(this, title, Toast.LENGTH_SHORT).show();
-                for (int i = 0; i < mWeapons.size(); i++) {
-                    if (mWeapons.get(i).getTitle().equals(title)) {
-                        Gson gson = new Gson();
-                        mWeapons.get(i).setDrawable(STAR_DRAWABLE_CODE);
-                        if (sharedValue.equals("")) {
-                            sharedValue += "[" + gson.toJson(mWeapons.get(i));
-                            sharedValue = new StringBuffer(sharedValue).insert(sharedValue.length(), "]").toString();
-                        } else {
-                            sharedValue = sharedValue.substring(0, sharedValue.length() - 1);
-                            sharedValue = new StringBuffer(sharedValue).insert(sharedValue.length(), ",").toString();
-                            sharedValue += gson.toJson(mWeapons.get(i));
-                            sharedValue = new StringBuffer(sharedValue).insert(sharedValue.length(), "]").toString();
-                        }
-                        SharedPreferences.Editor editor = sharedPreferences.edit();
-                        editor.putString("favorites", sharedValue);
-                        editor.apply();
-                        mAdapter.notifyDataSetChanged();
-                        Log.d(TAG, "onActivityResult: " + sharedValue);
-                    }
-                }
-            }
-            if (resultCode == Activity.RESULT_CANCELED) {
-                Toast.makeText(this, "Not a favorite", Toast.LENGTH_SHORT).show();
-            }
-        }
-
     }
 
     private void initToolbar() {

@@ -1,20 +1,14 @@
 package com.example.nikolay.gunual;
 
-import android.app.Activity;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TableRow;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
@@ -43,40 +37,7 @@ public class InformationActivity extends AppCompatActivity {
             finish();
         }
 
-        if (item.getItemId() == R.id.add_to_favorite) {
-            String title = "", imageUrl = "";
-            Bundle arguments = getIntent().getExtras();
-
-            title = arguments.get("title").toString();
-            imageUrl = arguments.get("image_url").toString();
-
-            SharedPreferences sharedPreferences = getSharedPreferences("value", MODE_PRIVATE);
-            String value = sharedPreferences.getString("favorites",     "");
-
-            Intent intent = new Intent();
-            intent.putExtra("title", title);
-
-            Log.d(TAG, "onOptionsItemSelected: " + value);
-            Log.d(TAG, "onOptionsItemSelected: " + imageUrl);
-
-            // If already added
-            if (value.toLowerCase().contains(imageUrl.toLowerCase())) {
-                setResult(Activity.RESULT_CANCELED, intent);
-                Toast.makeText(this, "Already added", Toast.LENGTH_SHORT).show();
-            } else {
-                setResult(Activity.RESULT_OK, intent);
-                Toast.makeText(this, "Added", Toast.LENGTH_SHORT).show();
-            }
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_add_to_favorite, menu);
-        return super.onCreateOptionsMenu(menu);
+        return true;
     }
 
     @Override
