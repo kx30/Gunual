@@ -70,19 +70,23 @@ public class WeaponAdapter extends RecyclerView.Adapter<WeaponAdapter.ViewHolder
         if (ifThereIsExtra) {
             viewHolder.mStar.setImageResource(mWeapons.get(i).getDrawable());
         } else {
-            viewHolder.mStar.setImageResource(R.drawable.ic_star_black_24dp);
+            viewHolder.mStar.setImageResource(R.drawable.favorite_star);
         }
 
         viewHolder.mStar.setOnClickListener(new View.OnClickListener() {
+            SharedPreferences sharedPreferences = mContext.getSharedPreferences("value", Context.MODE_PRIVATE);
+            String sharedValue = sharedPreferences.getString("favorites", "");
+
             @Override
             public void onClick(View view) {
-                if (mWeapons.get(i).getDrawable() == R.drawable.ic_star_black_24dp) {
-                    SharedPreferences sharedPreferences = mContext.getSharedPreferences("value", Context.MODE_PRIVATE);
-                    String sharedValue = sharedPreferences.getString("favorites", "");
+                if (mWeapons.get(i).getDrawable() == R.drawable.favorite_star) {
 
                     Toast.makeText(mContext, "It is favorite", Toast.LENGTH_SHORT).show();
                     Gson gson = new Gson();
                     String weaponPosition = gson.toJson(mWeapons.get(i));
+
+                    Log.d(TAG, "onClick: " + sharedValue);
+                    Log.d(TAG, "onClick: " + weaponPosition);
 
                     if (sharedValue.contains(weaponPosition)) {
                         // If first object in string
@@ -114,11 +118,27 @@ public class WeaponAdapter extends RecyclerView.Adapter<WeaponAdapter.ViewHolder
                         SharedPreferences.Editor editor = sharedPreferences.edit();
                         editor.putString("favorites", sharedValue);
                         editor.apply();
+                        mWeapons.get(i).setDrawable(R.drawable.unfavorite_star);
+                        notifyDataSetChanged();
                     }
                 } else {
-                    Toast.makeText(mContext, "It is not a favorite", Toast.LENGTH_SHORT).show();
+                    Gson gson = new Gson();
+                    mWeapons.get(i).setDrawable(R.drawable.favorite_star);
+                    if (sharedValue.equals("")) {
+                        sharedValue += "[" + gson.toJson(mWeapons.get(i));
+                        sharedValue = new StringBuffer(sharedValue).insert(sharedValue.length(), "]").toString();
+                    } else {
+                        sharedValue = sharedValue.substring(0, sharedValue.length() - 1);
+                        sharedValue = new StringBuffer(sharedValue).insert(sharedValue.length(), ",").toString();
+                        sharedValue += gson.toJson(mWeapons.get(i));
+                        sharedValue = new StringBuffer(sharedValue).insert(sharedValue.length(), "]").toString();
+                    }
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString("favorites", sharedValue);
+                    editor.apply();
+                    notifyDataSetChanged();
+                    Log.d(TAG, "onActivityResult: " + sharedValue);
                 }
-                Log.d(TAG, "onClick: " + mWeapons.get(i).getDrawable());
             }
         });
 

@@ -9,7 +9,6 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -129,10 +128,10 @@ public class WeaponActivity extends AppCompatActivity implements SearchView.OnQu
                             sharedValue += gson.toJson(mWeapons.get(i));
                             sharedValue = new StringBuffer(sharedValue).insert(sharedValue.length(), "]").toString();
                         }
-                        mSharedPreferences = getSharedPreferences("value", MODE_PRIVATE);
-                        SharedPreferences.Editor editor = mSharedPreferences.edit();
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
                         editor.putString("favorites", sharedValue);
                         editor.apply();
+                        mAdapter.notifyDataSetChanged();
                         Log.d(TAG, "onActivityResult: " + sharedValue);
                     }
                 }
@@ -192,9 +191,9 @@ public class WeaponActivity extends AppCompatActivity implements SearchView.OnQu
 
                                         for (int i = 0; i < mWeapons.size(); i++) {
                                             if (sharedValue.contains(mWeapons.get(i).getImageUrl())) {
-                                                mWeapons.get(i).setDrawable(R.drawable.ic_star_black_24dp);
+                                                mWeapons.get(i).setDrawable(R.drawable.favorite_star);
                                             } else {
-                                                mWeapons.get(i).setDrawable(R.drawable.ic_star_border_black_24dp);
+                                                mWeapons.get(i).setDrawable(R.drawable.unfavorite_star);
                                             }
                                         }
                                         Log.d(TAG, "onSuccess: " + sharedValue);
