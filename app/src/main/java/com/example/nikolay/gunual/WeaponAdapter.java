@@ -1,5 +1,6 @@
 package com.example.nikolay.gunual;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -46,7 +47,6 @@ public class WeaponAdapter extends RecyclerView.Adapter<WeaponAdapter.ViewHolder
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.weapon_item, viewGroup, false);
         ViewHolder holder = new ViewHolder(view);
-//        Log.d(TAG, "onCreateViewHolder: created.");
 
         return holder;
     }
@@ -142,7 +142,7 @@ public class WeaponAdapter extends RecyclerView.Adapter<WeaponAdapter.ViewHolder
                 intent.putExtra("description", mWeapons.get(i).getDescription());
                 intent.putExtra("image_url", mWeapons.get(i).getImageUrl());
 
-                mContext.startActivity(intent);
+                ((Activity) mContext).startActivityForResult(intent, 1);
             }
         });
     }

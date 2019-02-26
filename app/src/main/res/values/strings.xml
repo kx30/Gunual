@@ -27,5 +27,6 @@
 
     <string name="email">gunual@gmail.com</string>
     <string name="phone_number" tools:ignore="TypographyDashes">+7-999-999-99-99</string>
+    <string name="add_to_favorite">Add to favorite</string>
 
 </resources>

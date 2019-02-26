@@ -4,11 +4,14 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
@@ -37,6 +40,17 @@ public class InformationActivity extends AppCompatActivity {
             finish();
         }
 
+        if (item.getItemId() == R.id.add_to_favorite) {
+            Toast.makeText(this, "Added!", Toast.LENGTH_SHORT).show();
+        }
+
+        return true;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.information_menu, menu);
         return true;
     }
 
@@ -128,41 +142,41 @@ public class InformationActivity extends AppCompatActivity {
     private void isFieldEmpty() {
 
         if (mWeightTextView.getText().equals("")) {
-            TableRow weightTableRow = (TableRow) findViewById(R.id.weight_table_row);
+            TableRow weightTableRow = findViewById(R.id.weight_table_row);
             weightTableRow.setVisibility(View.GONE);
         }
 
         if (mYearOfProductionTextView.getText().equals("")) {
-            TableRow yearOfProductionTableRow = (TableRow) findViewById(R.id.year_of_production_table_row);
+            TableRow yearOfProductionTableRow = findViewById(R.id.year_of_production_table_row);
             yearOfProductionTableRow.setVisibility(View.GONE);
         }
 
         if (mTypeOfBulletTextView.getText().equals("")) {
-            TableRow typeOfBulletTableRow = (TableRow) findViewById(R.id.type_of_bullet_table_row);
+            TableRow typeOfBulletTableRow = findViewById(R.id.type_of_bullet_table_row);
             typeOfBulletTableRow.setVisibility(View.GONE);
         }
 
         if (mMuzzleVelocityTextView.getText().equals("")) {
-            TableRow muzzleVelocityTableRow = (TableRow) findViewById(R.id.muzzle_velocity_table_row);
+            TableRow muzzleVelocityTableRow = findViewById(R.id.muzzle_velocity_table_row);
             muzzleVelocityTableRow.setVisibility(View.GONE);
         }
 
         if (mEffectiveRangeTextView.getText().equals("")) {
-            TableRow effectiveRangeTableRow = (TableRow) findViewById(R.id.effective_range_table_row);
+            TableRow effectiveRangeTableRow = findViewById(R.id.effective_range_table_row);
             effectiveRangeTableRow.setVisibility(View.GONE);
         }
 
         if (mFeedSystemTextView.getText().equals("")) {
-            TableRow feedSystemTableRow = (TableRow) findViewById(R.id.feed_system_table_row);
+            TableRow feedSystemTableRow = findViewById(R.id.feed_system_table_row);
             feedSystemTableRow.setVisibility(View.GONE);
         }
         if (mLengthTextView.getText().equals("")) {
-            TableRow lengthTableRow = (TableRow) findViewById(R.id.length_table_row);
+            TableRow lengthTableRow = findViewById(R.id.length_table_row);
             lengthTableRow.setVisibility(View.GONE);
         }
 
         if (mBarrelLengthTextView.getText().equals("")) {
-            TableRow barrelLengthTableRow = (TableRow) findViewById(R.id.barrel_length_table_row);
+            TableRow barrelLengthTableRow = findViewById(R.id.barrel_length_table_row);
             barrelLengthTableRow.setVisibility(View.GONE);
         }
 

@@ -1,6 +1,5 @@
 package com.example.nikolay.gunual;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -8,7 +7,6 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -29,7 +27,6 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -43,7 +40,6 @@ public class WeaponActivity extends AppCompatActivity implements SearchView.OnQu
     private WeaponAdapter mAdapter;
     private ArrayList<Weapon> mWeapons = new ArrayList<>();
     private String[] mCategoryOfWeapons = {"Pistol", "Submachine gun", "Rifle", "Carbine", "Sniper rifle", "Machine gun", "Shotgun"};
-    private SharedPreferences mSharedPreferences;
     private FirebaseFirestore db;
     private ProgressBar mProgressBar;
 
@@ -153,10 +149,14 @@ public class WeaponActivity extends AppCompatActivity implements SearchView.OnQu
                                         String sharedValue = sharedPreferences.getString("favorites", "");
 
                                         for (int i = 0; i < mWeapons.size(); i++) {
-                                            if (sharedValue.contains(mWeapons.get(i).getImageUrl())) {
-                                                mWeapons.get(i).setDrawable(R.drawable.favorite_star);
-                                            } else {
-                                                mWeapons.get(i).setDrawable(R.drawable.unfavorite_star);
+                                            try {
+                                                if (sharedValue.contains(mWeapons.get(i).getImageUrl())) {
+                                                    mWeapons.get(i).setDrawable(R.drawable.favorite_star);
+                                                } else {
+                                                    mWeapons.get(i).setDrawable(R.drawable.unfavorite_star);
+                                                }
+                                            } catch (Exception e) {
+                                                Log.d(TAG, "onSuccess: ERROR " + mWeapons.get(i).getTitle() + mWeapons.get(i)   );
                                             }
                                         }
                                         Log.d(TAG, "onSuccess: " + sharedValue);
