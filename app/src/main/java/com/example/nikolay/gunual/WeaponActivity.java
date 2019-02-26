@@ -94,6 +94,12 @@ public class WeaponActivity extends AppCompatActivity implements SearchView.OnQu
                 for (int i = 0; i < mWeapons.size(); i++) {
                     if (data.getStringExtra("url").equals(mWeapons.get(i).getImageUrl())) {
 
+                        SharedPreferences sharedPreferences = getSharedPreferences("value", Context.MODE_PRIVATE);
+                        String sharedValue = sharedPreferences.getString("favorites", "");
+
+                        Gson gson = new Gson();
+                        String weaponPosition = gson.toJson(mWeapons.get(i));
+
                         if (!isFavorite) {
                             if (sharedValue.contains(weaponPosition)) {
                                 // If first object in string
