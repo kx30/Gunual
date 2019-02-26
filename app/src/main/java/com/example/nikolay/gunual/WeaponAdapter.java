@@ -20,25 +20,19 @@ import java.util.ArrayList;
 
 public class WeaponAdapter extends RecyclerView.Adapter<WeaponAdapter.ViewHolder> {
 
-    private static final String TAG = "WeaponAdapter";
-
     private Context mContext;
     private ArrayList<Weapon> mWeapons;
     private String mExtra;
-
-    private boolean mWeaponActivity;
 
     public WeaponAdapter(Context context, ArrayList<Weapon> weapons, String extra) {
         mContext = context;
         mWeapons = weapons;
         mExtra = extra;
-        mWeaponActivity = true;
     }
 
     public WeaponAdapter(Context context, ArrayList<Weapon> weapons) {
         mContext = context;
         mWeapons = weapons;
-        mWeaponActivity = false;
     }
 
 
@@ -126,9 +120,7 @@ public class WeaponAdapter extends RecyclerView.Adapter<WeaponAdapter.ViewHolder
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(mContext, InformationActivity.class);
-                if (mWeaponActivity) {
-                    intent.putExtra("weapon", mExtra);
-                }
+                intent.putExtra("weapon", mExtra);
                 intent.putExtra("title", mWeapons.get(i).getTitle());
                 intent.putExtra("country", mWeapons.get(i).getCountry());
                 intent.putExtra("year_of_production", mWeapons.get(i).getYearOfProduction());
@@ -141,6 +133,7 @@ public class WeaponAdapter extends RecyclerView.Adapter<WeaponAdapter.ViewHolder
                 intent.putExtra("weight", mWeapons.get(i).getWeight());
                 intent.putExtra("description", mWeapons.get(i).getDescription());
                 intent.putExtra("image_url", mWeapons.get(i).getImageUrl());
+                intent.putExtra("drawable", mWeapons.get(i).getDrawable());
 
                 ((Activity) mContext).startActivityForResult(intent, 1);
             }

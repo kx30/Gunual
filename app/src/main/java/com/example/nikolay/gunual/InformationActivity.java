@@ -1,5 +1,6 @@
 package com.example.nikolay.gunual;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -14,6 +15,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+
+import java.util.ArrayList;
 
 public class InformationActivity extends AppCompatActivity {
 
@@ -33,17 +36,34 @@ public class InformationActivity extends AppCompatActivity {
 
     private ImageView mImageView;
 
+    private ArrayList<Weapon> mWeapons = new ArrayList<>();
+    private WeaponAdapter mAdapter;
+
+    private boolean isFavorite;
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
         if (item.getItemId() == android.R.id.home) {
             finish();
         }
 
         if (item.getItemId() == R.id.add_to_favorite) {
-            Toast.makeText(this, "Added!", Toast.LENGTH_SHORT).show();
+            if (isFavorite) {
+                Toast.makeText(this, "Remove from favorite", Toast.LENGTH_SHORT).show();
+                isFavorite = false;
+                item.setTitle(R.string.remove_from_favorites);
+            } else {
+                Toast.makeText(this, "Added to favorite", Toast.LENGTH_SHORT).show();
+                isFavorite = true;
+                item.setTitle(R.string.add_to_favorite);
+            }
+            Bundle arguments = getIntent().getExtras();
+            String imageUrl = arguments.get("image_url").toString();
+            Intent intent = new Intent();
+            intent.putExtra("isFavorite", isFavorite);
+            intent.putExtra("url", imageUrl);
+            setResult(RESULT_OK, intent);
         }
-
         return true;
     }
 
@@ -51,6 +71,19 @@ public class InformationActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.information_menu, menu);
+
+        Bundle argument = getIntent().getExtras();
+        Integer drawable = argument.getInt("drawable");
+
+        MenuItem addToFavorite = menu.findItem(R.id.add_to_favorite);
+        if (drawable == R.drawable.favorite_star) {
+            addToFavorite.setTitle(R.string.remove_from_favorites);
+            isFavorite = true;
+        } else {
+            addToFavorite.setTitle(R.string.add_to_favorite);
+            isFavorite = false;
+        }
+
         return true;
     }
 

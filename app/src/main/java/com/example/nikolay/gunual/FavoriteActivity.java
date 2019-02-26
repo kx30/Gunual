@@ -1,7 +1,10 @@
 package com.example.nikolay.gunual;
 
+import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -32,6 +35,72 @@ public class FavoriteActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == 1) {
+            if (resultCode == RESULT_OK) {
+                boolean isFavorite = data.getBooleanExtra("isFavorite", false);
+                for (int i = 0; i < mWeapons.size(); i++) {
+                    if (data.getStringExtra("url").equals(mWeapons.get(i).getImageUrl())) {
+
+                        SharedPreferences sharedPreferences = getSharedPreferences("value", Context.MODE_PRIVATE);
+                        String sharedValue = sharedPreferences.getString("favorites", "");
+
+                        Gson gson = new Gson();
+                        String weaponPosition = gson.toJson(mWeapons.get(i));
+
+                        if (!isFavorite) {
+                            if (sharedValue.contains(weaponPosition)) {
+                                // If first object in string
+                                if (sharedValue.indexOf(weaponPosition) - 1 == 0) {
+                                    sharedValue = sharedValue.replace(weaponPosition, "");
+                                    if (sharedValue.charAt(1) == ',') {
+                                        sharedValue = sharedValue.substring(2);
+                                        sharedValue = "[" + sharedValue;
+                                    } else {
+                                        sharedValue = "";
+                                    }
+                                } else if (sharedValue.charAt(sharedValue.indexOf(weaponPosition) + weaponPosition.length()) == ']') {
+                                    // If last object in string
+                                    sharedValue = sharedValue.replace(weaponPosition, "");
+                                    sharedValue = sharedValue.substring(0, sharedValue.length() - 2);
+                                    sharedValue = new StringBuffer(sharedValue).insert(sharedValue.length(), "]").toString();
+                                } else {
+                                    sharedValue = sharedValue.substring(0, sharedValue.indexOf(weaponPosition)) +
+                                            sharedValue.substring(
+                                                    sharedValue.indexOf(weaponPosition) + weaponPosition.length() + 1,
+                                                    sharedValue.length());
+                                }
+                                mWeapons.get(i).setDrawable(R.drawable.unfavorite_star);
+                            }
+                        } else {
+                            mWeapons.get(i).setDrawable(R.drawable.favorite_star);
+                            if (sharedValue.equals("")) {
+                                sharedValue += "[" + gson.toJson(mWeapons.get(i));
+                                sharedValue = new StringBuffer(sharedValue).insert(sharedValue.length(), "]").toString();
+                            } else {
+                                sharedValue = sharedValue.substring(0, sharedValue.length() - 1);
+                                sharedValue = new StringBuffer(sharedValue).insert(sharedValue.length(), ",").toString();
+                                sharedValue += gson.toJson(mWeapons.get(i));
+                                sharedValue = new StringBuffer(sharedValue).insert(sharedValue.length(), "]").toString();
+                            }
+                        }
+
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putString("favorites", sharedValue);
+                        editor.apply();
+                        mAdapter.notifyDataSetChanged();
+
+                    }
+                }
+                Log.d(TAG, "onActivityResult: " + isFavorite);
+            }
+        }
+
     }
 
     @Override
