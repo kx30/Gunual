@@ -30,7 +30,8 @@
             android:name=".InformationActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".AboutUsActivity" />
-        <activity android:name=".FavoriteActivity"></activity>
+        <activity android:name=".FavoriteActivity" />
+        <activity android:name=".browser.BrowserActivity"></activity>
     </application>
 
 </manifest>

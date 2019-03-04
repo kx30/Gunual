@@ -16,8 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-
-import java.util.ArrayList;
+import com.example.nikolay.gunual.browser.BrowserActivity;
 
 public class InformationActivity extends AppCompatActivity {
 
@@ -46,10 +45,15 @@ public class InformationActivity extends AppCompatActivity {
         }
 
         if (item.getItemId() == R.id.buy_the_gun) {
+
             Bundle arguments = getIntent().getExtras();
             String title = arguments.getString("title");
-            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.gunbroker.com/All/search?Keywords=" + title.replaceAll(" ", "%20")));
-            startActivity(browserIntent);
+            String url = "https://www.gunbroker.com/All/search?Keywords=" + title.replaceAll(" ", "%20");
+            Intent intent = new Intent(this, BrowserActivity.class);
+            intent.putExtra("url", url);
+            startActivity(intent);
+//            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.gunbroker.com/All/search?Keywords=" + title.replaceAll(" ", "%20")));
+//            startActivity(browserIntent);
         }
 
         if (item.getItemId() == R.id.buy_ammo) {
@@ -61,7 +65,7 @@ public class InformationActivity extends AppCompatActivity {
                 Log.d(TAG, "onOptionsItemSelected: " + e);
             }
             Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.cheaperthandirt.com/search.do?query=" + typeOfBullet.replaceAll("×", "x") + "%20ammo"));
-            startActivity(browserIntent);   
+            startActivity(browserIntent);
         }
 
         if (item.getItemId() == R.id.add_to_favorite) {
