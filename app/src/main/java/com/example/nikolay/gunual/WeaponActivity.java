@@ -187,7 +187,6 @@ public class WeaponActivity extends AppCompatActivity implements SearchView.OnQu
 
             for (int i = 0; i < mCategoryOfWeapons.length; i++) {
                 if (value.equals(mCategoryOfWeapons[i])) {
-                    Toast.makeText(this, mCategoryOfWeapons[i], Toast.LENGTH_SHORT).show();
                     db.collection("weapons")
                             .document("kind_of_weapon")
                             .collection(value)

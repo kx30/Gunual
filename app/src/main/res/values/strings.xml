@@ -29,5 +29,7 @@
     <string name="phone_number" tools:ignore="TypographyDashes">+7-999-999-99-99</string>
     <string name="add_to_favorite">Add to favorite</string>
     <string name="remove_from_favorites">Remove from favorites</string>
+    <string name="buy_the_gun">Buy the gun</string>
+    <string name="buy_ammo">Buy ammo</string>
 
 </resources>

@@ -1,6 +1,7 @@
 package com.example.nikolay.gunual;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -36,15 +37,31 @@ public class InformationActivity extends AppCompatActivity {
 
     private ImageView mImageView;
 
-    private ArrayList<Weapon> mWeapons = new ArrayList<>();
-    private WeaponAdapter mAdapter;
-
     private boolean isFavorite;
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
             finish();
+        }
+
+        if (item.getItemId() == R.id.buy_the_gun) {
+            Bundle arguments = getIntent().getExtras();
+            String title = arguments.getString("title");
+            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.gunbroker.com/All/search?Keywords=" + title.replaceAll(" ", "%20")));
+            startActivity(browserIntent);
+        }
+
+        if (item.getItemId() == R.id.buy_ammo) {
+            Bundle arguments = getIntent().getExtras();
+            String typeOfBullet = arguments.getString("type_of_bullet");
+            try {
+                typeOfBullet = typeOfBullet.substring(0, typeOfBullet.indexOf("/"));
+            } catch (Exception e) {
+                Log.d(TAG, "onOptionsItemSelected: " + e);
+            }
+            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.cheaperthandirt.com/search.do?query=" + typeOfBullet.replaceAll("×", "x") + "%20ammo"));
+            startActivity(browserIntent);   
         }
 
         if (item.getItemId() == R.id.add_to_favorite) {
@@ -79,9 +96,6 @@ public class InformationActivity extends AppCompatActivity {
         if (drawable == R.drawable.favorite_star) {
             addToFavorite.setTitle(R.string.remove_from_favorites);
             isFavorite = true;
-        } else {
-            addToFavorite.setTitle(R.string.add_to_favorite);
-            isFavorite = false;
         }
 
         return true;
@@ -148,14 +162,19 @@ public class InformationActivity extends AppCompatActivity {
         imageUrl = arguments.get("image_url").toString();
         description = arguments.get("description").toString();
 
-        if (imageUrl.equals("")) {
-            mImageView.setImageResource(R.drawable.not_available_image);
-        } else {
+
+        Glide.with(this)
+                .asBitmap()
+                .load("https:" + imageUrl)
+                .into(mImageView);
+
+        if (mImageView.getDrawable() == null) {
             Glide.with(this)
                     .asBitmap()
-                    .load("https:" + imageUrl)
+                    .load("http:" + imageUrl)
                     .into(mImageView);
         }
+
 
         mCountryTextView.setText(country);
         mTitleTextView.setText(title);
