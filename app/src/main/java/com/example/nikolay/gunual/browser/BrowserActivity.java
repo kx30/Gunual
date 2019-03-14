@@ -34,6 +34,7 @@ public class BrowserActivity extends AppCompatActivity {
 
         Bundle argument = getIntent().getExtras();
         String url = argument.getString("url");
+        Log.d(TAG, "onCreate: " + url);
 
         mWebView = findViewById(R.id.web_view);
         mWebView.setWebViewClient(new WebClient());

@@ -1,4 +1,4 @@
-package com.example.nikolay.gunual;
+package com.example.nikolay.gunual.category;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,6 +11,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.example.nikolay.gunual.R;
+import com.example.nikolay.gunual.weapon.WeaponActivity;
 
 import java.util.ArrayList;
 

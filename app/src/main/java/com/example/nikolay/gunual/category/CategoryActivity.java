@@ -1,4 +1,4 @@
-package com.example.nikolay.gunual;
+package com.example.nikolay.gunual.category;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,8 +10,10 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.ImageView;
-import android.widget.Toast;
+
+import com.example.nikolay.gunual.about_us.AboutUsActivity;
+import com.example.nikolay.gunual.favorite.FavoriteActivity;
+import com.example.nikolay.gunual.R;
 
 import java.util.ArrayList;
 

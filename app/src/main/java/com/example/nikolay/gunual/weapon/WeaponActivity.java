@@ -1,4 +1,4 @@
-package com.example.nikolay.gunual;
+package com.example.nikolay.gunual.weapon;
 
 import android.content.Context;
 import android.content.Intent;
@@ -23,6 +23,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.nikolay.gunual.R;
+import com.example.nikolay.gunual.Weapon;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -224,7 +226,7 @@ public class WeaponActivity extends AppCompatActivity implements SearchView.OnQu
                                                     mWeapons.get(i).setDrawable(R.drawable.unfavorite_star);
                                                 }
                                             } catch (Exception e) {
-                                                Log.d(TAG, "onSuccess: ERROR " + mWeapons.get(i).getTitle() + mWeapons.get(i)   );
+                                                Log.d(TAG, "onSuccess: ERROR " + mWeapons.get(i).getTitle() + mWeapons.get(i));
                                             }
                                         }
                                         Log.d(TAG, "onSuccess: " + sharedValue);

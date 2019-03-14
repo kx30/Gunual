@@ -8,14 +8,13 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/ic_launcher_foreground"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
-            android:name=".CategoryActivity"
+            android:name=".category.CategoryActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,13 +23,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".WeaponActivity"
+            android:name=".weapon.WeaponActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".InformationActivity"
+            android:name=".information.InformationActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".AboutUsActivity" />
-        <activity android:name=".FavoriteActivity" />
+        <activity android:name=".about_us.AboutUsActivity" />
+        <activity android:name=".favorite.FavoriteActivity" />
         <activity android:name=".browser.BrowserActivity"></activity>
     </application>
 

@@ -1,4 +1,4 @@
-package com.example.nikolay.gunual;
+package com.example.nikolay.gunual.favorite;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,6 +12,9 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 
+import com.example.nikolay.gunual.R;
+import com.example.nikolay.gunual.Weapon;
+import com.example.nikolay.gunual.weapon.WeaponAdapter;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 

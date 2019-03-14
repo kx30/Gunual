@@ -1,7 +1,6 @@
-package com.example.nikolay.gunual;
+package com.example.nikolay.gunual.information;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -10,12 +9,14 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.nikolay.gunual.R;
 import com.example.nikolay.gunual.browser.BrowserActivity;
 
 public class InformationActivity extends AppCompatActivity {
@@ -34,6 +35,9 @@ public class InformationActivity extends AppCompatActivity {
     private TextView mWeightTextView;
     private TextView mDescriptionTextView;
 
+    private Button mBuyTheGunButton;
+    private Button mBuyAmmoButton;
+
     private ImageView mImageView;
 
     private boolean isFavorite;
@@ -44,39 +48,15 @@ public class InformationActivity extends AppCompatActivity {
             finish();
         }
 
-        if (item.getItemId() == R.id.buy_the_gun) {
-
-            Bundle arguments = getIntent().getExtras();
-            String title = arguments.getString("title");
-            String url = "https://www.gunbroker.com/All/search?Keywords=" + title.replaceAll(" ", "%20");
-            Intent intent = new Intent(this, BrowserActivity.class);
-            intent.putExtra("url", url);
-            startActivity(intent);
-//            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.gunbroker.com/All/search?Keywords=" + title.replaceAll(" ", "%20")));
-//            startActivity(browserIntent);
-        }
-
-        if (item.getItemId() == R.id.buy_ammo) {
-            Bundle arguments = getIntent().getExtras();
-            String typeOfBullet = arguments.getString("type_of_bullet");
-            try {
-                typeOfBullet = typeOfBullet.substring(0, typeOfBullet.indexOf("/"));
-            } catch (Exception e) {
-                Log.d(TAG, "onOptionsItemSelected: " + e);
-            }
-            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.cheaperthandirt.com/search.do?query=" + typeOfBullet.replaceAll("×", "x") + "%20ammo"));
-            startActivity(browserIntent);
-        }
-
         if (item.getItemId() == R.id.add_to_favorite) {
             if (isFavorite) {
                 Toast.makeText(this, "Remove from favorite", Toast.LENGTH_SHORT).show();
+                item.setTitle(R.string.add_to_favorite);
                 isFavorite = false;
-                item.setTitle(R.string.remove_from_favorites);
             } else {
                 Toast.makeText(this, "Added to favorite", Toast.LENGTH_SHORT).show();
+                item.setTitle(R.string.remove_from_favorites);
                 isFavorite = true;
-                item.setTitle(R.string.add_to_favorite);
             }
             Bundle arguments = getIntent().getExtras();
             String imageUrl = arguments.get("image_url").toString();
@@ -144,6 +124,38 @@ public class InformationActivity extends AppCompatActivity {
         mWeightTextView = findViewById(R.id.weight_text_view);
         mDescriptionTextView = findViewById(R.id.description_text_view);
         mImageView = findViewById(R.id.image);
+
+        mBuyTheGunButton = findViewById(R.id.buy_gun_button);
+        mBuyTheGunButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Bundle arguments = getIntent().getExtras();
+                String title = arguments.getString("title");
+                String url = "https://www.gunbroker.com/All/search?Keywords=" + title.replaceAll(" ", "%20");
+                Intent intent = new Intent(InformationActivity.this, BrowserActivity.class);
+                intent.putExtra("url", url);
+                Log.d(TAG, "onClick: " + url);
+                startActivity(intent);
+            }
+        });
+
+        mBuyAmmoButton = findViewById(R.id.buy_ammo_button);
+        mBuyAmmoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Bundle arguments = getIntent().getExtras();
+                String typeOfBullet = arguments.getString("type_of_bullet");
+                try {
+                    typeOfBullet = typeOfBullet.substring(0, typeOfBullet.indexOf("/"));
+                } catch (Exception e) {
+                    Log.d(TAG, "onOptionsItemSelected: " + e);
+                }
+                String url = "https://www.cheaperthandirt.com/search.do?query=" + typeOfBullet.replaceAll("×", "x") + "%20ammo";
+                Intent intent = new Intent(InformationActivity.this, BrowserActivity.class);
+                intent.putExtra("url", url);
+                startActivity(intent);
+            }
+        });
     }
 
 

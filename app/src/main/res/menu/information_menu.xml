@@ -8,16 +8,4 @@
         android:title="@string/add_to_favorite"
         app:showAsAction="withText" />
 
-    <item
-        android:id="@+id/buy_the_gun"
-        android:orderInCategory="300"
-        android:title="@string/buy_the_gun"
-        app:showAsAction="withText" />
-
-    <item
-        android:id="@+id/buy_ammo"
-        android:orderInCategory="300"
-        android:title="@string/buy_ammo"
-        app:showAsAction="withText" />
-
 </menu>
