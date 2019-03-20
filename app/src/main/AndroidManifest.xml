@@ -13,6 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".sort.SortActivity"></activity>
         <activity
             android:name=".category.CategoryActivity"
             android:screenOrientation="portrait">
@@ -30,7 +31,7 @@
             android:screenOrientation="portrait" />
         <activity android:name=".about_us.AboutUsActivity" />
         <activity android:name=".favorite.FavoriteActivity" />
-        <activity android:name=".browser.BrowserActivity"></activity>
+        <activity android:name=".browser.BrowserActivity" />
     </application>
 
 </manifest>

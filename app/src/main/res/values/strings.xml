@@ -31,5 +31,7 @@
     <string name="remove_from_favorites">Remove from favorites</string>
     <string name="buy_the_gun">Buy the gun</string>
     <string name="buy_ammo">Buy ammo</string>
+    <string name="accept">Accept</string>
+    <string name="cancel">Cancel</string>
 
 </resources>

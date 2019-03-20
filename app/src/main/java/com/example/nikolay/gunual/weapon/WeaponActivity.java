@@ -8,6 +8,7 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -25,6 +26,7 @@ import android.widget.Toast;
 
 import com.example.nikolay.gunual.R;
 import com.example.nikolay.gunual.Weapon;
+import com.example.nikolay.gunual.sort.SortActivity;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -44,7 +46,9 @@ public class WeaponActivity extends AppCompatActivity implements SearchView.OnQu
     private WeaponAdapter mAdapter;
     private ArrayList<Weapon> mWeapons = new ArrayList<>();
     private String[] mCategoryOfWeapons = {"Pistol", "Submachine gun", "Rifle", "Carbine", "Sniper rifle", "Machine gun", "Shotgun"};
+    private FloatingActionButton mFloatingActionButton;
     private FirebaseFirestore db;
+    private RecyclerView mRecyclerView;
     private ProgressBar mProgressBar;
 
     @Override
@@ -146,8 +150,44 @@ public class WeaponActivity extends AppCompatActivity implements SearchView.OnQu
 
                     }
                 }
+            }
+        }
 
-                Log.d(TAG, "onActivityResult: " + isFavorite);
+        if (requestCode == 2) {
+            if (resultCode == RESULT_OK) {
+                ArrayList<Weapon> weapons = new ArrayList<>();
+                String country = data.getStringExtra("country");
+                String ammo = data.getStringExtra("ammo");
+
+                if (country != null && ammo != null) {
+                    for (int i = 0; i < mWeapons.size(); i++) {
+                        if (mWeapons.get(i).getCountry().equals(country) && mWeapons.get(i).getTypeOfBullet().contains(ammo)) {
+                            weapons.add(mWeapons.get(i));
+                        }
+                    }
+                } else if (country != null) {
+                    for (int i = 0; i < mWeapons.size(); i++) {
+                        if (mWeapons.get(i).getCountry().equals(country)) {
+                            weapons.add(mWeapons.get(i));
+                        }
+                    }
+                } else {
+                    for (int i = 0; i < mWeapons.size(); i++) {
+                        if (mWeapons.get(i).getTypeOfBullet().contains(ammo)) {
+                            weapons.add(mWeapons.get(i));
+                        }
+                    }
+                }
+                if (weapons.size() == 0) {
+                    Toast.makeText(this, "Nothing", Toast.LENGTH_SHORT).show();
+                }
+
+                mAdapter = new WeaponAdapter(this, weapons);
+                mRecyclerView.setAdapter(mAdapter);
+            } else if (resultCode == RESULT_CANCELED) {
+                Toast.makeText(this, "Canceled", Toast.LENGTH_SHORT).show();
+                mAdapter = new WeaponAdapter(this, mWeapons);
+                mRecyclerView.setAdapter(mAdapter);
             }
         }
 
@@ -157,14 +197,58 @@ public class WeaponActivity extends AppCompatActivity implements SearchView.OnQu
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_weapon);
+        mFloatingActionButton = findViewById(R.id.sort_button);
+        mFloatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                ArrayList<String> countries = new ArrayList<>();
+                ArrayList<String> ammo = new ArrayList<>();
+                countries.add(mWeapons.get(0).getCountry());
+                try {
+                    ammo.add(0, mWeapons.get(0).getTypeOfBullet());
+                } catch (Exception e) {
+                    ammo.add(0, mWeapons.get(0).getTypeOfBullet().substring(0, mWeapons.get(0).getTypeOfBullet().indexOf(" ")));
+                }
+
+                for (int i = 1; i < mWeapons.size(); i++) {
+                    for (int j = 0; j < countries.size(); j++) {
+                        if (!countries.contains(mWeapons.get(i).getCountry()) && !mWeapons.get(i).getCountry().equals("")) {
+                            countries.add(mWeapons.get(i).getCountry());
+                        }
+                    }
+                    for (int j = 0; j < ammo.size(); j++) {
+                        try {
+                            if (!ammo.contains(mWeapons.get(i).getTypeOfBullet().substring(0, mWeapons.get(i).getTypeOfBullet().indexOf(" ")))
+                                    && !mWeapons.get(i).getTypeOfBullet().substring(0, mWeapons.get(i).getTypeOfBullet().indexOf(" ")).equals("")) {
+                                ammo.add(mWeapons.get(i).getTypeOfBullet().substring(0, mWeapons.get(i).getTypeOfBullet().indexOf(" ")));
+                            }
+                        } catch (Exception e) {
+                            if (!ammo.contains(mWeapons.get(i).getTypeOfBullet()) && !mWeapons.get(i).getTypeOfBullet().equals("")) {
+                                ammo.add(mWeapons.get(i).getTypeOfBullet());
+                            }
+                        }
+                    }
+                }
+                Log.d(TAG, "onClick: " + ammo);
+                Log.d(TAG, "onClick: " + countries);
+
+                Log.d(TAG, "onClick: " + countries.size());
+
+                Intent intent = new Intent(WeaponActivity.this, SortActivity.class);
+                intent.putExtra("countries", countries);
+                intent.putExtra("ammo", ammo);
+                startActivityForResult(intent, 2);
+            }
+        });
 
         initToolbar();
 
         mProgressBar = findViewById(R.id.progress_bar);
-        RecyclerView recyclerView = findViewById(R.id.recycler_view);
-        initRecyclerView(recyclerView);
+        mRecyclerView = findViewById(R.id.recycler_view);
+        initRecyclerView();
 
-        swipeContent(recyclerView);
+        swipeContent();
 
         db = FirebaseFirestore.getInstance();
 
@@ -233,6 +317,7 @@ public class WeaponActivity extends AppCompatActivity implements SearchView.OnQu
 
                                         mAdapter.notifyDataSetChanged();
                                         mProgressBar.setVisibility(View.GONE);
+                                        mFloatingActionButton.show();
                                     }
                                 }
                             })
@@ -258,11 +343,11 @@ public class WeaponActivity extends AppCompatActivity implements SearchView.OnQu
         });
     }
 
-    private void initRecyclerView(RecyclerView recyclerView) {
+    private void initRecyclerView() {
         Log.d(TAG, "initRecyclerView: init recycler view");
         mAdapter = new WeaponAdapter(this, mWeapons, getExtra());
-        recyclerView.setAdapter(mAdapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 
     private String getExtra() {
@@ -289,13 +374,14 @@ public class WeaponActivity extends AppCompatActivity implements SearchView.OnQu
         return false;
     }
 
-    private void swipeContent(RecyclerView recyclerView) {
+    private void swipeContent() {
         ImageView noConnectionImageView = findViewById(R.id.no_connection_image_view);
         TextView noConnectionMainText = findViewById(R.id.no_connection_main_text);
         TextView noConnectionDescriptionText = findViewById(R.id.no_connection_description_text);
 
         if (!hasConnection(this)) {
-            recyclerView.setVisibility(View.INVISIBLE);
+            mRecyclerView.setVisibility(View.INVISIBLE);
+            mFloatingActionButton.hide();
             Log.d(TAG, "swipeContent: no connection");
 
             noConnectionImageView.setVisibility(View.VISIBLE);
@@ -303,12 +389,12 @@ public class WeaponActivity extends AppCompatActivity implements SearchView.OnQu
             noConnectionDescriptionText.setVisibility(View.VISIBLE);
         }
         if (hasConnection(this)) {
-            recyclerView.setVisibility(View.VISIBLE);
+            mRecyclerView.setVisibility(View.VISIBLE);
             Log.d(TAG, "swipeContent: connection!");
-
             noConnectionImageView.setVisibility(View.INVISIBLE);
             noConnectionMainText.setVisibility(View.INVISIBLE);
             noConnectionDescriptionText.setVisibility(View.INVISIBLE);
+
         }
     }
 }

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorGrey"
+    tools:context=".sort.SortActivity">
+
+
+    <include layout="@layout/toolbar" />
+
+    <Spinner
+        android:id="@+id/country_spinner"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@+id/toolbar"
+        android:layout_marginTop="2dp"
+        android:background="@color/colorPrimary">
+
+    </Spinner>
+
+    <Spinner
+        android:id="@+id/ammunition_spinner"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@+id/country_spinner"
+        android:layout_marginTop="2dp"
+        android:background="@color/colorPrimary">
+
+    </Spinner>
+
+    <Button
+        android:id="@+id/accept_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ammunition_spinner"
+        android:text="@string/accept" />
+
+    <Button
+        android:id="@+id/cancel_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/accept_button"
+        android:text="@string/cancel" />
+
+</RelativeLayout>
