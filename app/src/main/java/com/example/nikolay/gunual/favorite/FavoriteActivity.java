@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
-public class FavoriteActivity extends AppCompatActivity {
+public class FavoriteActivity extends AppCompatActivity implements FavoriteDAO {
 
     private static final String TAG = "FavoriteActivity";
     private WeaponAdapter mAdapter;
@@ -56,42 +56,8 @@ public class FavoriteActivity extends AppCompatActivity {
                         Gson gson = new Gson();
                         String weaponPosition = gson.toJson(mWeapons.get(i));
 
-                        if (!isFavorite) {
-                            if (sharedValue.contains(weaponPosition)) {
-                                // If first object in string
-                                if (sharedValue.indexOf(weaponPosition) - 1 == 0) {
-                                    sharedValue = sharedValue.replace(weaponPosition, "");
-                                    if (sharedValue.charAt(1) == ',') {
-                                        sharedValue = sharedValue.substring(2);
-                                        sharedValue = "[" + sharedValue;
-                                    } else {
-                                        sharedValue = "";
-                                    }
-                                } else if (sharedValue.charAt(sharedValue.indexOf(weaponPosition) + weaponPosition.length()) == ']') {
-                                    // If last object in string
-                                    sharedValue = sharedValue.replace(weaponPosition, "");
-                                    sharedValue = sharedValue.substring(0, sharedValue.length() - 2);
-                                    sharedValue = new StringBuffer(sharedValue).insert(sharedValue.length(), "]").toString();
-                                } else {
-                                    sharedValue = sharedValue.substring(0, sharedValue.indexOf(weaponPosition)) +
-                                            sharedValue.substring(
-                                                    sharedValue.indexOf(weaponPosition) + weaponPosition.length() + 1,
-                                                    sharedValue.length());
-                                }
-                                mWeapons.get(i).setDrawable(R.drawable.unfavorite_star);
-                            }
-                        } else {
-                            mWeapons.get(i).setDrawable(R.drawable.favorite_star);
-                            if (sharedValue.equals("")) {
-                                sharedValue += "[" + gson.toJson(mWeapons.get(i));
-                                sharedValue = new StringBuffer(sharedValue).insert(sharedValue.length(), "]").toString();
-                            } else {
-                                sharedValue = sharedValue.substring(0, sharedValue.length() - 1);
-                                sharedValue = new StringBuffer(sharedValue).insert(sharedValue.length(), ",").toString();
-                                sharedValue += gson.toJson(mWeapons.get(i));
-                                sharedValue = new StringBuffer(sharedValue).insert(sharedValue.length(), "]").toString();
-                            }
-                        }
+                        sharedValue = returnerFavoriteSharedPreferencesString(isFavorite, sharedValue, weaponPosition, data, mWeapons);
+
 
                         SharedPreferences.Editor editor = sharedPreferences.edit();
                         editor.putString("favorites", sharedValue);

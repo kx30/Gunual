@@ -55,7 +55,7 @@ public class SortActivity extends AppCompatActivity {
         }
 
         Spinner countrySpinner = findViewById(R.id.country_spinner);
-        ArrayAdapter<String> countryAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, countries);
+        ArrayAdapter<String> countryAdapter = new ArrayAdapter<>(this, R.layout.spinner_item, countries);
         countryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         countrySpinner.setAdapter(countryAdapter);
 
@@ -72,7 +72,7 @@ public class SortActivity extends AppCompatActivity {
         });
 
         Spinner ammoSpinner = findViewById(R.id.ammunition_spinner);
-        ArrayAdapter<String> ammunitionAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, ammunition);
+        ArrayAdapter<String> ammunitionAdapter = new ArrayAdapter<>(this, R.layout.spinner_item, ammunition);
         ammunitionAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         ammoSpinner.setAdapter(ammunitionAdapter);
 

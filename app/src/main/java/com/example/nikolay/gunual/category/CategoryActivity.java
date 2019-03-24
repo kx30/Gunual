@@ -1,7 +1,9 @@
 package com.example.nikolay.gunual.category;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -11,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
+import com.example.nikolay.gunual.PreviewActivity;
 import com.example.nikolay.gunual.about_us.AboutUsActivity;
 import com.example.nikolay.gunual.favorite.FavoriteActivity;
 import com.example.nikolay.gunual.R;
@@ -60,6 +63,18 @@ public class CategoryActivity extends AppCompatActivity {
 
         addContext();
         Log.d(TAG, "onCreate: started.");
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        SharedPreferences sharedPreferences = getSharedPreferences("value", 0);
+        boolean isSkipped = sharedPreferences.getBoolean("isSkip", false);
+        if (!isSkipped) {
+            Intent intent = new Intent(CategoryActivity.this, PreviewActivity.class);
+            startActivity(intent);
+        }
+        Log.d(TAG, "onStart: " + isSkipped);
     }
 
     private void addContext() {

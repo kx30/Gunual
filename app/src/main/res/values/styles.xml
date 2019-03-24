@@ -17,4 +17,40 @@
     <style name="CustomProgressBar" parent="android:Widget.ProgressBar.Horizontal">
         <item name="colorAccent">@color/colorBlack</item>
     </style>
+
+    <style name="filter_invisible_view">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:layout_weight">4</item>
+        <item name="android:visibility">invisible</item>
+    </style>
+
+    <style name="filter_linear_layout">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:weightSum">12</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:layout_marginTop">10dp</item>
+    </style>
+
+    <style name="filter_button">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">4</item>
+    </style>
+
+    <style name="filter_cancel_button" parent="filter_button">
+        <item name="android:textColor">@color/darkGreenColor</item>
+    </style>
+
+    <style name="filter_spinner">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:textColor">@color/blackTextColor</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:layout_marginStart">20dp</item>
+        <item name="android:layout_marginEnd">20dp</item>
+        <item name="android:layout_marginTop">4dp</item>
+    </style>
+
 </resources>

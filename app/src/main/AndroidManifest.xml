@@ -13,7 +13,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".sort.SortActivity"></activity>
+        <activity android:name=".PreviewActivity"></activity>
+        <activity android:name=".sort.SortActivity" />
         <activity
             android:name=".category.CategoryActivity"
             android:screenOrientation="portrait">

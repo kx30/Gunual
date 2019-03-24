@@ -26,6 +26,7 @@ import android.widget.Toast;
 
 import com.example.nikolay.gunual.R;
 import com.example.nikolay.gunual.Weapon;
+import com.example.nikolay.gunual.favorite.FavoriteDAO;
 import com.example.nikolay.gunual.sort.SortActivity;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -39,7 +40,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-public class WeaponActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
+public class WeaponActivity extends AppCompatActivity implements SearchView.OnQueryTextListener, FavoriteDAO {
 
     private static final String TAG = "WeaponActivity";
 
@@ -106,42 +107,7 @@ public class WeaponActivity extends AppCompatActivity implements SearchView.OnQu
                         Gson gson = new Gson();
                         String weaponPosition = gson.toJson(mWeapons.get(i));
 
-                        if (!isFavorite) {
-                            if (sharedValue.contains(weaponPosition)) {
-                                // If first object in string
-                                if (sharedValue.indexOf(weaponPosition) - 1 == 0) {
-                                    sharedValue = sharedValue.replace(weaponPosition, "");
-                                    if (sharedValue.charAt(1) == ',') {
-                                        sharedValue = sharedValue.substring(2);
-                                        sharedValue = "[" + sharedValue;
-                                    } else {
-                                        sharedValue = "";
-                                    }
-                                } else if (sharedValue.charAt(sharedValue.indexOf(weaponPosition) + weaponPosition.length()) == ']') {
-                                    // If last object in string
-                                    sharedValue = sharedValue.replace(weaponPosition, "");
-                                    sharedValue = sharedValue.substring(0, sharedValue.length() - 2);
-                                    sharedValue = new StringBuffer(sharedValue).insert(sharedValue.length(), "]").toString();
-                                } else {
-                                    sharedValue = sharedValue.substring(0, sharedValue.indexOf(weaponPosition)) +
-                                            sharedValue.substring(
-                                                    sharedValue.indexOf(weaponPosition) + weaponPosition.length() + 1,
-                                                    sharedValue.length());
-                                }
-                                mWeapons.get(i).setDrawable(R.drawable.unfavorite_star);
-                            }
-                        } else {
-                            mWeapons.get(i).setDrawable(R.drawable.favorite_star);
-                            if (sharedValue.equals("")) {
-                                sharedValue += "[" + gson.toJson(mWeapons.get(i));
-                                sharedValue = new StringBuffer(sharedValue).insert(sharedValue.length(), "]").toString();
-                            } else {
-                                sharedValue = sharedValue.substring(0, sharedValue.length() - 1);
-                                sharedValue = new StringBuffer(sharedValue).insert(sharedValue.length(), ",").toString();
-                                sharedValue += gson.toJson(mWeapons.get(i));
-                                sharedValue = new StringBuffer(sharedValue).insert(sharedValue.length(), "]").toString();
-                            }
-                        }
+                        sharedValue = returnerFavoriteSharedPreferencesString(isFavorite, sharedValue, weaponPosition, data, mWeapons);
 
                         SharedPreferences.Editor editor = sharedPreferences.edit();
                         editor.putString("favorites", sharedValue);
@@ -190,7 +156,6 @@ public class WeaponActivity extends AppCompatActivity implements SearchView.OnQu
                 mRecyclerView.setAdapter(mAdapter);
             }
         }
-
     }
 
     @Override
@@ -230,10 +195,6 @@ public class WeaponActivity extends AppCompatActivity implements SearchView.OnQu
                         }
                     }
                 }
-                Log.d(TAG, "onClick: " + ammo);
-                Log.d(TAG, "onClick: " + countries);
-
-                Log.d(TAG, "onClick: " + countries.size());
 
                 Intent intent = new Intent(WeaponActivity.this, SortActivity.class);
                 intent.putExtra("countries", countries);

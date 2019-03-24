@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -7,40 +8,56 @@
     tools:context=".sort.SortActivity">
 
 
-    <include layout="@layout/toolbar" />
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar" />
 
     <Spinner
         android:id="@+id/country_spinner"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_below="@+id/toolbar"
-        android:layout_marginTop="2dp"
-        android:background="@color/colorPrimary">
+        style="@style/filter_spinner"
+        android:background="@android:color/transparent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
     </Spinner>
 
     <Spinner
         android:id="@+id/ammunition_spinner"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
+        style="@style/filter_spinner"
         android:layout_below="@+id/country_spinner"
-        android:layout_marginTop="2dp"
-        android:background="@color/colorPrimary">
+        app:layout_constraintTop_toBottomOf="@+id/country_spinner">
 
     </Spinner>
 
-    <Button
-        android:id="@+id/accept_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/ammunition_spinner"
-        android:text="@string/accept" />
+    <LinearLayout
+        android:id="@+id/accept_linear_layout"
+        style="@style/filter_linear_layout"
+        app:layout_constraintTop_toBottomOf="@+id/ammunition_spinner">
 
-    <Button
-        android:id="@+id/cancel_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/accept_button"
-        android:text="@string/cancel" />
+        <View style="@style/filter_invisible_view" />
 
-</RelativeLayout>
+        <Button
+            android:id="@+id/accept_button"
+            style="@style/filter_button"
+            android:background="@drawable/filter_accept_bg_button"
+            android:text="@string/accept" />
+
+        <View style="@style/filter_invisible_view" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/filter_linear_layout"
+        app:layout_constraintTop_toBottomOf="@+id/accept_linear_layout">
+
+        <View style="@style/filter_invisible_view" />
+
+        <Button
+            android:id="@+id/cancel_button"
+            style="@style/filter_cancel_button"
+            android:background="@drawable/filter_cancel_bg_button"
+            android:text="@string/cancel" />
+
+        <View style="@style/filter_invisible_view" />
+
+    </LinearLayout>
+</android.support.constraint.ConstraintLayout>
