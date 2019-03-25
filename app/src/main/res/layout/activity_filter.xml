@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorGrey"
-    tools:context=".sort.SortActivity">
+    tools:context=".filter.FilterActivity">
 
 
     <include
@@ -38,7 +38,6 @@
         <Button
             android:id="@+id/accept_button"
             style="@style/filter_button"
-            android:background="@drawable/filter_accept_bg_button"
             android:text="@string/accept" />
 
         <View style="@style/filter_invisible_view" />

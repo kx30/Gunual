@@ -27,7 +27,7 @@ import android.widget.Toast;
 import com.example.nikolay.gunual.R;
 import com.example.nikolay.gunual.Weapon;
 import com.example.nikolay.gunual.favorite.FavoriteDAO;
-import com.example.nikolay.gunual.sort.SortActivity;
+import com.example.nikolay.gunual.filter.FilterActivity;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -196,7 +196,7 @@ public class WeaponActivity extends AppCompatActivity implements SearchView.OnQu
                     }
                 }
 
-                Intent intent = new Intent(WeaponActivity.this, SortActivity.class);
+                Intent intent = new Intent(WeaponActivity.this, FilterActivity.class);
                 intent.putExtra("countries", countries);
                 intent.putExtra("ammo", ammo);
                 startActivityForResult(intent, 2);

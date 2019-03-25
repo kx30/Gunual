@@ -14,7 +14,7 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity android:name=".PreviewActivity"></activity>
-        <activity android:name=".sort.SortActivity" />
+        <activity android:name=".filter.FilterActivity" />
         <activity
             android:name=".category.CategoryActivity"
             android:screenOrientation="portrait">

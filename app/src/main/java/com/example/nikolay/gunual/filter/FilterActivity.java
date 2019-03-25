@@ -1,4 +1,4 @@
-package com.example.nikolay.gunual.sort;
+package com.example.nikolay.gunual.filter;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,16 +11,15 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import com.example.nikolay.gunual.R;
 
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class SortActivity extends AppCompatActivity {
+public class FilterActivity extends AppCompatActivity {
 
-    private static final String TAG = "SortActivity";
+    private static final String TAG = "FilterActivity";
     private String country;
     private String ammo;
     private ArrayList<String> countries;
@@ -39,7 +38,7 @@ public class SortActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sort);
+        setContentView(R.layout.activity_filter);
         initToolbar();
 
         Bundle arguments = getIntent().getExtras();

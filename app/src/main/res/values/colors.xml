@@ -9,6 +9,9 @@
 
     <color name="Gray_100">#F5F5F5</color>
 
+    <color name="inactive_dot">#BDBDBD</color>
+    <color name="active_dot">#757575</color>
+
     <color name="lightTextColor">#FAFAFA</color>
     <color name="blackTextColor">#232F34</color>
     <color name="darkGreenColor">#455448</color>
