@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorWhite">
@@ -13,8 +12,7 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:context=".information.InformationActivity">
+            android:layout_height="wrap_content">
 
             <include layout="@layout/toolbar" />
 
@@ -31,6 +29,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/image"
                 android:layout_centerInParent="true"
+                android:gravity="center_horizontal"
                 android:fontFamily="sans-serif-medium"
                 android:paddingTop="6dp"
                 android:paddingBottom="6dp"
@@ -266,9 +265,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/button_container"
+                android:textSize="16sp"
                 android:layout_marginLeft="28dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="28dp"
+                android:layout_marginBottom="6dp"
                 android:textColor="@color/blackTextColor" />
 
         </RelativeLayout>

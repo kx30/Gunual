@@ -49,7 +49,7 @@ public class PreviewActivity extends AppCompatActivity {
             mDots[i].setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.inactive_dot));
 
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-            params.setMargins(8, 0, 8, 0);
+            params.setMargins(12, 0, 12, 0);
             sliderDotsPanel.addView(mDots[i], params);
 
         }
