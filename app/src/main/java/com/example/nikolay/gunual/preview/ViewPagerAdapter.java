@@ -1,4 +1,4 @@
-package com.example.nikolay.gunual;
+package com.example.nikolay.gunual.preview;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

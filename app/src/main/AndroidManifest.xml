@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".PreviewActivity"></activity>
+        <activity android:name=".preview.PreviewActivity"></activity>
         <activity android:name=".filter.FilterActivity" />
         <activity
             android:name=".category.CategoryActivity"

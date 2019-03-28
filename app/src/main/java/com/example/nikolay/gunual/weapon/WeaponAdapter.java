@@ -15,7 +15,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.nikolay.gunual.R;
-import com.example.nikolay.gunual.Weapon;
+import com.example.nikolay.gunual.models.Weapon;
 import com.example.nikolay.gunual.information.InformationActivity;
 import com.google.gson.Gson;
 

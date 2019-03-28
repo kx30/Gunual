@@ -4,7 +4,7 @@ package com.example.nikolay.gunual.favorite;
 import android.content.Intent;
 
 import com.example.nikolay.gunual.R;
-import com.example.nikolay.gunual.Weapon;
+import com.example.nikolay.gunual.models.Weapon;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;

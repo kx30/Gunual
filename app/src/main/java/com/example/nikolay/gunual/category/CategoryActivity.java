@@ -12,7 +12,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
-import com.example.nikolay.gunual.PreviewActivity;
+import com.example.nikolay.gunual.preview.PreviewActivity;
 import com.example.nikolay.gunual.R;
 import com.example.nikolay.gunual.about_us.AboutUsActivity;
 import com.example.nikolay.gunual.favorite.FavoriteActivity;

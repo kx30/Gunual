@@ -1,4 +1,4 @@
-package com.example.nikolay.gunual;
+package com.example.nikolay.gunual.models;
 
 import android.graphics.drawable.Drawable;
 

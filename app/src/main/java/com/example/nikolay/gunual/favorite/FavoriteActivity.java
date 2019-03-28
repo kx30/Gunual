@@ -13,7 +13,7 @@ import android.util.Log;
 import android.view.MenuItem;
 
 import com.example.nikolay.gunual.R;
-import com.example.nikolay.gunual.Weapon;
+import com.example.nikolay.gunual.models.Weapon;
 import com.example.nikolay.gunual.weapon.WeaponAdapter;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;

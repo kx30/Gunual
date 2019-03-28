@@ -25,7 +25,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.nikolay.gunual.R;
-import com.example.nikolay.gunual.Weapon;
+import com.example.nikolay.gunual.models.Weapon;
 import com.example.nikolay.gunual.favorite.FavoriteDAO;
 import com.example.nikolay.gunual.filter.FilterActivity;
 import com.google.android.gms.tasks.OnFailureListener;
