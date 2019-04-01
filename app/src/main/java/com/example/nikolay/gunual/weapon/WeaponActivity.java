@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -25,19 +24,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.nikolay.gunual.R;
-import com.example.nikolay.gunual.models.Weapon;
 import com.example.nikolay.gunual.favorite.FavoriteDAO;
 import com.example.nikolay.gunual.filter.FilterActivity;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
+import com.example.nikolay.gunual.models.Weapon;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QuerySnapshot;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 public class WeaponActivity extends AppCompatActivity implements SearchView.OnQueryTextListener, FavoriteDAO {
@@ -234,56 +229,51 @@ public class WeaponActivity extends AppCompatActivity implements SearchView.OnQu
             for (int i = 0; i < mCategoryOfWeapons.length; i++) {
                 if (value.equals(mCategoryOfWeapons[i])) {
                     db.collection("weapons")
-                            .document("kind_of_weapon")
-                            .collection(value)
-                            .get()
-                            .addOnSuccessListener(queryDocumentSnapshots -> {
-                                if (!queryDocumentSnapshots.isEmpty()) {
-                                    List<DocumentSnapshot> list = queryDocumentSnapshots.getDocuments();
-                                    for (DocumentSnapshot d : list) {
-                                        mWeapons.add(new Weapon(
-                                                d.getString("title"),
-                                                d.getString("country"),
-                                                d.getString("year_of_production"),
-                                                d.getString("type_of_bullet"),
-                                                d.getString("effective_range"),
-                                                d.getString("muzzle_velocity"),
-                                                d.getString("length"),
-                                                d.getString("barrel_length"),
-                                                d.getString("weight"),
-                                                d.getString("feed_system"),
-                                                d.getString("description"),
-                                                d.getString("image_url")
-                                        ));
-                                    }
-                                    sortItems(mWeapons);
-                                    SharedPreferences sharedPreferences = getSharedPreferences("value", MODE_PRIVATE);
-                                    String sharedValue = sharedPreferences.getString("favorites", "");
+                        .document("kind_of_weapon")
+                        .collection(value)
+                        .get()
+                        .addOnSuccessListener(queryDocumentSnapshots -> {
+                            if (!queryDocumentSnapshots.isEmpty()) {
+                                List<DocumentSnapshot> list = queryDocumentSnapshots.getDocuments();
+                                for (DocumentSnapshot d : list) {
+                                    mWeapons.add(new Weapon(
+                                        d.getString("title"),
+                                        d.getString("country"),
+                                        d.getString("year_of_production"),
+                                        d.getString("type_of_bullet"),
+                                        d.getString("effective_range"),
+                                        d.getString("muzzle_velocity"),
+                                        d.getString("length"),
+                                        d.getString("barrel_length"),
+                                        d.getString("weight"),
+                                        d.getString("feed_system"),
+                                        d.getString("description"),
+                                        d.getString("image_url")
+                                    ));
+                                }
+                                sortItems(mWeapons);
+                                SharedPreferences sharedPreferences = getSharedPreferences("value", MODE_PRIVATE);
+                                String sharedValue = sharedPreferences.getString("favorites", "");
 
-                                    for (int i1 = 0; i1 < mWeapons.size(); i1++) {
-                                        try {
-                                            if (sharedValue.contains(mWeapons.get(i1).getImageUrl())) {
-                                                mWeapons.get(i1).setDrawable(R.drawable.favorite_star);
-                                            } else {
-                                                mWeapons.get(i1).setDrawable(R.drawable.unfavorite_star);
-                                            }
-                                        } catch (Exception e) {
-                                            Log.d(TAG, "onSuccess: ERROR " + mWeapons.get(i1).getTitle() + mWeapons.get(i1));
+                                for (int j = 0; j < mWeapons.size(); j++) {
+                                    try {
+                                        if (sharedValue.contains(mWeapons.get(j).getImageUrl())) {
+                                            mWeapons.get(j).setDrawable(R.drawable.favorite_star);
+                                        } else {
+                                            mWeapons.get(j).setDrawable(R.drawable.unfavorite_star);
                                         }
+                                    } catch (Exception e) {
+                                        Log.d(TAG, "onSuccess: ERROR " + mWeapons.get(j).getTitle() + mWeapons.get(j));
                                     }
-                                    Log.d(TAG, "onSuccess: " + sharedValue);
+                                }
+                                Log.d(TAG, "onSuccess: " + sharedValue);
 
-                                    mAdapter.notifyDataSetChanged();
-                                    mProgressBar.setVisibility(View.GONE);
-                                    mFloatingActionButton.show();
-                                }
-                            })
-                            .addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    Toast.makeText(WeaponActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                                mAdapter.notifyDataSetChanged();
+                                mProgressBar.setVisibility(View.GONE);
+                                mFloatingActionButton.show();
+                            }
+                        })
+                        .addOnFailureListener(e -> Toast.makeText(WeaponActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show());
                 }
             }
         } catch (Exception e) {
@@ -292,12 +282,7 @@ public class WeaponActivity extends AppCompatActivity implements SearchView.OnQu
     }
 
     private void sortItems(ArrayList<Weapon> weaponList) {
-        Collections.sort(weaponList, new Comparator<Weapon>() {
-            @Override
-            public int compare(Weapon w1, Weapon w2) {
-                return w1.getTitle().compareTo(w2.getTitle());
-            }
-        });
+        Collections.sort(weaponList, (w1, w2) -> w1.getTitle().compareTo(w2.getTitle()));
     }
 
     private void initRecyclerView() {
@@ -337,6 +322,7 @@ public class WeaponActivity extends AppCompatActivity implements SearchView.OnQu
 
         if (!hasConnection(this)) {
             mRecyclerView.setVisibility(View.INVISIBLE);
+            mProgressBar.setVisibility(View.INVISIBLE);
             mFloatingActionButton.hide();
             Log.d(TAG, "swipeContent: no connection");
 
@@ -350,7 +336,6 @@ public class WeaponActivity extends AppCompatActivity implements SearchView.OnQu
             noConnectionImageView.setVisibility(View.INVISIBLE);
             noConnectionMainText.setVisibility(View.INVISIBLE);
             noConnectionDescriptionText.setVisibility(View.INVISIBLE);
-
         }
     }
 }
