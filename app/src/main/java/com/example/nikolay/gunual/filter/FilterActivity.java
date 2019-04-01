@@ -113,12 +113,9 @@ public class FilterActivity extends AppCompatActivity {
         });
 
         Button cancelButton = findViewById(R.id.cancel_button);
-        cancelButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                setResult(RESULT_CANCELED);
-                finish();
-            }
+        cancelButton.setOnClickListener(view -> {
+            setResult(RESULT_CANCELED);
+            finish();
         });
     }
 

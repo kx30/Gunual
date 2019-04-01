@@ -22,8 +22,8 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
     private static final String TAG = "CategoryAdapter";
 
     private Context mContext;
-    private ArrayList<String> mTitles = new ArrayList<>();
-    private ArrayList<Integer> mImages = new ArrayList<>();
+    private ArrayList<String> mTitles;
+    private ArrayList<Integer> mImages;
     private String[] mCategoryOfWeapons = {"Pistol", "Submachine gun", "Rifle", "Carbine", "Sniper rifle", "Machine gun", "Shotgun"};
 
     public CategoryAdapter(Context context, ArrayList<String> titles, ArrayList<Integer> images) {
@@ -46,14 +46,11 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
         viewHolder.mTitle.setText(mTitles.get(i));
         viewHolder.mImage.setImageResource(mImages.get(i));
 
-        viewHolder.mParentLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(mContext, WeaponActivity.class);
-                Log.d(TAG, "onClick: " + mCategoryOfWeapons[i]);
-                intent.putExtra("Weapon", mCategoryOfWeapons[i]);
-                mContext.startActivity(intent);
-            }
+        viewHolder.mParentLayout.setOnClickListener(view -> {
+            Intent intent = new Intent(mContext, WeaponActivity.class);
+            Log.d(TAG, "onClick: " + mCategoryOfWeapons[i]);
+            intent.putExtra("Weapon", mCategoryOfWeapons[i]);
+            mContext.startActivity(intent);
         });
         Log.d(TAG, "onBindViewHolder: called.");
     }

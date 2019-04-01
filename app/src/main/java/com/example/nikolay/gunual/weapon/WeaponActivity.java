@@ -162,7 +162,7 @@ public class WeaponActivity extends AppCompatActivity implements SearchView.OnQu
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_weapon);
-        mFloatingActionButton = findViewById(R.id.sort_button);
+        mFloatingActionButton = findViewById(R.id.filter_button);
         mFloatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -229,8 +229,7 @@ public class WeaponActivity extends AppCompatActivity implements SearchView.OnQu
 
     private void addItems() {
         try {
-            Intent extra = getIntent();
-            String value = extra.getStringExtra("Weapon");
+            String value = getExtra();
 
             for (int i = 0; i < mCategoryOfWeapons.length; i++) {
                 if (value.equals(mCategoryOfWeapons[i])) {
@@ -238,48 +237,45 @@ public class WeaponActivity extends AppCompatActivity implements SearchView.OnQu
                             .document("kind_of_weapon")
                             .collection(value)
                             .get()
-                            .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                                @Override
-                                public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                                    if (!queryDocumentSnapshots.isEmpty()) {
-                                        List<DocumentSnapshot> list = queryDocumentSnapshots.getDocuments();
-                                        for (DocumentSnapshot d : list) {
-                                            mWeapons.add(new Weapon(
-                                                    d.getString("title"),
-                                                    d.getString("country"),
-                                                    d.getString("year_of_production"),
-                                                    d.getString("type_of_bullet"),
-                                                    d.getString("effective_range"),
-                                                    d.getString("muzzle_velocity"),
-                                                    d.getString("length"),
-                                                    d.getString("barrel_length"),
-                                                    d.getString("weight"),
-                                                    d.getString("feed_system"),
-                                                    d.getString("description"),
-                                                    d.getString("image_url")
-                                            ));
-                                        }
-                                        sortItems(mWeapons);
-                                        SharedPreferences sharedPreferences = getSharedPreferences("value", MODE_PRIVATE);
-                                        String sharedValue = sharedPreferences.getString("favorites", "");
-
-                                        for (int i = 0; i < mWeapons.size(); i++) {
-                                            try {
-                                                if (sharedValue.contains(mWeapons.get(i).getImageUrl())) {
-                                                    mWeapons.get(i).setDrawable(R.drawable.favorite_star);
-                                                } else {
-                                                    mWeapons.get(i).setDrawable(R.drawable.unfavorite_star);
-                                                }
-                                            } catch (Exception e) {
-                                                Log.d(TAG, "onSuccess: ERROR " + mWeapons.get(i).getTitle() + mWeapons.get(i));
-                                            }
-                                        }
-                                        Log.d(TAG, "onSuccess: " + sharedValue);
-
-                                        mAdapter.notifyDataSetChanged();
-                                        mProgressBar.setVisibility(View.GONE);
-                                        mFloatingActionButton.show();
+                            .addOnSuccessListener(queryDocumentSnapshots -> {
+                                if (!queryDocumentSnapshots.isEmpty()) {
+                                    List<DocumentSnapshot> list = queryDocumentSnapshots.getDocuments();
+                                    for (DocumentSnapshot d : list) {
+                                        mWeapons.add(new Weapon(
+                                                d.getString("title"),
+                                                d.getString("country"),
+                                                d.getString("year_of_production"),
+                                                d.getString("type_of_bullet"),
+                                                d.getString("effective_range"),
+                                                d.getString("muzzle_velocity"),
+                                                d.getString("length"),
+                                                d.getString("barrel_length"),
+                                                d.getString("weight"),
+                                                d.getString("feed_system"),
+                                                d.getString("description"),
+                                                d.getString("image_url")
+                                        ));
                                     }
+                                    sortItems(mWeapons);
+                                    SharedPreferences sharedPreferences = getSharedPreferences("value", MODE_PRIVATE);
+                                    String sharedValue = sharedPreferences.getString("favorites", "");
+
+                                    for (int i1 = 0; i1 < mWeapons.size(); i1++) {
+                                        try {
+                                            if (sharedValue.contains(mWeapons.get(i1).getImageUrl())) {
+                                                mWeapons.get(i1).setDrawable(R.drawable.favorite_star);
+                                            } else {
+                                                mWeapons.get(i1).setDrawable(R.drawable.unfavorite_star);
+                                            }
+                                        } catch (Exception e) {
+                                            Log.d(TAG, "onSuccess: ERROR " + mWeapons.get(i1).getTitle() + mWeapons.get(i1));
+                                        }
+                                    }
+                                    Log.d(TAG, "onSuccess: " + sharedValue);
+
+                                    mAdapter.notifyDataSetChanged();
+                                    mProgressBar.setVisibility(View.GONE);
+                                    mFloatingActionButton.show();
                                 }
                             })
                             .addOnFailureListener(new OnFailureListener() {
@@ -313,7 +309,6 @@ public class WeaponActivity extends AppCompatActivity implements SearchView.OnQu
 
     private String getExtra() {
         Intent extra = getIntent();
-
         return extra.getStringExtra("Weapon");
     }
 

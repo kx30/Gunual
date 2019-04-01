@@ -28,9 +28,6 @@ public class AboutUsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about_us);
 
-        TextView email = findViewById(R.id.mail_text_view);
-        TextView number = findViewById(R.id.number_text_view);
-
         initToolbar();
     }
 

@@ -1,7 +1,5 @@
 package com.example.nikolay.gunual.models;
 
-import android.graphics.drawable.Drawable;
-
 public class Weapon {
 
     private String mTitle;
@@ -18,9 +16,6 @@ public class Weapon {
     private String mImageUrl;
 
     private int mDrawable;
-
-    public Weapon() {
-    }
 
     public Weapon(String title, String country, String yearOfProduction, String typeOfBullet, String effectiveRange, String muzzleVelocity, String length, String barrelLength, String weight, String feedSystem, String description, String imageUrl) {
         this.mTitle = title;

@@ -119,27 +119,24 @@ public class WeaponAdapter extends RecyclerView.Adapter<WeaponAdapter.ViewHolder
             }
         });
 
-        viewHolder.mParentLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(mContext, InformationActivity.class);
-                intent.putExtra("weapon", mExtra);
-                intent.putExtra("title", mWeapons.get(i).getTitle());
-                intent.putExtra("country", mWeapons.get(i).getCountry());
-                intent.putExtra("year_of_production", mWeapons.get(i).getYearOfProduction());
-                intent.putExtra("type_of_bullet", mWeapons.get(i).getTypeOfBullet());
-                intent.putExtra("effective_range", mWeapons.get(i).getEffectiveRange());
-                intent.putExtra("muzzle_velocity", mWeapons.get(i).getMuzzleVelocity());
-                intent.putExtra("feed_system", mWeapons.get(i).getFeedSystem());
-                intent.putExtra("length", mWeapons.get(i).getLength());
-                intent.putExtra("barrel_length", mWeapons.get(i).getBarrelLength());
-                intent.putExtra("weight", mWeapons.get(i).getWeight());
-                intent.putExtra("description", mWeapons.get(i).getDescription());
-                intent.putExtra("image_url", mWeapons.get(i).getImageUrl());
-                intent.putExtra("drawable", mWeapons.get(i).getDrawable());
+        viewHolder.mParentLayout.setOnClickListener(view -> {
+            Intent intent = new Intent(mContext, InformationActivity.class);
+            intent.putExtra("weapon", mExtra);
+            intent.putExtra("title", mWeapons.get(i).getTitle());
+            intent.putExtra("country", mWeapons.get(i).getCountry());
+            intent.putExtra("year_of_production", mWeapons.get(i).getYearOfProduction());
+            intent.putExtra("type_of_bullet", mWeapons.get(i).getTypeOfBullet());
+            intent.putExtra("effective_range", mWeapons.get(i).getEffectiveRange());
+            intent.putExtra("muzzle_velocity", mWeapons.get(i).getMuzzleVelocity());
+            intent.putExtra("feed_system", mWeapons.get(i).getFeedSystem());
+            intent.putExtra("length", mWeapons.get(i).getLength());
+            intent.putExtra("barrel_length", mWeapons.get(i).getBarrelLength());
+            intent.putExtra("weight", mWeapons.get(i).getWeight());
+            intent.putExtra("description", mWeapons.get(i).getDescription());
+            intent.putExtra("image_url", mWeapons.get(i).getImageUrl());
+            intent.putExtra("drawable", mWeapons.get(i).getDrawable());
 
-                ((Activity) mContext).startActivityForResult(intent, 1);
-            }
+            ((Activity) mContext).startActivityForResult(intent, 1);
         });
     }
 

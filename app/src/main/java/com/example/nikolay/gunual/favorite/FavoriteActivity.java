@@ -49,21 +49,15 @@ public class FavoriteActivity extends AppCompatActivity implements FavoriteDAO {
                 boolean isFavorite = data.getBooleanExtra("isFavorite", false);
                 for (int i = 0; i < mWeapons.size(); i++) {
                     if (data.getStringExtra("url").equals(mWeapons.get(i).getImageUrl())) {
-
                         SharedPreferences sharedPreferences = getSharedPreferences("value", Context.MODE_PRIVATE);
                         String sharedValue = sharedPreferences.getString("favorites", "");
-
                         Gson gson = new Gson();
                         String weaponPosition = gson.toJson(mWeapons.get(i));
-
                         sharedValue = returnerFavoriteSharedPreferencesString(isFavorite, sharedValue, weaponPosition, data, mWeapons);
-
-
                         SharedPreferences.Editor editor = sharedPreferences.edit();
                         editor.putString("favorites", sharedValue);
                         editor.apply();
                         mAdapter.notifyDataSetChanged();
-
                     }
                 }
                 Log.d(TAG, "onActivityResult: " + isFavorite);

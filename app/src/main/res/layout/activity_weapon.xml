@@ -47,7 +47,7 @@
         android:visibility="visible" />
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/sort_button"
+        android:id="@+id/filter_button"
         android:layout_width="56dp"
         android:layout_height="56dp"
         android:layout_alignParentBottom="true"

@@ -95,7 +95,7 @@ public class InformationActivity extends AppCompatActivity {
 
         getExtras();
 
-        isFieldEmpty();
+        ifFieldEmpty();
 
         Log.d(TAG, "onCreate: created.");
     }
@@ -126,35 +126,29 @@ public class InformationActivity extends AppCompatActivity {
         mImageView = findViewById(R.id.image);
 
         mBuyTheGunButton = findViewById(R.id.buy_gun_button);
-        mBuyTheGunButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Bundle arguments = getIntent().getExtras();
-                String title = arguments.getString("title");
-                String url = "https://www.gunbroker.com/All/search?Keywords=" + title.replaceAll(" ", "%20");
-                Intent intent = new Intent(InformationActivity.this, BrowserActivity.class);
-                intent.putExtra("url", url);
-                Log.d(TAG, "onClick: " + url);
-                startActivity(intent);
-            }
+        mBuyTheGunButton.setOnClickListener(view -> {
+            Bundle arguments = getIntent().getExtras();
+            String title = arguments.getString("title");
+            String url = "https://www.gunbroker.com/All/search?Keywords=" + title.replaceAll(" ", "%20");
+            Intent intent = new Intent(InformationActivity.this, BrowserActivity.class);
+            intent.putExtra("url", url);
+            Log.d(TAG, "onClick: " + url);
+            startActivity(intent);
         });
 
         mBuyAmmoButton = findViewById(R.id.buy_ammo_button);
-        mBuyAmmoButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Bundle arguments = getIntent().getExtras();
-                String typeOfBullet = arguments.getString("type_of_bullet");
-                try {
-                    typeOfBullet = typeOfBullet.substring(0, typeOfBullet.indexOf("/"));
-                } catch (Exception e) {
-                    Log.d(TAG, "onOptionsItemSelected: " + e);
-                }
-                String url = "https://www.cheaperthandirt.com/search.do?query=" + typeOfBullet.replaceAll("×", "x") + "%20ammo";
-                Intent intent = new Intent(InformationActivity.this, BrowserActivity.class);
-                intent.putExtra("url", url);
-                startActivity(intent);
+        mBuyAmmoButton.setOnClickListener(view -> {
+            Bundle arguments = getIntent().getExtras();
+            String typeOfBullet = arguments.getString("type_of_bullet");
+            try {
+                typeOfBullet = typeOfBullet.substring(0, typeOfBullet.indexOf("/"));
+            } catch (Exception e) {
+                Log.d(TAG, "onOptionsItemSelected: " + e);
             }
+            String url = "https://www.cheaperthandirt.com/search.do?query=" + typeOfBullet.replaceAll("×", "x") + "%20ammo";
+            Intent intent = new Intent(InformationActivity.this, BrowserActivity.class);
+            intent.putExtra("url", url);
+            startActivity(intent);
         });
     }
 
@@ -165,18 +159,18 @@ public class InformationActivity extends AppCompatActivity {
                 weight = "", imageUrl = "", description = "";
 
         Bundle arguments = getIntent().getExtras();
-        country = arguments.get("country").toString();
-        title = arguments.get("title").toString();
-        yearOfProduction = arguments.get("year_of_production").toString();
-        typeOfBullet = arguments.get("type_of_bullet").toString();
-        maxRange = arguments.get("muzzle_velocity").toString();
-        effectiveRange = arguments.get("effective_range").toString();
-        feedSystem = arguments.get("feed_system").toString();
-        length = arguments.get("length").toString();
-        barrelLength = arguments.get("barrel_length").toString();
-        weight = arguments.get("weight").toString();
-        imageUrl = arguments.get("image_url").toString();
-        description = arguments.get("description").toString();
+        country = arguments.getString("country");
+        title = arguments.getString("title");
+        yearOfProduction = arguments.getString("year_of_production");
+        typeOfBullet = arguments.getString("type_of_bullet");
+        maxRange = arguments.getString("muzzle_velocity");
+        effectiveRange = arguments.getString("effective_range");
+        feedSystem = arguments.getString("feed_system");
+        length = arguments.getString("length");
+        barrelLength = arguments.getString("barrel_length");
+        weight = arguments.getString("weight");
+        imageUrl = arguments.getString("image_url");
+        description = arguments.getString("description");
 
 
         Glide.with(this)
@@ -207,7 +201,7 @@ public class InformationActivity extends AppCompatActivity {
     }
 
 
-    private void isFieldEmpty() {
+    private void ifFieldEmpty() {
 
         if (mWeightTextView.getText().equals("")) {
             TableRow weightTableRow = findViewById(R.id.weight_table_row);
