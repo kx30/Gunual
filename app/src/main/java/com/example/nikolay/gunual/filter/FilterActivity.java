@@ -26,16 +26,6 @@ public class FilterActivity extends AppCompatActivity {
     private ArrayList<String> ammunition;
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        if (item.getItemId() == android.R.id.home) {
-            finish();
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_filter);
@@ -117,6 +107,16 @@ public class FilterActivity extends AppCompatActivity {
             setResult(RESULT_CANCELED);
             finish();
         });
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     private void initToolbar() {

@@ -15,18 +15,6 @@ public class BrowserActivity extends AppCompatActivity {
 
     private static final String TAG = "BrowserActivity";
 
-    private WebView mWebView;
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        if (item.getItemId() == android.R.id.home) {
-            finish();
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,14 +24,24 @@ public class BrowserActivity extends AppCompatActivity {
         String url = argument.getString("url");
         Log.d(TAG, "onCreate: " + url);
 
-        mWebView = findViewById(R.id.web_view);
-        mWebView.setWebViewClient(new WebClient());
+        WebView webView = findViewById(R.id.web_view);
+        webView.setWebViewClient(new WebClient());
 
-        WebSettings webSettings = mWebView.getSettings();
+        WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
-        mWebView.loadUrl(url);
+        webView.loadUrl(url);
 
         initToolbar();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
 

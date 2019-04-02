@@ -57,7 +57,6 @@ public class PreviewActivity extends AppCompatActivity {
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int i, float v, int i1) {
-
             }
 
             @Override
@@ -73,7 +72,6 @@ public class PreviewActivity extends AppCompatActivity {
 
             @Override
             public void onPageScrollStateChanged(int i) {
-
             }
         });
 

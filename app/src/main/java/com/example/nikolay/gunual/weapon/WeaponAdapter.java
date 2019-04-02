@@ -20,11 +20,12 @@ import com.example.nikolay.gunual.information.InformationActivity;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class WeaponAdapter extends RecyclerView.Adapter<WeaponAdapter.ViewHolder> {
 
     private Context mContext;
-    private ArrayList<Weapon> mWeapons;
+    private List<Weapon> mWeapons;
     private String mExtra;
 
     public WeaponAdapter(Context context, ArrayList<Weapon> weapons, String extra) {
@@ -33,7 +34,7 @@ public class WeaponAdapter extends RecyclerView.Adapter<WeaponAdapter.ViewHolder
         mExtra = extra;
     }
 
-    public WeaponAdapter(Context context, ArrayList<Weapon> weapons) {
+    public WeaponAdapter(Context context, List<Weapon> weapons) {
         mContext = context;
         mWeapons = weapons;
     }
@@ -145,7 +146,7 @@ public class WeaponAdapter extends RecyclerView.Adapter<WeaponAdapter.ViewHolder
         return mWeapons.size();
     }
 
-    public void updateList(ArrayList<Weapon> weapons) {
+    public void updateList(List<Weapon> weapons) {
         mWeapons = new ArrayList<>();
         mWeapons.addAll(weapons);
         notifyDataSetChanged();

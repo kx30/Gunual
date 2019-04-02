@@ -7,6 +7,8 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 public class ViewPagerAdapter extends FragmentPagerAdapter {
 
+    String[] previewText = {"Просматривать короче оружие", "Покупать их ага", "И патроны тоже"};
+
 
     public ViewPagerAdapter(FragmentManager fm) {
         super(fm);
@@ -15,7 +17,6 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
     @Override
     public Fragment getItem(int i) {
         //todo align text by center
-        String[] previewText = {"Просматривать короче оружие", "Покупать их ага", "И патроны тоже"};
         DemoFragment demoFragment = new DemoFragment();
         i += 1;
         Bundle bundle = new Bundle();

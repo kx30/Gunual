@@ -35,19 +35,26 @@ public class InformationActivity extends AppCompatActivity {
     private TextView mWeightTextView;
     private TextView mDescriptionTextView;
 
-    private Button mBuyTheGunButton;
-    private Button mBuyAmmoButton;
-
     private ImageView mImageView;
 
     private boolean isFavorite;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_information);
+        initWidgets();
+        initToolbar();
+        getExtras();
+        ifFieldEmpty();
+        Log.d(TAG, "onCreate: created.");
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
             finish();
         }
-
         if (item.getItemId() == R.id.add_to_favorite) {
             if (isFavorite) {
                 Toast.makeText(this, "Remove from favorite", Toast.LENGTH_SHORT).show();
@@ -61,7 +68,6 @@ public class InformationActivity extends AppCompatActivity {
             Bundle arguments = getIntent().getExtras();
             String imageUrl = arguments.get("image_url").toString();
             Intent intent = new Intent();
-            intent.putExtra("isFavorite", isFavorite);
             intent.putExtra("url", imageUrl);
             setResult(RESULT_OK, intent);
         }
@@ -74,7 +80,7 @@ public class InformationActivity extends AppCompatActivity {
         inflater.inflate(R.menu.information_menu, menu);
 
         Bundle argument = getIntent().getExtras();
-        Integer drawable = argument.getInt("drawable");
+        int drawable = argument.getInt("drawable");
 
         MenuItem addToFavorite = menu.findItem(R.id.add_to_favorite);
         if (drawable == R.drawable.favorite_star) {
@@ -83,21 +89,6 @@ public class InformationActivity extends AppCompatActivity {
         }
 
         return true;
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_information);
-
-        initWidgets();
-        initToolbar();
-
-        getExtras();
-
-        ifFieldEmpty();
-
-        Log.d(TAG, "onCreate: created.");
     }
 
 
@@ -125,8 +116,8 @@ public class InformationActivity extends AppCompatActivity {
         mDescriptionTextView = findViewById(R.id.description_text_view);
         mImageView = findViewById(R.id.image);
 
-        mBuyTheGunButton = findViewById(R.id.buy_gun_button);
-        mBuyTheGunButton.setOnClickListener(view -> {
+        Button buyTheGunButton = findViewById(R.id.buy_gun_button);
+        buyTheGunButton.setOnClickListener(view -> {
             Bundle arguments = getIntent().getExtras();
             String title = arguments.getString("title");
             String url = "https://www.gunbroker.com/All/search?Keywords=" + title.replaceAll(" ", "%20");
@@ -136,8 +127,8 @@ public class InformationActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
-        mBuyAmmoButton = findViewById(R.id.buy_ammo_button);
-        mBuyAmmoButton.setOnClickListener(view -> {
+        Button buyAmmoButton = findViewById(R.id.buy_ammo_button);
+        buyAmmoButton.setOnClickListener(view -> {
             Bundle arguments = getIntent().getExtras();
             String typeOfBullet = arguments.getString("type_of_bullet");
             try {
@@ -154,9 +145,9 @@ public class InformationActivity extends AppCompatActivity {
 
 
     private void getExtras() {
-        String title = "", country = "", yearOfProduction = "", typeOfBullet = "", maxRange = "",
-                effectiveRange = "", feedSystem = "", length = "", barrelLength = "",
-                weight = "", imageUrl = "", description = "";
+        String title, country, yearOfProduction, typeOfBullet,
+        maxRange, effectiveRange, feedSystem, length, barrelLength,
+        weight, imageUrl, description;
 
         Bundle arguments = getIntent().getExtras();
         country = arguments.getString("country");
@@ -172,7 +163,6 @@ public class InformationActivity extends AppCompatActivity {
         imageUrl = arguments.getString("image_url");
         description = arguments.getString("description");
 
-
         Glide.with(this)
                 .asBitmap()
                 .load("https:" + imageUrl)
@@ -185,7 +175,6 @@ public class InformationActivity extends AppCompatActivity {
                     .into(mImageView);
         }
 
-
         mCountryTextView.setText(country);
         mTitleTextView.setText(title);
         mYearOfProductionTextView.setText(yearOfProduction);
@@ -197,37 +186,30 @@ public class InformationActivity extends AppCompatActivity {
         mBarrelLengthTextView.setText(barrelLength);
         mWeightTextView.setText(weight);
         mDescriptionTextView.setText(description);
-
     }
 
 
     private void ifFieldEmpty() {
-
         if (mWeightTextView.getText().equals("")) {
             TableRow weightTableRow = findViewById(R.id.weight_table_row);
             weightTableRow.setVisibility(View.GONE);
         }
-
         if (mYearOfProductionTextView.getText().equals("")) {
             TableRow yearOfProductionTableRow = findViewById(R.id.year_of_production_table_row);
             yearOfProductionTableRow.setVisibility(View.GONE);
         }
-
         if (mTypeOfBulletTextView.getText().equals("")) {
             TableRow typeOfBulletTableRow = findViewById(R.id.type_of_bullet_table_row);
             typeOfBulletTableRow.setVisibility(View.GONE);
         }
-
         if (mMuzzleVelocityTextView.getText().equals("")) {
             TableRow muzzleVelocityTableRow = findViewById(R.id.muzzle_velocity_table_row);
             muzzleVelocityTableRow.setVisibility(View.GONE);
         }
-
         if (mEffectiveRangeTextView.getText().equals("")) {
             TableRow effectiveRangeTableRow = findViewById(R.id.effective_range_table_row);
             effectiveRangeTableRow.setVisibility(View.GONE);
         }
-
         if (mFeedSystemTextView.getText().equals("")) {
             TableRow feedSystemTableRow = findViewById(R.id.feed_system_table_row);
             feedSystemTableRow.setVisibility(View.GONE);
@@ -236,12 +218,9 @@ public class InformationActivity extends AppCompatActivity {
             TableRow lengthTableRow = findViewById(R.id.length_table_row);
             lengthTableRow.setVisibility(View.GONE);
         }
-
         if (mBarrelLengthTextView.getText().equals("")) {
             TableRow barrelLengthTableRow = findViewById(R.id.barrel_length_table_row);
             barrelLengthTableRow.setVisibility(View.GONE);
         }
-
     }
-
 }

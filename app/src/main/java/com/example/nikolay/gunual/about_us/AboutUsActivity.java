@@ -14,6 +14,14 @@ public class AboutUsActivity extends AppCompatActivity {
     private static final String TAG = "AboutUsActivity";
 
     @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_about_us);
+
+        initToolbar();
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
         if (item.getItemId() == android.R.id.home) {
@@ -21,14 +29,6 @@ public class AboutUsActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_about_us);
-
-        initToolbar();
     }
 
     private void initToolbar() {

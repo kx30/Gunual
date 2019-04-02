@@ -22,49 +22,15 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.List;
 
-public class FavoriteActivity extends AppCompatActivity implements FavoriteDAO {
+public class FavoriteActivity extends SharedPreferenceManager {
 
     private static final String TAG = "FavoriteActivity";
+    private static final int FAVORITE_REQUEST = 1;
     private WeaponAdapter mAdapter;
 
     private ArrayList<Weapon> mWeapons = new ArrayList<>();
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        if (item.getItemId() == android.R.id.home) {
-            finish();
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == 1) {
-            if (resultCode == RESULT_OK) {
-                boolean isFavorite = data.getBooleanExtra("isFavorite", false);
-                for (int i = 0; i < mWeapons.size(); i++) {
-                    if (data.getStringExtra("url").equals(mWeapons.get(i).getImageUrl())) {
-                        SharedPreferences sharedPreferences = getSharedPreferences("value", Context.MODE_PRIVATE);
-                        String sharedValue = sharedPreferences.getString("favorites", "");
-                        Gson gson = new Gson();
-                        String weaponPosition = gson.toJson(mWeapons.get(i));
-                        sharedValue = returnerFavoriteSharedPreferencesString(isFavorite, sharedValue, weaponPosition, data, mWeapons);
-                        SharedPreferences.Editor editor = sharedPreferences.edit();
-                        editor.putString("favorites", sharedValue);
-                        editor.apply();
-                        mAdapter.notifyDataSetChanged();
-                    }
-                }
-                Log.d(TAG, "onActivityResult: " + isFavorite);
-            }
-        }
-
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,9 +49,44 @@ public class FavoriteActivity extends AppCompatActivity implements FavoriteDAO {
         SharedPreferences sharedPreferences = getSharedPreferences("value", MODE_PRIVATE);
         String value = sharedPreferences.getString("favorites", "");
 
-        Log.d(TAG, "onCreate: VALUE: " + value);
-
         Log.d(TAG, "onCreate: created.");
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == FAVORITE_REQUEST && resultCode == RESULT_OK) {
+            for (int i = 0; i < mWeapons.size(); i++) {
+                if (data.getStringExtra("url").equals(mWeapons.get(i).getImageUrl())) {
+                    SharedPreferences sharedPreferences = getSharedPreferences("value", Context.MODE_PRIVATE);
+                    String sharedValue = sharedPreferences.getString("favorites", "");
+                    Gson gson = new Gson();
+                    String weaponPosition = gson.toJson(mWeapons.get(i));
+                    if (sharedValue.contains(weaponPosition)) {
+                        sharedValue = removeTheFavoriteFromSharedPreference(weaponPosition, sharedValue);
+                        mWeapons.get(i).setDrawable(R.drawable.unfavorite_star);
+                    } else {
+                        mWeapons.get(i).setDrawable(R.drawable.favorite_star);
+                        sharedValue = addTheFavoriteToSharedPreference(sharedValue, mWeapons.get(i));
+                    }
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString("favorites", sharedValue);
+                    editor.apply();
+                    mAdapter.notifyDataSetChanged();
+                    break;
+                }
+            }
+        }
     }
 
     private void initToolbar() {
@@ -95,6 +96,13 @@ public class FavoriteActivity extends AppCompatActivity implements FavoriteDAO {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         Log.d(TAG, "initToolbar: Toolbar initialized.");
+    }
+
+    private void initRecyclerView(RecyclerView recyclerView) {
+        mAdapter = new WeaponAdapter(this, mWeapons);
+        recyclerView.setAdapter(mAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        Log.d(TAG, "initRecyclerView: recycler view initialized");
     }
 
     private void loadData() {
@@ -111,19 +119,6 @@ public class FavoriteActivity extends AppCompatActivity implements FavoriteDAO {
     }
 
     private void sortItems(ArrayList<Weapon> weaponList) {
-        Collections.sort(weaponList, new Comparator<Weapon>() {
-            @Override
-            public int compare(Weapon w1, Weapon w2) {
-                return w1.getTitle().compareTo(w2.getTitle());
-            }
-        });
+        Collections.sort(weaponList, (w1, w2) -> w1.getTitle().compareTo(w2.getTitle()));
     }
-
-    private void initRecyclerView(RecyclerView recyclerView) {
-        mAdapter = new WeaponAdapter(this, mWeapons);
-        recyclerView.setAdapter(mAdapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        Log.d(TAG, "initRecyclerView: recycler view initialized");
-    }
-
 }

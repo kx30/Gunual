@@ -30,6 +30,17 @@ public class CategoryActivity extends AppCompatActivity {
             R.drawable.carbine, R.drawable.sniper_rifle, R.drawable.machine_gun, R.drawable.shotgun};
 
     @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_category);
+
+        initToolbar();
+
+        addContext();
+        Log.d(TAG, "onCreate: started.");
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_main, menu);
@@ -51,17 +62,6 @@ public class CategoryActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
         return true;
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_category);
-
-        initToolbar();
-
-        addContext();
-        Log.d(TAG, "onCreate: started.");
     }
 
     @Override
