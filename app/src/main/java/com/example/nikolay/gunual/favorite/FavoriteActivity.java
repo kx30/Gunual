@@ -1,11 +1,9 @@
 package com.example.nikolay.gunual.favorite;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -21,10 +19,10 @@ import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
 
-public class FavoriteActivity extends SharedPreferenceManager {
+import static android.content.Context.MODE_PRIVATE;
+
+public class FavoriteActivity extends FavoriteSharedPreferencesDAO {
 
     private static final String TAG = "FavoriteActivity";
     private static final int FAVORITE_REQUEST = 1;
@@ -36,19 +34,11 @@ public class FavoriteActivity extends SharedPreferenceManager {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favorite);
-
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
-
         initToolbar();
-
         loadData();
         sortItems(mWeapons);
-
         initRecyclerView(recyclerView);
-
-        SharedPreferences sharedPreferences = getSharedPreferences("value", MODE_PRIVATE);
-        String value = sharedPreferences.getString("favorites", "");
-
         Log.d(TAG, "onCreate: created.");
     }
 
@@ -68,16 +58,18 @@ public class FavoriteActivity extends SharedPreferenceManager {
         if (requestCode == FAVORITE_REQUEST && resultCode == RESULT_OK) {
             for (int i = 0; i < mWeapons.size(); i++) {
                 if (data.getStringExtra("url").equals(mWeapons.get(i).getImageUrl())) {
-                    SharedPreferences sharedPreferences = getSharedPreferences("value", Context.MODE_PRIVATE);
+                    SharedPreferences sharedPreferences = getSharedPreferences("value", MODE_PRIVATE);
                     String sharedValue = sharedPreferences.getString("favorites", "");
                     Gson gson = new Gson();
                     String weaponPosition = gson.toJson(mWeapons.get(i));
                     if (sharedValue.contains(weaponPosition)) {
-                        sharedValue = removeTheFavoriteFromSharedPreference(weaponPosition, sharedValue);
+                        sharedValue = SharedPreferencesFavoriteDAOFactory.create(this).removeFromFavorite(weaponPosition, sharedValue);
+//                        sharedValue = removeTheFavoriteFromSharedPreference(weaponPosition, sharedValue);
                         mWeapons.get(i).setDrawable(R.drawable.unfavorite_star);
                     } else {
                         mWeapons.get(i).setDrawable(R.drawable.favorite_star);
-                        sharedValue = addTheFavoriteToSharedPreference(sharedValue, mWeapons.get(i));
+                        sharedValue = SharedPreferencesFavoriteDAOFactory.create(this).addToFavorite(weaponPosition, mWeapons.get(i));
+//                        sharedValue = addTheFavoriteToSharedPreference(sharedValue, mWeapons.get(i));
                     }
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putString("favorites", sharedValue);

@@ -12,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
+import com.example.nikolay.gunual.local_database.LocalFavoriteDatabase;
 import com.example.nikolay.gunual.preview.PreviewActivity;
 import com.example.nikolay.gunual.R;
 import com.example.nikolay.gunual.about_us.AboutUsActivity;
@@ -33,10 +34,11 @@ public class CategoryActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category);
-
         initToolbar();
+        addCategoryOfWeapons();
+        initRecyclerView();
+        LocalFavoriteDatabase localFavoriteDatabase = new LocalFavoriteDatabase(this);
 
-        addContext();
         Log.d(TAG, "onCreate: started.");
     }
 
@@ -75,14 +77,11 @@ public class CategoryActivity extends AppCompatActivity {
         }
     }
 
-    private void addContext() {
-
+    private void addCategoryOfWeapons() {
         for (int i = 0; i < mCategoryOfWeapons.length; i++) {
             mTitles.add(mCategoryOfWeapons[i]);
             mImages.add(mDrawables[i]);
         }
-
-        initRecyclerView();
     }
 
     private void initToolbar() {

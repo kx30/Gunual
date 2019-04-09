@@ -23,7 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.nikolay.gunual.R;
-import com.example.nikolay.gunual.favorite.SharedPreferenceManager;
+import com.example.nikolay.gunual.favorite.FavoriteSharedPreferencesDAO;
 import com.example.nikolay.gunual.filter.FilterActivity;
 import com.example.nikolay.gunual.models.Weapon;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -33,9 +33,8 @@ import com.google.gson.Gson;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
-public class WeaponActivity extends SharedPreferenceManager implements SearchView.OnQueryTextListener {
+public class WeaponActivity extends FavoriteSharedPreferencesDAO implements SearchView.OnQueryTextListener {
 
     private static final String TAG = "WeaponActivity";
     private static final int FAVORITE_REQUEST = 1;
@@ -47,89 +46,6 @@ public class WeaponActivity extends SharedPreferenceManager implements SearchVie
     private FirebaseFirestore db;
     private RecyclerView mRecyclerView;
     private ProgressBar mProgressBar;
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.weapon_activity_menu, menu);
-        MenuItem menuItem = menu.findItem(R.id.action_search);
-        SearchView searchView = (SearchView) menuItem.getActionView();
-        searchView.setOnQueryTextListener(this);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            finish();
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public boolean onQueryTextSubmit(String s) {
-        return false;
-    }
-
-    @Override
-    public boolean onQueryTextChange(String s) {
-        List<Weapon> filteredWeapons = mWeapons.stream()
-                .filter(weapon -> weapon.getTitle().toLowerCase().contains(s.toLowerCase()))
-                .collect(Collectors.toList());
-
-        mAdapter.updateList(filteredWeapons);
-        return true;
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == FAVORITE_REQUEST && resultCode == RESULT_OK) {
-            for (int i = 0; i < mWeapons.size(); i++) {
-                if (data.getStringExtra("url").equals(mWeapons.get(i).getImageUrl())) {
-                    SharedPreferences sharedPreferences = getSharedPreferences("value", Context.MODE_PRIVATE);
-                    String sharedValue = sharedPreferences.getString("favorites", "");
-                    Gson gson = new Gson();
-                    String weaponPosition = gson.toJson(mWeapons.get(i));
-                    if (sharedValue.contains(weaponPosition)) {
-                        removeTheFavoriteFromSharedPreference(weaponPosition, sharedValue);
-                        mWeapons.get(i).setDrawable(R.drawable.unfavorite_star);
-                    } else {
-                        mWeapons.get(i).setDrawable(R.drawable.favorite_star);
-                        addTheFavoriteToSharedPreference(sharedValue, mWeapons.get(i));
-                    }
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putString("favorites", sharedValue);
-                    editor.apply();
-                    mAdapter.notifyDataSetChanged();
-                    break;
-                }
-            }
-        }
-
-        if (requestCode == FILTER_REQUEST & resultCode == RESULT_OK) {
-            String country = data.getStringExtra("country");
-            String ammo = data.getStringExtra("ammo");
-
-            List<Weapon> filteredWeapons = mWeapons.stream()
-                    .filter(weapon -> {
-                        return (ammo == null || ammo.equals(weapon.getTypeOfBullet())) &&
-                                (country == null || country.equals(weapon.getCountry()));
-                    })
-                    .collect(Collectors.toList());
-
-            if (filteredWeapons.isEmpty()) {
-                Toast.makeText(this, "Nothing", Toast.LENGTH_SHORT).show();
-            }
-
-            mAdapter = new WeaponAdapter(this, filteredWeapons);
-            mRecyclerView.setAdapter(mAdapter);
-        } else if (resultCode == RESULT_CANCELED) {
-            Toast.makeText(this, "Canceled", Toast.LENGTH_SHORT).show();
-            mAdapter = new WeaponAdapter(this, mWeapons);
-            mRecyclerView.setAdapter(mAdapter);
-        }
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -175,20 +91,114 @@ public class WeaponActivity extends SharedPreferenceManager implements SearchVie
             intent.putExtra("ammo", ammo);
             startActivityForResult(intent, FILTER_REQUEST);
         });
-
         initToolbar();
-
         mProgressBar = findViewById(R.id.progress_bar);
         mRecyclerView = findViewById(R.id.recycler_view);
         initRecyclerView();
 
         swipeContent();
-
         db = FirebaseFirestore.getInstance();
-
         addItems();
 
         Log.d(TAG, "onCreate: started.");
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.weapon_activity_menu, menu);
+        MenuItem menuItem = menu.findItem(R.id.action_search);
+        SearchView searchView = (SearchView) menuItem.getActionView();
+        searchView.setOnQueryTextListener(this);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String s) {
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String s) {
+        List<Weapon> filteredWeapons = new ArrayList<>();
+
+        for (Weapon item : mWeapons) {
+            if (item.getTitle().toLowerCase().contains(s)) {
+                filteredWeapons.add(item);
+            }
+        }
+        mAdapter.updateList(filteredWeapons);
+        return true;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == FAVORITE_REQUEST && resultCode == RESULT_OK) {
+            for (int i = 0; i < mWeapons.size(); i++) {
+                if (data.getStringExtra("url").equals(mWeapons.get(i).getImageUrl())) {
+                    SharedPreferences sharedPreferences = getSharedPreferences("value", Context.MODE_PRIVATE);
+                    String sharedValue = sharedPreferences.getString("favorites", "");
+                    Gson gson = new Gson();
+                    String weaponPosition = gson.toJson(mWeapons.get(i));
+                    if (sharedValue.contains(weaponPosition)) {
+                        sharedValue = removeTheFavoriteFromSharedPreference(weaponPosition, sharedValue);
+                        mWeapons.get(i).setDrawable(R.drawable.unfavorite_star);
+                    } else {
+                        mWeapons.get(i).setDrawable(R.drawable.favorite_star);
+                        sharedValue = addTheFavoriteToSharedPreference(sharedValue, mWeapons.get(i));
+                    }
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString("favorites", sharedValue);
+                    editor.apply();
+                    mAdapter.notifyDataSetChanged();
+                    break;
+                }
+            }
+        }
+        if (requestCode == FILTER_REQUEST & resultCode == RESULT_OK) {
+            ArrayList<Weapon> weapons = new ArrayList<>();
+            String country = data.getStringExtra("country");
+            String ammo = data.getStringExtra("ammo");
+            if (country != null && ammo != null) {
+                for (int i = 0; i < mWeapons.size(); i++) {
+                    if (mWeapons.get(i).getCountry().equals(country) && mWeapons.get(i).getTypeOfBullet().contains(ammo)) {
+                        weapons.add(mWeapons.get(i));
+                    }
+                }
+            } else if (country != null) {
+                for (int i = 0; i < mWeapons.size(); i++) {
+                    if (mWeapons.get(i).getCountry().equals(country)) {
+                        weapons.add(mWeapons.get(i));
+                    }
+                }
+            } else {
+                for (int i = 0; i < mWeapons.size(); i++) {
+                    if (mWeapons.get(i).getTypeOfBullet().contains(ammo)) {
+                        weapons.add(mWeapons.get(i));
+                    }
+                }
+            }
+            if (weapons.size() == 0) {
+                Toast.makeText(this, "Nothing", Toast.LENGTH_SHORT).show();
+            }
+
+            mAdapter = new WeaponAdapter(this, weapons);
+            mRecyclerView.setAdapter(mAdapter);
+            mRecyclerView.setAdapter(mAdapter);
+        } else if (resultCode == RESULT_CANCELED) {
+            Toast.makeText(this, "Canceled", Toast.LENGTH_SHORT).show();
+            mAdapter = new WeaponAdapter(this, mWeapons);
+            mRecyclerView.setAdapter(mAdapter);
+        }
     }
 
     private void initToolbar() {

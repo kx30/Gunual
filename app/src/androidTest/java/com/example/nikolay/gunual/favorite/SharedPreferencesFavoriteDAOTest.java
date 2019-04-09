@@ -23,31 +23,31 @@ public class SharedPreferencesFavoriteDAOTest {
         mFavoriteDAO = new SharedPreferencesFavoriteDAO(preferences);
     }
 
-    @Test
-    public void addToFavorite() {
-        // DO
-
-        String my_id = "my_id";
-        String my_id_other = "my_id_other";
-
-        mFavoriteDAO.addToFavorite(my_id);
-
-        // CHECK
-
-        Assert.assertTrue(mFavoriteDAO.isFavorite(my_id));
-        Assert.assertFalse(mFavoriteDAO.isFavorite(my_id_other));
-    }
-
-    @Test
-    public void removeFromFavorite() {
-        // DO
-
-        mFavoriteDAO.addToFavorite("my_id");
-        Assert.assertTrue(mFavoriteDAO.isFavorite("my_id"));
-        mFavoriteDAO.removeFromFavorite("my_id");
-
-        // CHECK
-
-        Assert.assertFalse(mFavoriteDAO.isFavorite("my_id"));
-    }
+//    @Test
+//    public void addToFavorite() {
+//        // DO
+//
+//        String my_id = "my_id";
+//        String my_id_other = "my_id_other";
+//
+//        mFavoriteDAO.addToFavorite(my_id);
+//
+//        // CHECK
+//
+//        Assert.assertTrue(mFavoriteDAO.isFavorite(my_id));
+//        Assert.assertFalse(mFavoriteDAO.isFavorite(my_id_other));
+//    }
+//
+//    @Test
+//    public void removeFromFavorite() {
+//        // DO
+//
+//        mFavoriteDAO.addToFavorite("my_id");
+//        Assert.assertTrue(mFavoriteDAO.isFavorite("my_id"));
+//        mFavoriteDAO.removeFromFavorite("my_id");
+//
+//        // CHECK
+//
+//        Assert.assertFalse(mFavoriteDAO.isFavorite("my_id"));
+//    }
 }

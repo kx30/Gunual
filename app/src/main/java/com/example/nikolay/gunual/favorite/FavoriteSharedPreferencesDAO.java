@@ -5,15 +5,15 @@ import android.support.v7.app.AppCompatActivity;
 import com.example.nikolay.gunual.models.Weapon;
 import com.google.gson.Gson;
 
-public abstract class SharedPreferenceManager extends AppCompatActivity {
+public abstract class FavoriteSharedPreferencesDAO extends AppCompatActivity {
 
     public String removeTheFavoriteFromSharedPreference(String weaponPosition, String sharedValue) {
         // If the object at the beginning of the string
         if (sharedValue.indexOf(weaponPosition) - 1 == 0) {
             sharedValue = sharedValue.replace(weaponPosition, "");
             if (sharedValue.charAt(1) == ',') {
-                sharedValue = sharedValue.substring(2);
-                sharedValue = "[" + sharedValue;
+                sharedValue = "[" + sharedValue.substring(2);
+//                sharedValue = "[" + sharedValue;
             } else {
                 sharedValue = "";
             }
