@@ -37,7 +37,6 @@ public class CategoryActivity extends AppCompatActivity {
         initToolbar();
         addCategoryOfWeapons();
         initRecyclerView();
-        LocalFavoriteDatabase localFavoriteDatabase = new LocalFavoriteDatabase(this);
 
         Log.d(TAG, "onCreate: started.");
     }

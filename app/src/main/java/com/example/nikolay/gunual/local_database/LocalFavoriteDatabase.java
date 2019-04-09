@@ -2,8 +2,10 @@ package com.example.nikolay.gunual.local_database;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 public class LocalFavoriteDatabase extends SQLiteOpenHelper {
 
@@ -25,7 +27,6 @@ public class LocalFavoriteDatabase extends SQLiteOpenHelper {
 
     public LocalFavoriteDatabase(Context context) {
         super(context, DATABASE_NAME, null, 1);
-        SQLiteDatabase database = this.getWritableDatabase();
     }
 
     @Override
@@ -42,7 +43,7 @@ public class LocalFavoriteDatabase extends SQLiteOpenHelper {
         onCreate(sqLiteDatabase);
     }
 
-    public boolean insertData(String title, String country, String typeOfBullet, String yearOfProduction, String effectiveRange,
+    public boolean addToFavorites(String title, String country, String typeOfBullet, String yearOfProduction, String effectiveRange,
                               String muzzleVelocity, String length, String barrelLength, String weight, String feedSystem,
                               String description, String imageUrl) {
         SQLiteDatabase database = this.getWritableDatabase();
@@ -61,5 +62,30 @@ public class LocalFavoriteDatabase extends SQLiteOpenHelper {
         contentValues.put(COL_13, imageUrl);
         long result = database.insert(TABLE_NAME, null, contentValues);
         return result != -1;
+    }
+
+    public void removeFromFavorites(String title) {
+        SQLiteDatabase database = getReadableDatabase();
+        String query = String.format("DELETE FROM " + TABLE_NAME + " WHERE TITLE LIKE " + "'" + title + "'");
+        database.execSQL(query);
+    }
+
+    public boolean isFavorite(String title) {
+        SQLiteDatabase database = this.getReadableDatabase();
+        String query = String.format("SELECT * FROM " + TABLE_NAME + " WHERE TITLE='%s';", title);
+        Cursor cursor = database.rawQuery(query, null);
+        if (cursor.getCount() <= 0) {
+            cursor.close();
+            return false;
+        }
+        cursor.close();
+        return true;
+    }
+
+    public Cursor getFavoritesWeapons() {
+        SQLiteDatabase database = this.getWritableDatabase();
+        String query = String.format("SELECT * FROM " + TABLE_NAME);
+        Cursor res = database.rawQuery(query, null);
+        return res;
     }
 }

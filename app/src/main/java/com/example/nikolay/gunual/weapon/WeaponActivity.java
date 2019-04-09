@@ -25,6 +25,7 @@ import android.widget.Toast;
 import com.example.nikolay.gunual.R;
 import com.example.nikolay.gunual.favorite.FavoriteSharedPreferencesDAO;
 import com.example.nikolay.gunual.filter.FilterActivity;
+import com.example.nikolay.gunual.local_database.LocalFavoriteDatabase;
 import com.example.nikolay.gunual.models.Weapon;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -46,12 +47,14 @@ public class WeaponActivity extends FavoriteSharedPreferencesDAO implements Sear
     private FirebaseFirestore db;
     private RecyclerView mRecyclerView;
     private ProgressBar mProgressBar;
+    private LocalFavoriteDatabase mLocalFavoriteDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_weapon);
         mFloatingActionButton = findViewById(R.id.filter_button);
+        mLocalFavoriteDatabase = new LocalFavoriteDatabase(this);
         mFloatingActionButton.setOnClickListener(view -> {
 
             ArrayList<String> countries = new ArrayList<>();
@@ -144,21 +147,24 @@ public class WeaponActivity extends FavoriteSharedPreferencesDAO implements Sear
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == FAVORITE_REQUEST && resultCode == RESULT_OK) {
             for (int i = 0; i < mWeapons.size(); i++) {
-                if (data.getStringExtra("url").equals(mWeapons.get(i).getImageUrl())) {
-                    SharedPreferences sharedPreferences = getSharedPreferences("value", Context.MODE_PRIVATE);
-                    String sharedValue = sharedPreferences.getString("favorites", "");
-                    Gson gson = new Gson();
-                    String weaponPosition = gson.toJson(mWeapons.get(i));
-                    if (sharedValue.contains(weaponPosition)) {
-                        sharedValue = removeTheFavoriteFromSharedPreference(weaponPosition, sharedValue);
-                        mWeapons.get(i).setDrawable(R.drawable.unfavorite_star);
+                if (data.getStringExtra("title").equals(mWeapons.get(i).getTitle())) {
+                    if (mLocalFavoriteDatabase.isFavorite(mWeapons.get(i).getTitle())) {
+                        mLocalFavoriteDatabase.removeFromFavorites(mWeapons.get(i).getTitle());
                     } else {
-                        mWeapons.get(i).setDrawable(R.drawable.favorite_star);
-                        sharedValue = addTheFavoriteToSharedPreference(sharedValue, mWeapons.get(i));
+                        mLocalFavoriteDatabase.addToFavorites(
+                                mWeapons.get(i).getTitle(),
+                                mWeapons.get(i).getCountry(),
+                                mWeapons.get(i).getYearOfProduction(),
+                                mWeapons.get(i).getTypeOfBullet(),
+                                mWeapons.get(i).getEffectiveRange(),
+                                mWeapons.get(i).getMuzzleVelocity(),
+                                mWeapons.get(i).getLength(),
+                                mWeapons.get(i).getBarrelLength(),
+                                mWeapons.get(i).getWeight(),
+                                mWeapons.get(i).getFeedSystem(),
+                                mWeapons.get(i).getDescription(),
+                                mWeapons.get(i).getImageUrl());
                     }
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putString("favorites", sharedValue);
-                    editor.apply();
                     mAdapter.notifyDataSetChanged();
                     break;
                 }
@@ -236,15 +242,8 @@ public class WeaponActivity extends FavoriteSharedPreferencesDAO implements Sear
                                         d.getString("image_url")
                                 ));
                             }
-                            sortItems(mWeapons);
-                            SharedPreferences sharedPreferences = getSharedPreferences("value", MODE_PRIVATE);
-                            String sharedValue = sharedPreferences.getString("favorites", "");
 
-                            for (int j = 0; j < mWeapons.size(); j++) {
-                                mWeapons.get(j).setDrawable(sharedValue.contains(mWeapons.get(j).getImageUrl())
-                                        ? R.drawable.favorite_star : R.drawable.unfavorite_star);
-                            }
-                            Log.d(TAG, "onSuccess: " + sharedValue);
+                            sortItems(mWeapons);
 
                             mAdapter.notifyDataSetChanged();
                             mProgressBar.setVisibility(View.GONE);

@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.nikolay.gunual.R;
 import com.example.nikolay.gunual.browser.BrowserActivity;
+import com.example.nikolay.gunual.local_database.LocalFavoriteDatabase;
 
 public class InformationActivity extends AppCompatActivity {
 
@@ -36,6 +37,7 @@ public class InformationActivity extends AppCompatActivity {
     private TextView mDescriptionTextView;
 
     private ImageView mImageView;
+    private LocalFavoriteDatabase mLocalFavoriteDatabase;
 
     private boolean isFavorite;
 
@@ -43,10 +45,11 @@ public class InformationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_information);
+        mLocalFavoriteDatabase = new LocalFavoriteDatabase(this);
         initWidgets();
         initToolbar();
-        getExtras();
-        ifFieldEmpty();
+        getWeaponExtras();
+        CheckFieldsForEmptiness();
         Log.d(TAG, "onCreate: created.");
     }
 
@@ -58,6 +61,7 @@ public class InformationActivity extends AppCompatActivity {
         if (item.getItemId() == R.id.add_to_favorite) {
             if (isFavorite) {
                 Toast.makeText(this, "Remove from favorite", Toast.LENGTH_SHORT).show();
+//                mLocalFavoriteDatabase.addToFavorites()
                 item.setTitle(R.string.add_to_favorite);
                 isFavorite = false;
             } else {
@@ -66,9 +70,9 @@ public class InformationActivity extends AppCompatActivity {
                 isFavorite = true;
             }
             Bundle arguments = getIntent().getExtras();
-            String imageUrl = arguments.get("image_url").toString();
+            String title = arguments.get("title").toString();
             Intent intent = new Intent();
-            intent.putExtra("url", imageUrl);
+            intent.putExtra("title", title);
             setResult(RESULT_OK, intent);
         }
         return true;
@@ -80,13 +84,16 @@ public class InformationActivity extends AppCompatActivity {
         inflater.inflate(R.menu.information_menu, menu);
 
         Bundle argument = getIntent().getExtras();
-        int drawable = argument.getInt("drawable");
+        String title = argument.getString("title");
+        Log.d(TAG, "onCreateOptionsMenu: " + title);
 
         MenuItem addToFavorite = menu.findItem(R.id.add_to_favorite);
-        if (drawable == R.drawable.favorite_star) {
+
+        if (mLocalFavoriteDatabase.isFavorite(title)) {
             addToFavorite.setTitle(R.string.remove_from_favorites);
             isFavorite = true;
         }
+
 
         return true;
     }
@@ -144,7 +151,7 @@ public class InformationActivity extends AppCompatActivity {
     }
 
 
-    private void getExtras() {
+    private void getWeaponExtras() {
         String title, country, yearOfProduction, typeOfBullet,
         maxRange, effectiveRange, feedSystem, length, barrelLength,
         weight, imageUrl, description;
@@ -189,7 +196,7 @@ public class InformationActivity extends AppCompatActivity {
     }
 
 
-    private void ifFieldEmpty() {
+    private void CheckFieldsForEmptiness() {
         if (mWeightTextView.getText().equals("")) {
             TableRow weightTableRow = findViewById(R.id.weight_table_row);
             weightTableRow.setVisibility(View.GONE);

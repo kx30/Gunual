@@ -3,21 +3,22 @@ package com.example.nikolay.gunual.weapon;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.nikolay.gunual.R;
-import com.example.nikolay.gunual.models.Weapon;
 import com.example.nikolay.gunual.information.InformationActivity;
-import com.google.gson.Gson;
+import com.example.nikolay.gunual.local_database.LocalFavoriteDatabase;
+import com.example.nikolay.gunual.models.Weapon;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +28,7 @@ public class WeaponAdapter extends RecyclerView.Adapter<WeaponAdapter.ViewHolder
     private Context mContext;
     private List<Weapon> mWeapons;
     private String mExtra;
+    private LocalFavoriteDatabase mLocalFavoriteDatabase;
 
     public WeaponAdapter(Context context, ArrayList<Weapon> weapons, String extra) {
         mContext = context;
@@ -52,7 +54,7 @@ public class WeaponAdapter extends RecyclerView.Adapter<WeaponAdapter.ViewHolder
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder viewHolder, final int i) {
         viewHolder.mTitle.setText(mWeapons.get(i).getTitle());
-
+        mLocalFavoriteDatabase = new LocalFavoriteDatabase(mContext);
         Glide.with(mContext)
                 .load("https:" + mWeapons.get(i).getImageUrl())
                 .into(viewHolder.mImage);
@@ -65,58 +67,33 @@ public class WeaponAdapter extends RecyclerView.Adapter<WeaponAdapter.ViewHolder
 
         viewHolder.mStar.setImageResource(mWeapons.get(i).getDrawable());
 
+        if (mLocalFavoriteDatabase.isFavorite(mWeapons.get(i).getTitle())) {
+            viewHolder.mStar.setImageResource(R.drawable.favorite_star);
+            Log.d("WeaponAdapter", "onBindViewHolder: favorite weapon is a " + mWeapons.get(i).getTitle());
+        } else {
+            viewHolder.mStar.setImageResource(R.drawable.unfavorite_star);
+        }
 
-        viewHolder.mStar.setOnClickListener(new View.OnClickListener() {
-            SharedPreferences sharedPreferences = mContext.getSharedPreferences("value", Context.MODE_PRIVATE);
-            String sharedValue = sharedPreferences.getString("favorites", "");
-
-            @Override
-            public void onClick(View view) {
-                if (mWeapons.get(i).getDrawable() == R.drawable.favorite_star) {
-
-                    Gson gson = new Gson();
-                    String weaponPosition = gson.toJson(mWeapons.get(i));
-
-                    if (sharedValue.contains(weaponPosition)) {
-                        // If first object in string
-                        if (sharedValue.indexOf(weaponPosition) - 1 == 0) {
-                            sharedValue = sharedValue.replace(weaponPosition, "");
-                            if (sharedValue.charAt(1) == ',') {
-                                sharedValue = sharedValue.substring(2);
-                                sharedValue = "[" + sharedValue;
-                            } else {
-                                sharedValue = "";
-                            }
-                        } else if (sharedValue.charAt(sharedValue.indexOf(weaponPosition) + weaponPosition.length()) == ']') {
-                            // If last object in string
-                            sharedValue = sharedValue.replace(weaponPosition, "");
-                            sharedValue = sharedValue.substring(0, sharedValue.length() - 2);
-                            sharedValue = new StringBuffer(sharedValue).insert(sharedValue.length(), "]").toString();
-                        } else {
-                            sharedValue = sharedValue.substring(0, sharedValue.indexOf(weaponPosition)) +
-                                    sharedValue.substring(
-                                            sharedValue.indexOf(weaponPosition) + weaponPosition.length() + 1,
-                                            sharedValue.length());
-                        }
-                        mWeapons.get(i).setDrawable(R.drawable.unfavorite_star);
-                    }
-                } else {
-                    Gson gson = new Gson();
-                    mWeapons.get(i).setDrawable(R.drawable.favorite_star);
-                    if (sharedValue.equals("")) {
-                        sharedValue += "[" + gson.toJson(mWeapons.get(i));
-                        sharedValue = new StringBuffer(sharedValue).insert(sharedValue.length(), "]").toString();
-                    } else {
-                        sharedValue = sharedValue.substring(0, sharedValue.length() - 1);
-                        sharedValue = new StringBuffer(sharedValue).insert(sharedValue.length(), ",").toString();
-                        sharedValue += gson.toJson(mWeapons.get(i));
-                        sharedValue = new StringBuffer(sharedValue).insert(sharedValue.length(), "]").toString();
-                    }
-                }
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putString("favorites", sharedValue);
-                editor.apply();
-                notifyDataSetChanged();
+        viewHolder.mStar.setOnClickListener(view -> {
+            if (mLocalFavoriteDatabase.isFavorite(mWeapons.get(i).getTitle())) {
+                mLocalFavoriteDatabase.removeFromFavorites(mWeapons.get(i).getTitle());
+                viewHolder.mStar.setImageResource(R.drawable.unfavorite_star);
+                Toast.makeText(mContext, "Data was deleted!", Toast.LENGTH_SHORT).show();
+            } else {
+                mLocalFavoriteDatabase.addToFavorites(
+                        mWeapons.get(i).getTitle(),
+                        mWeapons.get(i).getCountry(),
+                        mWeapons.get(i).getYearOfProduction(),
+                        mWeapons.get(i).getTypeOfBullet(),
+                        mWeapons.get(i).getEffectiveRange(),
+                        mWeapons.get(i).getMuzzleVelocity(),
+                        mWeapons.get(i).getLength(),
+                        mWeapons.get(i).getBarrelLength(),
+                        mWeapons.get(i).getWeight(),
+                        mWeapons.get(i).getFeedSystem(),
+                        mWeapons.get(i).getDescription(),
+                        mWeapons.get(i).getImageUrl());
+                viewHolder.mStar.setImageResource(R.drawable.favorite_star);
             }
         });
 
