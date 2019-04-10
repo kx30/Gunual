@@ -61,7 +61,6 @@ public class InformationActivity extends AppCompatActivity {
         if (item.getItemId() == R.id.add_to_favorite) {
             if (isFavorite) {
                 Toast.makeText(this, "Remove from favorite", Toast.LENGTH_SHORT).show();
-//                mLocalFavoriteDatabase.addToFavorites()
                 item.setTitle(R.string.add_to_favorite);
                 isFavorite = false;
             } else {
@@ -93,7 +92,6 @@ public class InformationActivity extends AppCompatActivity {
             addToFavorite.setTitle(R.string.remove_from_favorites);
             isFavorite = true;
         }
-
 
         return true;
     }

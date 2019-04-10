@@ -1,31 +1,29 @@
 package com.example.nikolay.gunual.favorite;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.nikolay.gunual.R;
 import com.example.nikolay.gunual.local_database.LocalFavoriteDatabase;
 import com.example.nikolay.gunual.models.Weapon;
 import com.example.nikolay.gunual.weapon.WeaponAdapter;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collections;
 
-import static android.content.Context.MODE_PRIVATE;
-
-public class FavoriteActivity extends FavoriteSharedPreferencesDAO {
+public class FavoriteActivity extends AppCompatActivity {
 
     private static final String TAG = "FavoriteActivity";
     private static final int FAVORITE_REQUEST = 1;
@@ -65,7 +63,7 @@ public class FavoriteActivity extends FavoriteSharedPreferencesDAO {
                 if (data.getStringExtra("title").equals(mWeapons.get(i).getTitle())) {
                     if (mLocalFavoriteDatabase.isFavorite(mWeapons.get(i).getTitle())) {
                         mLocalFavoriteDatabase.removeFromFavorites(mWeapons.get(i).getTitle());
-                    } else {
+                     } else {
                         mLocalFavoriteDatabase.addToFavorites(
                                 mWeapons.get(i).getTitle(),
                                 mWeapons.get(i).getCountry(),
@@ -106,7 +104,7 @@ public class FavoriteActivity extends FavoriteSharedPreferencesDAO {
     private void loadWeaponsFromDatabase() {
         Cursor res = mLocalFavoriteDatabase.getFavoritesWeapons();
         if (res.getCount() == 0) {
-            Toast.makeText(this, "Favorite's list is empty!", Toast.LENGTH_SHORT).show();
+            showHiddenContent();
         }
         while (res.moveToNext()) {
             mWeapons.add(new Weapon(
@@ -125,6 +123,14 @@ public class FavoriteActivity extends FavoriteSharedPreferencesDAO {
             ));
         }
     }
+
+    private void showHiddenContent() {
+        TextView textIfFavoritesNotFound = findViewById(R.id.no_favorites_text);
+        ImageView imageIfFavoritesNotFound = findViewById(R.id.no_favorites_image);
+        textIfFavoritesNotFound.setVisibility(View.VISIBLE);
+        imageIfFavoritesNotFound.setVisibility(View.VISIBLE);
+    }
+
 
     private void sortWeapons(ArrayList<Weapon> weaponList) {
         Collections.sort(weaponList, (w1, w2) -> w1.getTitle().compareTo(w2.getTitle()));

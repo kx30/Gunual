@@ -15,8 +15,6 @@ public class Weapon {
     private String mDescription;
     private String mImageUrl;
 
-    private int mDrawable;
-
     public Weapon(String title, String country, String yearOfProduction, String typeOfBullet, String effectiveRange, String muzzleVelocity, String length, String barrelLength, String weight, String feedSystem, String description, String imageUrl) {
         this.mTitle = title;
         this.mCountry = country;
@@ -30,14 +28,6 @@ public class Weapon {
         this.mFeedSystem = feedSystem;
         this.mDescription = description;
         this.mImageUrl = imageUrl;
-    }
-
-    public int getDrawable() {
-        return mDrawable;
-    }
-
-    public void setDrawable(int drawable) {
-        mDrawable = drawable;
     }
 
     public String getTitle() {

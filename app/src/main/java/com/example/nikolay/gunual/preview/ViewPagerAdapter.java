@@ -5,10 +5,12 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
+import com.example.nikolay.gunual.R;
+
 public class ViewPagerAdapter extends FragmentPagerAdapter {
 
-    private String[] previewText = {"Просматривать короче оружие", "Покупать их ага", "И патроны тоже"};
-
+    private String[] mInformationAboutApplication = {"Просматривать короче оружия", "Покупать их ага", "И патроны тоже"};
+    private Integer[] mPageImages = {R.drawable.preview_weapon, R.drawable.preview_buy_weapon, R.drawable.preview_buy_ammo};
 
     ViewPagerAdapter(FragmentManager fm) {
         super(fm);
@@ -16,11 +18,11 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int i) {
-        //todo align text by center
         DemoFragment demoFragment = new DemoFragment();
         i++;
         Bundle bundle = new Bundle();
-        bundle.putString("message", previewText[i - 1]);
+        bundle.putString("message", mInformationAboutApplication[i - 1]);
+        bundle.putInt("image", mPageImages[i - 1]);
         demoFragment.setArguments(bundle);
         return demoFragment;
     }

@@ -2,12 +2,12 @@ package com.example.nikolay.gunual.weapon;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
@@ -23,19 +23,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.nikolay.gunual.R;
-import com.example.nikolay.gunual.favorite.FavoriteSharedPreferencesDAO;
 import com.example.nikolay.gunual.filter.FilterActivity;
 import com.example.nikolay.gunual.local_database.LocalFavoriteDatabase;
 import com.example.nikolay.gunual.models.Weapon;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class WeaponActivity extends FavoriteSharedPreferencesDAO implements SearchView.OnQueryTextListener {
+public class WeaponActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
 
     private static final String TAG = "WeaponActivity";
     private static final int FAVORITE_REQUEST = 1;
@@ -194,14 +192,13 @@ public class WeaponActivity extends FavoriteSharedPreferencesDAO implements Sear
                 }
             }
             if (weapons.size() == 0) {
-                Toast.makeText(this, "Nothing", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Nothing not found", Toast.LENGTH_SHORT).show();
             }
 
             mAdapter = new WeaponAdapter(this, weapons);
             mRecyclerView.setAdapter(mAdapter);
             mRecyclerView.setAdapter(mAdapter);
-        } else if (resultCode == RESULT_CANCELED) {
-            Toast.makeText(this, "Canceled", Toast.LENGTH_SHORT).show();
+        } else if (requestCode == FILTER_REQUEST && resultCode == RESULT_CANCELED) {
             mAdapter = new WeaponAdapter(this, mWeapons);
             mRecyclerView.setAdapter(mAdapter);
         }

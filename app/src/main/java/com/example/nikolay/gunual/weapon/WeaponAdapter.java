@@ -65,8 +65,6 @@ public class WeaponAdapter extends RecyclerView.Adapter<WeaponAdapter.ViewHolder
                     .into(viewHolder.mImage);
         }
 
-        viewHolder.mStar.setImageResource(mWeapons.get(i).getDrawable());
-
         if (mLocalFavoriteDatabase.isFavorite(mWeapons.get(i).getTitle())) {
             viewHolder.mStar.setImageResource(R.drawable.favorite_star);
             Log.d("WeaponAdapter", "onBindViewHolder: favorite weapon is a " + mWeapons.get(i).getTitle());
@@ -78,7 +76,6 @@ public class WeaponAdapter extends RecyclerView.Adapter<WeaponAdapter.ViewHolder
             if (mLocalFavoriteDatabase.isFavorite(mWeapons.get(i).getTitle())) {
                 mLocalFavoriteDatabase.removeFromFavorites(mWeapons.get(i).getTitle());
                 viewHolder.mStar.setImageResource(R.drawable.unfavorite_star);
-                Toast.makeText(mContext, "Data was deleted!", Toast.LENGTH_SHORT).show();
             } else {
                 mLocalFavoriteDatabase.addToFavorites(
                         mWeapons.get(i).getTitle(),
@@ -112,7 +109,6 @@ public class WeaponAdapter extends RecyclerView.Adapter<WeaponAdapter.ViewHolder
             intent.putExtra("weight", mWeapons.get(i).getWeight());
             intent.putExtra("description", mWeapons.get(i).getDescription());
             intent.putExtra("image_url", mWeapons.get(i).getImageUrl());
-            intent.putExtra("drawable", mWeapons.get(i).getDrawable());
 
             ((Activity) mContext).startActivityForResult(intent, 1);
         });

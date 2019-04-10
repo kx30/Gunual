@@ -8,13 +8,26 @@
     tools:context=".preview.DemoFragment">
 
     <TextView
-        android:id="@+id/display_text"
+        android:id="@+id/preview_information_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/hello_blank_fragment"
-        android:textColor="@color/blackTextColor"
-        android:textSize="20sp"
+        android:layout_marginTop="40dp"
+        android:layout_marginBottom="30dp"
         android:gravity="center"
+        android:maxWidth="300dp"
+        android:text="sdaasda"
+        android:textColor="@color/blackTextColor"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/preview_image"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/preview_image"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:src="@drawable/preview_weapon"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
